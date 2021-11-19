@@ -2,7 +2,11 @@ package com.esca.escahp.mapper;
 
 import com.esca.escahp.dto.NoticeBoardDto;
 import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Repository;
 
+@Mapper
 public interface NoticeBoardDao {
     /* 게시글 생성 */
     public int insertNoticeBoard(NoticeBoardDto params);

@@ -8,6 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
-public interface I_NoticeBoardService {
-    public List<NoticeBoardDto> selectNoticeBoardList();
+@Service
+@RequiredArgsConstructor
+public class NoticeBoardServiceImpl implements I_NoticeBoardService {
+    private final NoticeBoardDao noticeBoardDao;
+
+    @Override
+    public List<NoticeBoardDto> selectNoticeBoardList(){
+        return noticeBoardDao.selectNoticeBoardList();
+    }
 }
