@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-</beans>
+<mapper namespace="com.esca.escahp.mapper.FreeBoardDao">
+  <select id="selectAll" resultType="FreeBoardDto">
+    SELECT  f.id, f.title, IFNULL(u.nickname, "탈퇴 회원") as writer, f.created_at, f.view
+    FROM    user u RIGHT OUTER JOIN free f
+    ON      u.id = f.user_id
+  </select>
+
+  <select id="select" parameterType="long" resultType="FreeBoardDto">
+    SELECT  f.id, f.title, IFNULL(u.nickname, "탈퇴 회원") as writer, f.created_at, f.view
+    FROM    user u RIGHT OUTER JOIN free f
+    ON      u.id = f.user_id
+    
+  </select>
+
+  <insert id="insert" parameterType="FreeBoardDto">
+    INSERT INTO
+    VALUES ()
+    <selectKey keyProperty="no" resultType="long" order="AFTER">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+  </insert>
+</mapper>

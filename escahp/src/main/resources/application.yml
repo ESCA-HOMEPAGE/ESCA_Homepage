@@ -7,7 +7,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/esca?&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false
     username: root
-    password:
+    password: vlxjdus@1610055!
 
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.esca.escahp.dto
+  configuration:
+    map-underscore-to-camel-case: true
