@@ -27,13 +27,13 @@ public class NoticeBoardDto {
     private String file;
 
     /* 작성일 */
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 
     /* 수정일 */
-    private LocalDateTime updateAt;
+    private LocalDateTime updatedAt;
 
     /* 삭제일 */
-    private LocalDateTime deleteAt;
+    private LocalDateTime deletedAt;
 
     /* 삭제여부 */
     private String deleteYn;

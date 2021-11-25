@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class NoticeBoardServiceImpl implements I_NoticeBoardService {
+
     private final NoticeBoardDao noticeBoardDao;
 
     @Override
