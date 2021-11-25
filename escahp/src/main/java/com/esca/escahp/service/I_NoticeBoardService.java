@@ -9,5 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 public interface I_NoticeBoardService {
+
     public List<NoticeBoardDto> selectNoticeBoardList();
+
+    public  NoticeBoardDto selectNoticeBoard(Long id);
 }

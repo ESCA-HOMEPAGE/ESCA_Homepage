@@ -2,6 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.esca.escahp.mapper.NoticeBoardDao">
     <select id="selectNoticeBoardList" resultType="com.esca.escahp.dto.NoticeBoardDto">
-        SELECT * FROM notice
+        SELECT id
+             , title
+             , category
+             , writer
+             , created_at
+        FROM notice
+    </select>
+
+    <select id="selectNoticeBoard" parameterType="long" resultType="com.esca.escahp.dto.NoticeBoardDto">
+        SELECT id
+             , title
+             , category
+             , view_cnt
+             , file
+             , writer
+             , updated_at
+             , (select count(*) FROM esca.noticelikes
+                    WHERE post_id = #{id}) as likes
+        FROM notice
+        WHERE delete_yn = 'N'
+        AND   id = #{id}
     </select>
 </mapper>

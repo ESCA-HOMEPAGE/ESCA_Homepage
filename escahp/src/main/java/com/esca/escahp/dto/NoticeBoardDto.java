@@ -8,34 +8,37 @@ import lombok.Setter;
 @Setter
 public class NoticeBoardDto {
 
-    /* pk */
+    // pk
     private Long id;
 
-    /* 제목 */
+    // 제목
     private String title;
 
-    /* 카테고리 */
+    // 카테고리
     private String category;
 
-    /* 작성자 */
+    // 작성자
     private String writer;
 
-    /* 내용 */
+    // 내용
     private String content;
 
-    /* 첨부파일 */
+    // 첨부파일
     private String file;
 
-    /* 작성일 */
+    // 좋아요
+    private Integer likes;
+
+    // 작성일
     private LocalDateTime createdAt;
 
-    /* 수정일 */
+    // 수정일
     private LocalDateTime updatedAt;
 
-    /* 삭제일 */
+    // 삭제일
     private LocalDateTime deletedAt;
 
-    /* 삭제여부 */
+    // 삭제여부
     private String deleteYn;
 
 }

@@ -18,4 +18,10 @@ public class NoticeBoardServiceImpl implements I_NoticeBoardService {
     public List<NoticeBoardDto> selectNoticeBoardList(){
         return noticeBoardDao.selectNoticeBoardList();
     }
+
+    @Override
+    public NoticeBoardDto selectNoticeBoard(Long id){
+        return noticeBoardDao.selectNoticeBoard(id);
+    }
+
 }
