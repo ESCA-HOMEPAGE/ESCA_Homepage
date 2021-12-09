@@ -1,9 +1,18 @@
 package com.esca.escahp.mapper;
 
 import com.esca.escahp.dto.StudyBoardDto;
+import com.esca.escahp.dto.UserDto;
 import java.util.*;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface StudyBoardDao {
+	List<StudyBoardDto> getStudyBoardList();
+
+	public StudyBoardDto selectStudyBoard(Long id);
+
+	public boolean addBoard(StudyBoardDto b);
+	/*
 	// 게시글 생성
 	public int insertStudyBoard(StudyBoardDao params){
 
@@ -33,4 +42,5 @@ public interface StudyBoardDao {
 	public int selectStudyBoardTotal(){
 
 	};
+	 */
 }

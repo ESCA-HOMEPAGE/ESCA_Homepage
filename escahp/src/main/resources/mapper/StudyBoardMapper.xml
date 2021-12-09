@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-</beans>
+<mapper namespace="com.esca.escahp.mapper.StudyBoardDao">
+  <select id="getStudyBoardList" resultType="com.esca.escahp.dto.StudyBoardDto">
+        SELECT *
+        FROM study
+        Where delete_yn = 'N'
+        ORDER BY id DESC
+  </select>
+
+  <select id="selectStudyBoard" parameterType="Long" resultType="com.esca.escahp.dto.StudyBoardDto">
+        SELECT *
+        FROM study
+        where delete_yn = 'N'
+        and id = #{id};
+
+  </select>
+
+  <insert id="addBoard" parameterType="com.esca.escahp.dto.StudyBoardDto">
+    INSERT INTO study(category, title, content, file, created_at, view_cnt, user_id)
+    VALUES (#{category}, #{title}, #{content}, #{file}, now(), #{view_cnt}, #{user_id});
+  </insert>
+
+</mapper>
