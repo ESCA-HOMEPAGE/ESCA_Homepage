@@ -12,12 +12,11 @@
     SELECT  f.id, f.title, IFNULL(u.nickname, "탈퇴 회원") as writer, f.created_at, f.view
     FROM    user u RIGHT OUTER JOIN free f
     ON      u.id = f.user_id
-    
   </select>
 
   <insert id="insert" parameterType="FreeBoardDto">
-    INSERT INTO
-    VALUES ()
+    INSERT INTO free(title, user_id, file, content)
+    VALUES (#{title}, (SELECT id FROM user WHERE nickname = #{writer}), #{file}, #{content})
     <selectKey keyProperty="no" resultType="long" order="AFTER">
       SELECT LAST_INSERT_ID()
     </selectKey>
