@@ -13,7 +13,11 @@ public class FreeBoardService implements I_FreeBoardService {
 
     @Override
     public FreeBoardDto getArticle(long no) {
-        return freeBoardDao.select(no);
+        FreeBoardDto dto = freeBoardDao.select(no);
+        if (dto != null) {
+            dto.setViewCnt(dto.getViewCnt() + 1);
+        }
+        return dto;
     }
 
     @Override
@@ -23,7 +27,8 @@ public class FreeBoardService implements I_FreeBoardService {
 
     @Override
     public long writeArticle(FreeBoardDto dto) {
-        return freeBoardDao.insert(dto);
+        freeBoardDao.insert(dto);
+        return dto.getId();
     }
 
 //    @Override

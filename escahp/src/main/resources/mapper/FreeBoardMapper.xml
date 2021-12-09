@@ -3,22 +3,21 @@
 
 <mapper namespace="com.esca.escahp.mapper.FreeBoardDao">
   <select id="selectAll" resultType="FreeBoardDto">
-    SELECT  f.id, f.title, IFNULL(u.nickname, "탈퇴 회원") as writer, f.created_at, f.view
+    SELECT  f.id, f.title, IFNULL(u.nickname, "탈퇴 회원") as writer, f.created_at, f.view_cnt
     FROM    user u RIGHT OUTER JOIN free f
     ON      u.id = f.user_id
   </select>
 
   <select id="select" parameterType="long" resultType="FreeBoardDto">
-    SELECT  f.id, f.title, IFNULL(u.nickname, "탈퇴 회원") as writer, f.created_at, f.view
-    FROM    user u RIGHT OUTER JOIN free f
-    ON      u.id = f.user_id
+    SELECT  f.id, f.title, u.nickname as writer, f.content, f.file, f.created_at, f.updated_at, f.view_cnt, f.report
+    FROM	user u JOIN free f
+    ON		u.id = f.user_id
+    WHERE	f.id = #{no};
   </select>
 
-  <insert id="insert" parameterType="FreeBoardDto">
+<!-- https://vesselsdiary.tistory.com/59 -->
+  <insert id="insert" parameterType="FreeBoardDto" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO free(title, user_id, file, content)
     VALUES (#{title}, (SELECT id FROM user WHERE nickname = #{writer}), #{file}, #{content})
-    <selectKey keyProperty="no" resultType="long" order="AFTER">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
   </insert>
 </mapper>

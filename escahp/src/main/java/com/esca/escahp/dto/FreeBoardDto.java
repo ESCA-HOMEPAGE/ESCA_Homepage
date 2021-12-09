@@ -17,6 +17,6 @@ public class FreeBoardDto {
     private LocalDate updatedAt;
     private LocalDate deletedAt;
     private String deleteYn;
-    private int view;
+    private int viewCnt;
     private int report;
 }
