@@ -20,4 +20,16 @@
     INSERT INTO free(title, user_id, file, content)
     VALUES (#{title}, (SELECT id FROM user WHERE nickname = #{writer}), #{file}, #{content})
   </insert>
+
+  <update id="update" parameterType="FreeBoardDto">
+    UPDATE	free
+    SET		title = #{title}, content = #{content}, file = #{file}, updated_at = now()
+    WHERE	id = #{id};
+  </update>
+
+  <update id="delete" parameterType="long">
+    UPDATE	free
+    SET		delete_yn = "Y", deleted_at = now()
+    WHERE	id = #{id};
+  </update>
 </mapper>
