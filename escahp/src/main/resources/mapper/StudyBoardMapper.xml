@@ -18,8 +18,20 @@
   </select>
 
   <insert id="addBoard" parameterType="com.esca.escahp.dto.StudyBoardDto">
-    INSERT INTO study(category, title, content, file, created_at, view_cnt, user_id)
-    VALUES (#{category}, #{title}, #{content}, #{file}, now(), #{view_cnt}, #{user_id});
+    INSERT INTO study(category, title, content, file, view_cnt, user_id)
+    VALUES (#{category}, #{title}, #{content}, #{file}, #{view_cnt}, #{user_id});
   </insert>
+
+  <update id="updateBoard" parameterType="com.esca.escahp.dto.StudyBoardDto">
+    UPDATE study
+    SET
+        category = #{category},
+        title = #{title},
+        content = #{content},
+        file = #{file},
+        updated_at = now()
+    where
+        id = #{id}
+  </update>
 
 </mapper>

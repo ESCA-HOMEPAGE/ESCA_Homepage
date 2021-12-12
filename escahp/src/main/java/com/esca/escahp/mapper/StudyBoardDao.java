@@ -12,22 +12,10 @@ public interface StudyBoardDao {
 	public StudyBoardDto selectStudyBoard(Long id);
 
 	public boolean addBoard(StudyBoardDto b);
-	/*
-	// 게시글 생성
-	public int insertStudyBoard(StudyBoardDao params){
 
-	};
+	public boolean updateBoard(StudyBoardDto b);
 
-	// 게시글 조회
-	public StudyBoardDao selectStudyBoard(Long id){
-
-	};
-
-	// 게시글 수정
-	public int updateStudyBoard(StudyBoardDao params){
-
-	};
-
+/*
 	// 게시글 삭제
 	public int deleteStudyBoard(Long id){
 

@@ -10,4 +10,6 @@ public interface I_StudyBoardService {
 	public StudyBoardDto selectStudyBoard(Long id);
 
 	public boolean addBoard(StudyBoardDto b);
+
+	public boolean updateBoard(StudyBoardDto b);
 }

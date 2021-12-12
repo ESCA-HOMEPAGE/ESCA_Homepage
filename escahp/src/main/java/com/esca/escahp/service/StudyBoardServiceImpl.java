@@ -19,18 +19,19 @@ public class StudyBoardServiceImpl implements I_StudyBoardService {
 		return SBDao.getStudyBoardList();
 	}
 
+	@Override
 	public StudyBoardDto selectStudyBoard(Long id){
 		return SBDao.selectStudyBoard(id);
 	}
 
+	// 게시글 추가
+	@Override
 	public boolean addBoard(StudyBoardDto b){
 		return SBDao.addBoard(b);
 	}
-	//@Override
-	/*public StudyBoardDto getArticle(Long no){
-		return SBDao.select(no);
-	}
-	 */
 
-	
+	@Override
+	public boolean updateBoard(StudyBoardDto b) {
+		return SBDao.updateBoard(b);
+	}
 }

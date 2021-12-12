@@ -16,9 +16,6 @@ public class StudyBoardDto {
 	// 제목
 	private String title;
 
-	// 작성자
-	private String writer;
-
 	// 내용
 	private String content;
 
@@ -35,23 +32,12 @@ public class StudyBoardDto {
 	private LocalDateTime deleteAt;
 
 	// 삭제여부
-	private String delete_yn;
+	private String deleteYn;
 
 	// 조회수
-	private Long view_cnt;
+	private Long viewCnt;
 
 	// 유저아이디
-	private Long user_id;
+	private Long userId;
 
-	public StudyBoardDto(long id, String category, String title, String content,
-		String file, LocalDateTime createdAt, Long view_cnt, Long user_id){
-		this.id = id;
-		this.category = category;
-		this.title = title;
-		this.content = content;
-		this.file = file;
-		this.createdAt = createdAt;
-		this.view_cnt = view_cnt;
-		this.user_id = user_id;
-	}
 }
