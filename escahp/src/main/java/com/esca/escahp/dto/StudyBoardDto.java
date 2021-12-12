@@ -32,7 +32,7 @@ public class StudyBoardDto {
 	private LocalDateTime deletedAt;
 
 	// 삭제여부
-	private String delete_yn;
+	private String deleteYn;
 
 	// 조회수
 	private long viewCnt;

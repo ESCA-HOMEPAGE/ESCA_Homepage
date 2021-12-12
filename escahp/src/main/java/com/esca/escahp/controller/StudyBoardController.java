@@ -52,8 +52,10 @@ public class StudyBoardController {
 		studyBoardDto.setId(id);
 		if(studyBoardService.deleteBoard(studyBoardDto))
 			return "success";
-		else
-			return "fail";
+		else{
+			return studyBoardDto.getDeleteYn();
+		}
+
 	}
 
 }

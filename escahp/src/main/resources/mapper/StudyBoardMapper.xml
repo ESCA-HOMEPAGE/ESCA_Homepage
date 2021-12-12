@@ -37,7 +37,7 @@
   <update id="deleteBoard" parameterType="com.esca.escahp.dto.StudyBoardDto">
     UPDATE study
     SET
-        delete_yn = #{delete_yn},
+        delete_yn = #{deleteYn},
         deleted_at = now()
     where
         id = #{id}
