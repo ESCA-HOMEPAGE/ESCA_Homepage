@@ -19,4 +19,5 @@ public class FreeBoardDto {
     private String deleteYn;
     private int viewCnt;
     private int report;
+    private int likes;
 }
