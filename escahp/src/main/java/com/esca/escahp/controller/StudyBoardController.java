@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequiredArgsConstructor
 public class StudyBoardController {
-
 	@Autowired
 	I_StudyBoardService studyBoardService;
 
@@ -49,8 +48,12 @@ public class StudyBoardController {
 	}
 
 	@PatchMapping("/study/{id}")
-	public String deleteAction(StudyBoardDto studyBoardDto){
-		return "delete";
+	public String deleteAction(@PathVariable Long id, @RequestBody StudyBoardDto studyBoardDto){
+		studyBoardDto.setId(id);
+		if(studyBoardService.deleteBoard(studyBoardDto))
+			return "success";
+		else
+			return "fail";
 	}
 
 }

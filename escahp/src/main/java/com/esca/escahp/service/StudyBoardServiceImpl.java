@@ -34,4 +34,9 @@ public class StudyBoardServiceImpl implements I_StudyBoardService {
 	public boolean updateBoard(StudyBoardDto b) {
 		return SBDao.updateBoard(b);
 	}
+
+	@Override
+	public boolean deleteBoard(StudyBoardDto b) {
+		return SBDao.deleteBoard(b);
+	}
 }

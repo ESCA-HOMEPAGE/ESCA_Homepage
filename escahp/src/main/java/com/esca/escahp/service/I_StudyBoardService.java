@@ -12,4 +12,6 @@ public interface I_StudyBoardService {
 	public boolean addBoard(StudyBoardDto b);
 
 	public boolean updateBoard(StudyBoardDto b);
+
+	public boolean deleteBoard(StudyBoardDto b);
 }

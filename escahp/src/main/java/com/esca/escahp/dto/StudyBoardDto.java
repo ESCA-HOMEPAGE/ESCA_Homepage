@@ -29,15 +29,15 @@ public class StudyBoardDto {
 	private LocalDateTime updatedAt;
 
 	// 삭제일자
-	private LocalDateTime deleteAt;
+	private LocalDateTime deletedAt;
 
 	// 삭제여부
-	private String deleteYn;
+	private String delete_yn;
 
 	// 조회수
-	private Long viewCnt;
+	private long viewCnt;
 
 	// 유저아이디
-	private Long userId;
+	private long userId;
 
 }
