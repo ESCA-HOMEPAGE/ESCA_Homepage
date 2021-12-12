@@ -36,13 +36,13 @@ public class FreeBoardController {
     }
 
     @PutMapping("/{no}")
-    public long modifyFreeArticle(@PathVariable long no, @RequestBody FreeBoardDto freeBoardDto) {
+    public int modifyFreeArticle(@PathVariable long no, @RequestBody FreeBoardDto freeBoardDto) {
         freeBoardDto.setId(no);
         return freeBoardService.modifyArticle(freeBoardDto);
     }
 
     @PatchMapping("/{no}")
-    public long deleteFreeArticle(@PathVariable long no, @RequestBody FreeBoardDto freeBoardDto) {
+    public int deleteFreeArticle(@PathVariable long no, @RequestBody FreeBoardDto freeBoardDto) {
         freeBoardDto.setId(no);
         return freeBoardService.deleteArticle(freeBoardDto);
     }

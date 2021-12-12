@@ -9,8 +9,8 @@ public interface FreeBoardDao {
     public FreeBoardDto select(long id);
     public List<FreeBoardDto> selectAll();
     public long insert(FreeBoardDto dto);
-    public long update(FreeBoardDto dto);
-    public long delete(FreeBoardDto dto);
+    public int update(FreeBoardDto dto);
+    public int delete(FreeBoardDto dto);
     public void updateViewCnt(FreeBoardDto dto);
     public void updateReport(FreeBoardDto dto);
 }

@@ -41,12 +41,12 @@ public class FreeBoardService implements I_FreeBoardService {
     }
 
     @Override
-    public long modifyArticle(FreeBoardDto dto) {
+    public int modifyArticle(FreeBoardDto dto) {
         return freeBoardDao.update(dto);
     }
 
     @Override
-    public long deleteArticle(FreeBoardDto dto) {
+    public int deleteArticle(FreeBoardDto dto) {
         return freeBoardDao.delete(dto);
     }
 

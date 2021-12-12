@@ -8,7 +8,7 @@ public interface I_FreeBoardService {
     public FreeBoardDto getArticle(long no);
     public List<FreeBoardDto> getArticles();
     public long writeArticle(FreeBoardDto dto);
-    public long modifyArticle(FreeBoardDto dto);
-    public long deleteArticle(FreeBoardDto dto);
+    public int modifyArticle(FreeBoardDto dto);
+    public int deleteArticle(FreeBoardDto dto);
     public void updateReport(FreeBoardDto dto);
 }
