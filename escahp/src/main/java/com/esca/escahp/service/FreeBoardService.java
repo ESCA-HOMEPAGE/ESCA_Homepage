@@ -14,15 +14,24 @@ public class FreeBoardService implements I_FreeBoardService {
     @Override
     public FreeBoardDto getArticle(long no) {
         FreeBoardDto dto = freeBoardDao.select(no);
+        // 블라이드 처리해줄 것
+        // 신고 수 누적
         if (dto != null) {
-            dto.setViewCnt(dto.getViewCnt() + 1);
+            freeBoardDao.updateViewCnt(dto);
+            dto.setViewCnt(dto.getViewCnt()+1);
         }
         return dto;
     }
 
     @Override
     public List<FreeBoardDto> getArticles() {
-        return freeBoardDao.selectAll();
+        List<FreeBoardDto> list = freeBoardDao.selectAll();
+        for (FreeBoardDto dto : list) {
+            if (dto.getReport() >= 5) {
+                dto.setTitle("블라인드된 글입니다.");
+            }
+        }
+        return list;
     }
 
     @Override
@@ -31,13 +40,13 @@ public class FreeBoardService implements I_FreeBoardService {
         return dto.getId();
     }
 
-//    @Override
-//    public long modifyArticle(FreeBoardDto dto) {
-//        return freeBoardDao.update(dto);
-//    }
-//
-//    @Override
-//    public long deleteArticle(long no) {
-//        return freeBoardDao.delete(no);
-//    }
+    @Override
+    public long modifyArticle(FreeBoardDto dto) {
+        return freeBoardDao.update(dto);
+    }
+
+    @Override
+    public long deleteArticle(FreeBoardDto dto) {
+        return freeBoardDao.delete(dto);
+    }
 }

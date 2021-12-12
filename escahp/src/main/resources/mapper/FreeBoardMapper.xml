@@ -3,7 +3,7 @@
 
 <mapper namespace="com.esca.escahp.mapper.FreeBoardDao">
   <select id="selectAll" resultType="FreeBoardDto">
-    SELECT  f.id, f.title, IFNULL(u.nickname, "탈퇴 회원") as writer, f.created_at, f.view_cnt
+    SELECT  f.id, f.title, IFNULL(u.nickname, "탈퇴 회원") as writer, f.created_at, f.view_cnt, f.report
     FROM    user u RIGHT OUTER JOIN free f
     ON      u.id = f.user_id
   </select>
@@ -12,7 +12,7 @@
     SELECT  f.id, f.title, u.nickname as writer, f.content, f.file, f.created_at, f.updated_at, f.view_cnt, f.report
     FROM	user u JOIN free f
     ON		u.id = f.user_id
-    WHERE	f.id = #{no};
+    WHERE	f.id = #{no}
   </select>
 
 <!-- https://vesselsdiary.tistory.com/59 -->
@@ -24,12 +24,18 @@
   <update id="update" parameterType="FreeBoardDto">
     UPDATE	free
     SET		title = #{title}, content = #{content}, file = #{file}, updated_at = now()
-    WHERE	id = #{id};
+    WHERE	id = #{id}
   </update>
 
-  <update id="delete" parameterType="long">
+  <update id="delete" parameterType="FreeBoardDto">
     UPDATE	free
-    SET		delete_yn = "Y", deleted_at = now()
-    WHERE	id = #{id};
+    SET		delete_yn = #{deleteYn}, deleted_at = now()
+    WHERE	id = #{id}
+  </update>
+
+  <update id="updateViewCnt" parameterType="FreeBoardDto">
+    UPDATE  free
+    SET     view_cnt = #{viewCnt} + 1
+    WHERE   id = #{id}
   </update>
 </mapper>
