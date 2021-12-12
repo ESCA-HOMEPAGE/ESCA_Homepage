@@ -6,6 +6,8 @@
     SELECT  f.id, f.title, IFNULL(u.nickname, "탈퇴 회원") as writer, f.created_at, f.view_cnt, f.report
     FROM    user u RIGHT OUTER JOIN free f
     ON      u.id = f.user_id
+    WHERE   f.delete_yn = "N"
+    ORDER BY f.id DESC
   </select>
 
   <select id="select" parameterType="long" resultType="FreeBoardDto">
@@ -36,6 +38,12 @@
   <update id="updateViewCnt" parameterType="FreeBoardDto">
     UPDATE  free
     SET     view_cnt = #{viewCnt} + 1
+    WHERE   id = #{id}
+  </update>
+
+  <update id="updateReport" parameterType="FreeBoardDto">
+    UPDATE  free
+    SET     report = #{report} + 1
     WHERE   id = #{id}
   </update>
 </mapper>

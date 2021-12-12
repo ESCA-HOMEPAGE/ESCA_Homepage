@@ -49,4 +49,9 @@ public class FreeBoardService implements I_FreeBoardService {
     public long deleteArticle(FreeBoardDto dto) {
         return freeBoardDao.delete(dto);
     }
+
+    @Override
+    public void updateReport(FreeBoardDto dto) {
+        freeBoardDao.updateReport(dto);
+    }
 }

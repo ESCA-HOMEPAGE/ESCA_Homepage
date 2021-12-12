@@ -10,4 +10,5 @@ public interface I_FreeBoardService {
     public long writeArticle(FreeBoardDto dto);
     public long modifyArticle(FreeBoardDto dto);
     public long deleteArticle(FreeBoardDto dto);
+    public void updateReport(FreeBoardDto dto);
 }

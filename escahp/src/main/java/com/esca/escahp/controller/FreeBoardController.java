@@ -46,4 +46,10 @@ public class FreeBoardController {
         freeBoardDto.setId(no);
         return freeBoardService.deleteArticle(freeBoardDto);
     }
+
+    @PatchMapping("/report/{no}")
+    public void increaseReport(@PathVariable long no, @RequestBody FreeBoardDto freeBoardDto) {
+        freeBoardDto.setId(no);
+        freeBoardService.updateReport(freeBoardDto);
+    }
 }

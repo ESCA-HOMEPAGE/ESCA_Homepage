@@ -11,6 +11,6 @@ public interface FreeBoardDao {
     public long insert(FreeBoardDto dto);
     public long update(FreeBoardDto dto);
     public long delete(FreeBoardDto dto);
-    // patch 조회, 신고 추가
     public void updateViewCnt(FreeBoardDto dto);
+    public void updateReport(FreeBoardDto dto);
 }
