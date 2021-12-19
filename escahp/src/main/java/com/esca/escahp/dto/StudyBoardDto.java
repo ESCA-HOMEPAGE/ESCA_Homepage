@@ -19,6 +19,9 @@ public class StudyBoardDto {
 	// 내용
 	private String content;
 
+	// 유저아이디
+	private String writer;
+
 	// 첨부파일
 	private String file;
 
@@ -36,8 +39,5 @@ public class StudyBoardDto {
 
 	// 조회수
 	private long viewCnt;
-
-	// 유저아이디
-	private long userId;
 
 }

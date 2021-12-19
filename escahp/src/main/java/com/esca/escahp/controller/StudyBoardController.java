@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,9 +36,19 @@ public class StudyBoardController {
 	}
 
 	@PostMapping("/study")
-	public String writeAction(@RequestBody StudyBoardDto studyBoardDto){
-		studyBoardService.addBoard(studyBoardDto);
-		return "studyBoardDto";
+	public String writeAction(@RequestBody final StudyBoardDto studyBoardDto){
+		try{
+			boolean isInsert = studyBoardService.addBoard(studyBoardDto);
+			if(!isInsert){
+				// 게시글 등록 실패
+			}
+		} catch (DataAccessException e){
+			// 데이터 처리 과정 문제
+		} catch (Exception e){
+			// 시스템 문제
+		}
+
+		return "studyBoardDto Success";
 	}
 
 	@PutMapping("/study/{id}")

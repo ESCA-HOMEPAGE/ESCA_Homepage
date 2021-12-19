@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Service
 @RequiredArgsConstructor
 public class StudyBoardServiceImpl implements I_StudyBoardService {
-	@Autowired
-	private StudyBoardDao SBDao;
+	private final StudyBoardDao SBDao;
 
 	@Override
 	public List<StudyBoardDto> getStudyBoardList() {
