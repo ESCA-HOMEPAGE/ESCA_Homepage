@@ -17,7 +17,7 @@ public class FreeBoardService implements I_FreeBoardService {
         // 블라이드 처리해줄 것
         // 신고 수 누적
         if (dto != null) {
-            freeBoardDao.updateViewCnt(dto);
+            freeBoardDao.updateViewCnt(no);
             dto.setViewCnt(dto.getViewCnt()+1);
         }
         return dto;
