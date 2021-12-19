@@ -20,7 +20,10 @@ public class StudyBoardServiceImpl implements I_StudyBoardService {
 
 	@Override
 	public StudyBoardDto selectStudyBoard(Long id){
-		return SBDao.selectStudyBoard(id);
+		StudyBoardDto dto = SBDao.selectStudyBoard(id);
+		dto.setViewCnt(dto.getViewCnt() + 1);
+		return dto;
+
 	}
 
 	// 게시글 추가

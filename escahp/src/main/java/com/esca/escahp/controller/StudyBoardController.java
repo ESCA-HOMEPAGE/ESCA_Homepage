@@ -32,6 +32,7 @@ public class StudyBoardController {
 
 	@GetMapping("/study/{id}")
 	public StudyBoardDto selectStudyBoard(@PathVariable Long id){
+
 		return studyBoardService.selectStudyBoard(id);
 	}
 

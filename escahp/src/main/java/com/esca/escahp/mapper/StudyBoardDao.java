@@ -17,6 +17,8 @@ public interface StudyBoardDao {
 
 	public boolean deleteBoard(StudyBoardDto b);
 
+	public void updateViewCnt(long id);
+
 /*
 	// 게시글 삭제
 	public int deleteStudyBoard(Long id){
