@@ -6,6 +6,7 @@
              , title
              , category
              , writer
+             , view_cnt
              , created_at
         FROM notice
     </select>
@@ -17,11 +18,47 @@
              , view_cnt
              , file
              , writer
+             , created_at
              , updated_at
+             , view_cnt
              , (select count(*) FROM esca.noticelikes
                     WHERE post_id = #{id}) as likes
         FROM notice
         WHERE delete_yn = 'N'
         AND   id = #{id}
     </select>
+
+    <select id="insertNoticeBoard" parameterType="com.esca.escahp.dto.NoticeBoardDto">
+        INSERT INTO notice(id, title, content, category, file, writer, created_at, updated_at, delete_yn)
+        VALUES (#{id}, #{title}, #{content}, #{category}, #{file}, #{writer}, NOW(), NOW(), 'N')
+    </select>
+
+    <update id="updateNoticeBoard" parameterType="com.esca.escahp.dto.NoticeBoardDto">
+        UPDATE notice
+        SET
+                updated_at = NOW()
+              , title      = #{title}
+              , content    = #{content}
+              , category   = #{category}
+              , file       = #{file}
+              , writer     = #{writer}
+        WHERE
+                id = #{id}
+    </update>
+
+    <update id="deleteNoticeBoard" parameterType="com.esca.escahp.dto.NoticeBoardDto">
+        UPDATE notice
+        SET
+            delete_yn = #{deleteYn}
+        WHERE
+            id = #{id}
+    </update>
+
+    <update id="updateViewCount" parameterType="long">
+        UPDATE notice
+        SET
+            view_cnt = view_cnt + 1
+        WHERE
+            id = #{id}
+    </update>
 </mapper>

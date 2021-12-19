@@ -29,6 +29,9 @@ public class NoticeBoardDto {
     // 좋아요
     private Integer likes;
 
+    // 조회수
+    private long viewCnt;
+
     // 작성일
     private LocalDateTime createdAt;
 

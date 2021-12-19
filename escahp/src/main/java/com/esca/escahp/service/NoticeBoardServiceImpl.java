@@ -21,7 +21,36 @@ public class NoticeBoardServiceImpl implements I_NoticeBoardService {
 
     @Override
     public NoticeBoardDto selectNoticeBoard(Long id){
+        //noticeBoardDao.updateViewCount(id);
         return noticeBoardDao.selectNoticeBoard(id);
     }
 
+    @Override
+    public boolean insertNoticeBoard(NoticeBoardDto params){
+        int queryCount = 0;
+
+        if(params.getId() == null){
+            queryCount = noticeBoardDao.insertNoticeBoard(params);
+        } else{
+            queryCount = noticeBoardDao.insertNoticeBoard(params);
+            //queryCount = noticeBoardDao.updateNoticeBoard(params);
+        }
+        // 정상 실행이면 1
+        return (queryCount == 1) ? true : false;
+    }
+
+    @Override
+    public void updateNoticeBoard(NoticeBoardDto params){
+        noticeBoardDao.updateNoticeBoard(params);
+    }
+
+    @Override
+    public void deleteNoticeBoard(NoticeBoardDto params){
+        noticeBoardDao.deleteNoticeBoard(params);
+    }
+
+    @Override
+    public void updateViewCount(Long id){
+        noticeBoardDao.updateViewCount(id);
+    }
 }

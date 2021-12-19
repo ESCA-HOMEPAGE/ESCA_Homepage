@@ -10,7 +10,20 @@ import org.springframework.stereotype.Service;
 
 public interface I_NoticeBoardService {
 
+    // 게시글 목록 조회 서비스
     public List<NoticeBoardDto> selectNoticeBoardList();
 
-    public  NoticeBoardDto selectNoticeBoard(Long id);
+    // 단일 게시글 조회 서비스
+    public NoticeBoardDto selectNoticeBoard(Long id);
+
+    // 게시글 생성 서비스
+    public boolean insertNoticeBoard(NoticeBoardDto params);
+
+    // 게시글 수정 서비스
+    public void updateNoticeBoard(NoticeBoardDto noticeBoardDto);
+
+    // 게시글 삭제 서비스
+    public void deleteNoticeBoard(NoticeBoardDto params);
+
+    public void updateViewCount(Long id);
 }
