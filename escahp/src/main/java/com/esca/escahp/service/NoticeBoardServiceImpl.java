@@ -29,7 +29,7 @@ public class NoticeBoardServiceImpl implements I_NoticeBoardService {
     public boolean insertNoticeBoard(NoticeBoardDto params){
         int queryCount = 0;
 
-        if(params.getId() == null){
+        if(params.getId() == 0){
             queryCount = noticeBoardDao.insertNoticeBoard(params);
         } else{
             queryCount = noticeBoardDao.insertNoticeBoard(params);

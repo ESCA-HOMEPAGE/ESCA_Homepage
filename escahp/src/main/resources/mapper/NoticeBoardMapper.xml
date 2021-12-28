@@ -9,6 +9,7 @@
              , view_cnt
              , created_at
         FROM notice
+        ORDER BY id DESC
     </select>
 
     <select id="selectNoticeBoard" parameterType="long" resultType="com.esca.escahp.dto.NoticeBoardDto">
@@ -21,16 +22,36 @@
              , created_at
              , updated_at
              , view_cnt
-             , (select count(*) FROM esca.noticelikes
-                    WHERE post_id = #{id}) as likes
+             , (select count(*)
+                FROM esca.noticelikes
+                WHERE post_id = #{id}) as likes
         FROM notice
         WHERE delete_yn = 'N'
         AND   id = #{id}
     </select>
 
     <select id="insertNoticeBoard" parameterType="com.esca.escahp.dto.NoticeBoardDto">
-        INSERT INTO notice(id, title, content, category, file, writer, created_at, updated_at, delete_yn)
-        VALUES (#{id}, #{title}, #{content}, #{category}, #{file}, #{writer}, NOW(), NOW(), 'N')
+        INSERT INTO notice
+                     (title
+                    , content
+                    , category
+                    , FILE
+                    , writer
+                    , created_at
+                    , updated_at
+                    , delete_yn
+                    , user_id)
+        VALUES       (#{title}
+                    , #{content}
+                    , #{category}
+                    , #{file}
+                    , #{writer}
+                    , Now()
+                    , Now()
+                    , 'N'
+                    , (SELECT id
+                        FROM   USER
+                        WHERE  nickname = #{writer}))
     </select>
 
     <update id="updateNoticeBoard" parameterType="com.esca.escahp.dto.NoticeBoardDto">
@@ -41,7 +62,6 @@
               , content    = #{content}
               , category   = #{category}
               , file       = #{file}
-              , writer     = #{writer}
         WHERE
                 id = #{id}
     </update>
@@ -50,6 +70,7 @@
         UPDATE notice
         SET
             delete_yn = #{deleteYn}
+          , deleted_at = NOW()
         WHERE
             id = #{id}
     </update>

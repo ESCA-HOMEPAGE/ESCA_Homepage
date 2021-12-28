@@ -48,7 +48,7 @@ public class NoticeBoardController {
         } catch(Exception e){
             //시스템 문제
         }
-        return "Insert Success";
+        return "Success";
     }
 
     @PutMapping("/notice/{id}")

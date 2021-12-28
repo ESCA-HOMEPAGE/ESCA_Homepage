@@ -9,7 +9,7 @@ import lombok.Setter;
 public class NoticeBoardDto {
 
     // pk
-    private Long id;
+    private long id;
 
     // 제목
     private String title;
