@@ -14,10 +14,10 @@ public interface I_NoticeBoardService {
     public List<NoticeBoardDto> selectNoticeBoardList();
 
     // 단일 게시글 조회 서비스
-    public NoticeBoardDto selectNoticeBoard(Long id);
+    public NoticeBoardDto selectNoticeBoard(long id);
 
     // 게시글 생성 서비스
-    public boolean insertNoticeBoard(NoticeBoardDto params);
+    public void insertNoticeBoard(NoticeBoardDto params);
 
     // 게시글 수정 서비스
     public void updateNoticeBoard(NoticeBoardDto noticeBoardDto);
@@ -25,5 +25,6 @@ public interface I_NoticeBoardService {
     // 게시글 삭제 서비스
     public void deleteNoticeBoard(NoticeBoardDto params);
 
-    public void updateViewCount(Long id);
+    // 게시글 조회수 서비스
+    public void updateViewCount(long id);
 }

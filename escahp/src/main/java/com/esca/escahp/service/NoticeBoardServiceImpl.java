@@ -20,23 +20,13 @@ public class NoticeBoardServiceImpl implements I_NoticeBoardService {
     }
 
     @Override
-    public NoticeBoardDto selectNoticeBoard(Long id){
-        //noticeBoardDao.updateViewCount(id);
+    public NoticeBoardDto selectNoticeBoard(long id){
         return noticeBoardDao.selectNoticeBoard(id);
     }
 
     @Override
-    public boolean insertNoticeBoard(NoticeBoardDto params){
-        int queryCount = 0;
-
-        if(params.getId() == 0){
-            queryCount = noticeBoardDao.insertNoticeBoard(params);
-        } else{
-            queryCount = noticeBoardDao.insertNoticeBoard(params);
-            //queryCount = noticeBoardDao.updateNoticeBoard(params);
-        }
-        // 정상 실행이면 1
-        return (queryCount == 1) ? true : false;
+    public void insertNoticeBoard(NoticeBoardDto params){
+        noticeBoardDao.insertNoticeBoard(params);
     }
 
     @Override
@@ -50,7 +40,7 @@ public class NoticeBoardServiceImpl implements I_NoticeBoardService {
     }
 
     @Override
-    public void updateViewCount(Long id){
+    public void updateViewCount(long id){
         noticeBoardDao.updateViewCount(id);
     }
 }
