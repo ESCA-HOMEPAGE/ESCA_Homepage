@@ -5,7 +5,6 @@ import com.esca.escahp.service.I_NoticeBoardService;
 import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -27,7 +26,7 @@ public class NoticeBoardController {
     @GetMapping
     public ResponseEntity<List<NoticeBoardDto>> getAllNoticeBoard(){
         List<NoticeBoardDto> noticeBoard = noticeBoardService.selectNoticeBoardList();
-        return new ResponseEntity<>(noticeBoard, HttpStatus.OK);
+        return ResponseEntity.ok().body(noticeBoard);
     }
 
     @GetMapping("/{id}")
@@ -40,8 +39,6 @@ public class NoticeBoardController {
         return ResponseEntity.ok().body(noticeBoard);
     }
 
-    // 왜 이렇게 사용하는지에 대한 대답 https://www.inflearn.com/questions/176104
-    // body 보낼 건지?
     @PostMapping
     public ResponseEntity<NoticeBoardDto> insertNoticeBoard(@RequestBody NoticeBoardDto noticeBoardDto){
         noticeBoardService.insertNoticeBoard(noticeBoardDto);
@@ -49,8 +46,7 @@ public class NoticeBoardController {
                 .path("/{id}")
                 .buildAndExpand(noticeBoardDto.getId())
                 .toUri();
-        return ResponseEntity.created(location).body(noticeBoardDto);
-        //이 방법도 있음 URI.create("/notice/" + noticeBoardDto.getId())
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping("/{id}")
@@ -60,7 +56,7 @@ public class NoticeBoardController {
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .buildAndExpand()
                 .toUri();
-        return ResponseEntity.created(location).body(noticeBoardDto);
+        return ResponseEntity.created(location).build();
     }
 
     @PatchMapping("/{id}")
@@ -72,47 +68,5 @@ public class NoticeBoardController {
                 .toUri();
         return ResponseEntity.created(location).build();
     }
-
-    /*
-    @GetMapping
-    public List<NoticeBoardDto> selectNoticeBoardList() {
-        return noticeBoardService.selectNoticeBoardList();
-    }
-
-    @GetMapping("/{id}")
-    public NoticeBoardDto selectNoticeBoard(@PathVariable Long id){
-        noticeBoardService.updateViewCount(id);
-        return noticeBoardService.selectNoticeBoard(id);
-    }
-
-    @PostMapping
-    public String insertNoticeBoard(@RequestBody final NoticeBoardDto noticeBoardDto){
-        try{
-            boolean isInsert = noticeBoardService.insertNoticeBoard(noticeBoardDto);
-            if(isInsert==false){
-                //게시글 등록 실패
-            }
-        } catch(DataAccessException e){
-            //데이터 처리 과정 이상
-        } catch(Exception e){
-            //시스템 문제
-        }
-        return "Success";
-    }
-
-    @PutMapping("/{id}")
-    public String updateNoticeBoard(@PathVariable Long id, @RequestBody NoticeBoardDto noticeBoardDto){
-        noticeBoardDto.setId(id);
-        noticeBoardService.updateNoticeBoard(noticeBoardDto);
-        return "Update Success";
-    }
-
-    @PatchMapping("/{id}")
-    public String deleteNoticeBoard(@PathVariable Long id, @RequestBody NoticeBoardDto noticeBoardDto){
-        noticeBoardDto.setId(id);
-        noticeBoardService.deleteNoticeBoard(noticeBoardDto);
-        return "Delete Success";
-    }
-*/
 
 }
