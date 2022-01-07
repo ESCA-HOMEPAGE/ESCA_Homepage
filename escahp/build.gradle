@@ -26,8 +26,6 @@ dependencies {
 	testImplementation 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
 	compileOnly 'org.projectlombok:lombok'
-//	implementation 'org.slf4j:jcl-over-slf4j'
-//	implementation 'ch.qos.logback:logback-classic'
 }
 
 test {
