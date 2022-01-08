@@ -4,9 +4,7 @@ import com.esca.escahp.dto.StudyBoardDto;
 import com.esca.escahp.mapper.StudyBoardDao;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +17,7 @@ public class StudyBoardServiceImpl implements I_StudyBoardService {
 	}
 
 	@Override
-	public StudyBoardDto selectStudyBoard(Long id){
+	public StudyBoardDto selectStudyBoard(long id){
 		StudyBoardDto dto = SBDao.selectStudyBoard(id);
 		SBDao.updateViewCnt(id);
 		dto.setViewCnt(dto.getViewCnt() + 1);
@@ -29,17 +27,17 @@ public class StudyBoardServiceImpl implements I_StudyBoardService {
 
 	// 게시글 추가
 	@Override
-	public boolean addBoard(StudyBoardDto b){
-		return SBDao.addBoard(b);
+	public void addBoard(StudyBoardDto b){ SBDao.addBoard(b); }
+
+	@Override
+	public void updateBoard(StudyBoardDto b) {
+		SBDao.updateBoard(b);
 	}
 
 	@Override
-	public boolean updateBoard(StudyBoardDto b) {
-		return SBDao.updateBoard(b);
+	public void deleteBoard(StudyBoardDto b) {
+		SBDao.deleteBoard(b);
 	}
 
-	@Override
-	public boolean deleteBoard(StudyBoardDto b) {
-		return SBDao.deleteBoard(b);
-	}
+	public void updateViewCnt(long id) { SBDao.updateViewCnt(id); }
 }

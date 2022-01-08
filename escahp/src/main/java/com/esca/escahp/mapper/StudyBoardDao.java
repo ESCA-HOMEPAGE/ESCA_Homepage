@@ -1,21 +1,21 @@
 package com.esca.escahp.mapper;
 
 import com.esca.escahp.dto.StudyBoardDto;
-import com.esca.escahp.dto.UserDto;
 import java.util.*;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface StudyBoardDao {
-	List<StudyBoardDto> getStudyBoardList();
 
-	public StudyBoardDto selectStudyBoard(Long id);
+	public List<StudyBoardDto> getStudyBoardList();
 
-	public boolean addBoard(StudyBoardDto b);
+	public StudyBoardDto selectStudyBoard(long id);
 
-	public boolean updateBoard(StudyBoardDto b);
+	public void addBoard(StudyBoardDto b);
 
-	public boolean deleteBoard(StudyBoardDto b);
+	public void updateBoard(StudyBoardDto b);
+
+	public void deleteBoard(StudyBoardDto b);
 
 	public void updateViewCnt(long id);
 
