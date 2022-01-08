@@ -27,7 +27,7 @@ public class StudyBoardController {
 	@GetMapping
 	public ResponseEntity<List<StudyBoardDto>> getAllStudyBoard() {
 		List<StudyBoardDto> studyBoard = studyBoardService.getStudyBoardList();
-		return new ResponseEntity<>(studyBoard, HttpStatus.OK);
+		return ResponseEntity.ok().body(studyBoard);
 	}
 
 	@GetMapping("/{id}")
@@ -49,7 +49,7 @@ public class StudyBoardController {
 					.buildAndExpand(studyBoardDto.getId())
 					.toUri();
 
-		return ResponseEntity.created(location).body(studyBoardDto);
+		return ResponseEntity.created(location).build();
 
 	}
 
@@ -61,7 +61,7 @@ public class StudyBoardController {
 					.buildAndExpand()
 					.toUri();
 
-		return ResponseEntity.created(location).body(studyBoardDto);
+		return ResponseEntity.created(location).build();
 	}
 
 	@PatchMapping("/{id}")
