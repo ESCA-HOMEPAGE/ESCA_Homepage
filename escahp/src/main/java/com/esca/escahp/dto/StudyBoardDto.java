@@ -40,4 +40,6 @@ public class StudyBoardDto {
 	// 조회수
 	private long viewCnt;
 
+	private int likes;
+
 }
