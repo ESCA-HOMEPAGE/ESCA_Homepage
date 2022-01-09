@@ -8,9 +8,9 @@ import org.apache.ibatis.annotations.Mapper;
 public interface FreeBoardDao {
     public FreeBoardDto select(long id);
     public List<FreeBoardDto> selectAll();
-    public long insert(FreeBoardDto dto);
-    public int update(FreeBoardDto dto);
-    public int delete(FreeBoardDto dto);
+    public void insert(FreeBoardDto dto);
+    public void update(FreeBoardDto dto);
+    public void delete(FreeBoardDto dto);
     public void updateViewCnt(long id);
     public void updateReport(FreeBoardDto dto);
 }

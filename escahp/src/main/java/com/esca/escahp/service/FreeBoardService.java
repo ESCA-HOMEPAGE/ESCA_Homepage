@@ -14,7 +14,7 @@ public class FreeBoardService implements I_FreeBoardService {
     @Override
     public FreeBoardDto getArticle(long no) {
         FreeBoardDto dto = freeBoardDao.select(no);
-        // 블라이드 처리해줄 것
+        // 블라인드 처리해줄 것
         // 신고 수 누적
         if (dto != null) {
             freeBoardDao.updateViewCnt(no);
@@ -35,19 +35,18 @@ public class FreeBoardService implements I_FreeBoardService {
     }
 
     @Override
-    public long writeArticle(FreeBoardDto dto) {
+    public void writeArticle(FreeBoardDto dto) {
         freeBoardDao.insert(dto);
-        return dto.getId();
     }
 
     @Override
-    public int modifyArticle(FreeBoardDto dto) {
-        return freeBoardDao.update(dto);
+    public void modifyArticle(FreeBoardDto dto) {
+        freeBoardDao.update(dto);
     }
 
     @Override
-    public int deleteArticle(FreeBoardDto dto) {
-        return freeBoardDao.delete(dto);
+    public void deleteArticle(FreeBoardDto dto) {
+        freeBoardDao.delete(dto);
     }
 
     @Override
