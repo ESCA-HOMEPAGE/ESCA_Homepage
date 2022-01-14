@@ -1,42 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.esca.escahp.mapper.GalleryBoardDao">
-    <select id="selectGalleryBoardList" resultType="com.esca.escahp.dto.GalleryBoardDto">
-        SELECT id
-             , title
-             , category
-             , content
-             , file
-             , view_cnt
-             , user_id
-             , created_at
-             , updated_at
-             , delete_yn
-        FROM gallery
-        WHERE delete_yn = 'n'
+    <select id="selectGalleryBoardList" resultType="GalleryBoardDto">
+        SELECT g.id
+             , g.title
+             , g.category
+             , g.view_cnt
+             , IFNULL(u.nickname,"탈퇴 회원") as writer
+             , g.created_at
+        FROM user u Right OUTER JOIN gallery g
+        ON u.id = g.user_id
+        WHERE delete_yn = 'N'
+        ORDER BY g.id DESC
     </select>
-    <select id="selectGalleryBoard" parameterType="long" resultType="com.esca.escahp.dto.GalleryBoardDto">
-        SELECT id
-             , category
-             , title
-             , content
-             , file
-             , created_at
-             , updated_at
-             , view_cnt
-             , user_id
-             , delete_yn
-        FROM gallery
-        WHERE delete_yn = 'n'
+    <select id="selectGalleryBoard" parameterType="long" resultType="GalleryBoardDto">
+        SELECT g.id
+             , g.category
+             , g.title
+             , g.content
+             , g.file
+             , g.created_at
+             , g.updated_at
+             , g.view_cnt
+             , u.nickname as writer
+             , (SELECT COUNT(*) FROM gallerylikes WHERE post_id = g.id) as likes
+        FROM user u JOIN gallery g
+        ON u.id = g.user_id
+        WHERE delete_yn = 'N'
           AND   id = #{id}
     </select>
 
-    <insert id="insertGalleryBoard" parameterType="com.esca.escahp.dto.GalleryBoardDto">
+    <insert id="insertGalleryBoard" parameterType="GalleryBoardDto">
         INSERT INTO gallery(category, title, content, file, view_cnt, user_id, created_at,delete_yn)
-        VALUES (#{category}, #{title}, #{content}, #{file}, #{view_cnt}, #{user_id}, now(),'n');
+        VALUES (#{category}, #{title}, #{content}, #{file}, #{view_cnt}, (SELECT id FROM user WHERE nickname = #{writer}), now(),'N');
     </insert>
 
-    <update id="updateGalleryBoard" parameterType="com.esca.escahp.dto.GalleryBoardDto">
+    <update id="updateGalleryBoard" parameterType="GalleryBoardDto">
         UPDATE gallery
         SET
             title = #{title}
@@ -49,12 +48,12 @@
             id = #{id}
     </update>
 
-    <delete id="deleteGalleryBoard" parameterType="com.esca.escahp.dto.GalleryBoardDto">
+    <update id="deleteGalleryBoard" parameterType="GalleryBoardDto">
         UPDATE gallery
         SET
-            delete_yn = 'Y'
+            delete_yn = #{deleteYn}
             ,deleted_at = now()
         WHERE
             id = #{id}
-    </delete>
+    </update>
 </mapper>

@@ -6,15 +6,17 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.*;
 @Mapper
 public interface GalleryBoardDao {
-    public int insertGalleryBoard(GalleryBoardDto params);
+    public void insertGalleryBoard(GalleryBoardDto params);
 
-    public GalleryBoardDto selectGalleryBoard(Long id);
+    public GalleryBoardDto selectGalleryBoard(long id);
 
-    public int updateGalleryBoard(GalleryBoardDto params);
+    public void updateGalleryBoard(GalleryBoardDto params);
 
-    public int deleteGalleryBoard(GalleryBoardDto params);
+    public void deleteGalleryBoard(GalleryBoardDto params);
 
     public List<GalleryBoardDto> selectGalleryBoardList();
+
+    public void updateViewCnt(long id);
 
     //public int selectGalleryBoardTotal();
 

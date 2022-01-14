@@ -4,45 +4,65 @@ import com.esca.escahp.dto.GalleryBoardDto;
 import com.esca.escahp.service.I_GalleryBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
+@RequestMapping("/gallery")
 @RequiredArgsConstructor
 public class GalleryBoardController {
 
     private final I_GalleryBoardService galleryBoardService;
 
-    @GetMapping("/gallery")
-    public List<GalleryBoardDto> selectGalleryBoardList(){
-
-        return galleryBoardService.selectGalleryBoardList();
+    @GetMapping
+    public ResponseEntity<List<GalleryBoardDto>> getAllGalleryBoard(){
+        List<GalleryBoardDto> galleryBoard = galleryBoardService.selectGalleryBoardList();
+        return ResponseEntity.ok().body(galleryBoard);
     }
 
-    @GetMapping("/gallery/{id}")
-    public GalleryBoardDto selectGalleryBoard(@PathVariable Long id){
-        GalleryBoardDto gbd = galleryBoardService.selectGalleryBoard(id);
-        System.out.println("view: " + gbd.getViewCnt());
-        System.out.println("userId: " + gbd.getUserId());
-        return gbd;
+    @GetMapping("/{id}")
+    public ResponseEntity<GalleryBoardDto> getGalleryBoardById(@PathVariable long id){
+        GalleryBoardDto galleryBoardDto = galleryBoardService.selectGalleryBoard(id);
+        if(galleryBoardDto == null){
+            return ResponseEntity.noContent().build();
+        }
+        galleryBoardService.updateViewCnt(id);
+        return ResponseEntity.ok().body(galleryBoardDto);
+    }
+
+    @PostMapping
+    public ResponseEntity<GalleryBoardDto> insertGalleryBoard(@RequestBody GalleryBoardDto params){
+        galleryBoardService.insertGalleryBoard(params);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(params.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
     };
 
-    @PostMapping("/gallery")
-    public int insertGalleryBoard(@RequestBody GalleryBoardDto params){
-
-        return galleryBoardService.insertGalleryBoard(params);
-    };
-
-   @PutMapping("/gallery/{id}")
-    public int updateGalleryBoard(@PathVariable Long id, @RequestBody GalleryBoardDto params){
+   @PutMapping("/{id}")
+    public ResponseEntity<GalleryBoardDto> updateGalleryBoard(@PathVariable Long id, @RequestBody GalleryBoardDto params){
         params.setId(id);
-        return galleryBoardService.updateGalleryBoard(params);
-    };
+        galleryBoardService.updateGalleryBoard(params);
 
-    @PatchMapping("/gallery/{id}")
-    public int deleteGalleryBoard(@PathVariable Long id, @RequestBody GalleryBoardDto params){
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .buildAndExpand()
+                .toUri();
+        return ResponseEntity.created(location).build();
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Object> deleteGalleryBoard(@PathVariable Long id, @RequestBody GalleryBoardDto params){
         params.setId(id);
-        return galleryBoardService.deleteGalleryBoard(params);
-    };
+        galleryBoardService.deleteGalleryBoard(params);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .buildAndExpand()
+                .toUri();
+        return ResponseEntity.created(location).build();
+    }
 }

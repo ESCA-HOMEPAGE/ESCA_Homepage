@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class GalleryBoardServiceImpl implements I_GalleryBoardService{
-    @Autowired
+
     private final GalleryBoardDao galleryBoardDao;
 
     @Override
@@ -23,26 +23,25 @@ public class GalleryBoardServiceImpl implements I_GalleryBoardService{
 
     //1203추가가
    @Override
-    public GalleryBoardDto selectGalleryBoard(Long id){
+    public GalleryBoardDto selectGalleryBoard(long id){
 
         return galleryBoardDao.selectGalleryBoard(id);
     }
 
     @Override
-    public int insertGalleryBoard(GalleryBoardDto params){
+    public void insertGalleryBoard(GalleryBoardDto params){
         galleryBoardDao.insertGalleryBoard(params);
-        return 1;
     };
 
     @Override
-    public int updateGalleryBoard(GalleryBoardDto params){
+    public void updateGalleryBoard(GalleryBoardDto params){
         galleryBoardDao.updateGalleryBoard(params);
-        return 1;
     };
 
     @Override
-    public int deleteGalleryBoard(GalleryBoardDto params){
+    public void deleteGalleryBoard(GalleryBoardDto params){
         galleryBoardDao.deleteGalleryBoard(params);
-        return 1;
     };
+
+    public void updateViewCnt(long id) {galleryBoardDao.updateViewCnt(id);}
 }

@@ -9,12 +9,14 @@ public interface I_GalleryBoardService {
     public List<GalleryBoardDto> selectGalleryBoardList();
 
     //1203추가가
-    public GalleryBoardDto selectGalleryBoard(Long id);
+    public GalleryBoardDto selectGalleryBoard(long id);
 
-    public int insertGalleryBoard(GalleryBoardDto params);
+    public void insertGalleryBoard(GalleryBoardDto params);
 
-    public int updateGalleryBoard(GalleryBoardDto params);
+    public void updateGalleryBoard(GalleryBoardDto params);
 
-    public int deleteGalleryBoard(GalleryBoardDto params);
+    public void deleteGalleryBoard(GalleryBoardDto params);
+
+    public void updateViewCnt(long id);
 
 }
