@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.esca.escahp.mapper.FreeBoardDao">
+  <select id="selectAll" resultType="FreeBoardDto">
+    SELECT  f.id
+            , f.title
+            , IFNULL(u.nickname, "탈퇴 회원") as writer
+            , f.created_at
+            , f.view_cnt
+            , f.report
+    FROM    user u RIGHT OUTER JOIN free f
+    ON      u.id = f.user_id
+    WHERE   f.delete_yn = 'N'
+    ORDER BY f.id DESC
+  </select>
+
+  <select id="select" parameterType="long" resultType="FreeBoardDto">
+    SELECT  f.id
+            , f.title
+            , u.nickname as writer
+            , f.content
+            , f.file
+            , f.created_at
+            , f.updated_at
+            , f.view_cnt
+            , f.report
+            , (SELECT COUNT(*) FROM freelikes WHERE post_id = f.id) as likes
+    FROM	user u JOIN free f
+    ON		u.id = f.user_id
+    WHERE	f.id = #{no}
+    AND   delete_yn = 'N'
+  </select>
+
+<!-- https://vesselsdiary.tistory.com/59 -->
+  <insert id="insert" parameterType="FreeBoardDto" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO free(
+                     title
+                     , user_id
+                     , file
+                     , content
+                     )
+    VALUES (
+            #{title}
+            , (SELECT id FROM user WHERE nickname = #{writer})
+            , #{file}
+            , #{content}
+            )
+  </insert>
+
+  <update id="update" parameterType="FreeBoardDto">
+    UPDATE	free
+    SET
+        title = #{title}
+        , content = #{content}
+        , file = #{file}
+        , updated_at = now()
+    WHERE	id = #{id}
+  </update>
+
+  <update id="delete" parameterType="FreeBoardDto">
+    UPDATE	free
+    SET
+        delete_yn = #{deleteYn}
+        , deleted_at = now()
+    WHERE	id = #{id}
+  </update>
+
+  <update id="updateViewCnt" parameterType="long">
+    UPDATE  free
+    SET     view_cnt = view_cnt + 1
+    WHERE   id = #{id}
+  </update>
+
+  <update id="updateReport" parameterType="FreeBoardDto">
+    UPDATE  free
+    SET     report = report + 1
+    WHERE   id = #{id}
+  </update>
+</mapper>
