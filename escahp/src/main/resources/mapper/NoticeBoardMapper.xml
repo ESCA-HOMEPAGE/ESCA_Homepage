@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.esca.escahp.mapper.NoticeBoardDao">
+    <select id="selectNoticeBoardList" resultType="NoticeBoardDto">
+        SELECT id
+             , title
+             , category
+             , writer
+             , view_cnt
+             , created_at
+        FROM  notice
+        ORDER BY id DESC
+    </select>
+
+    <select id="selectNoticeBoard" parameterType="long" resultType="NoticeBoardDto">
+        SELECT id
+             , title
+             , category
+             , view_cnt
+             , file
+             , writer
+             , created_at
+             , updated_at
+             , view_cnt
+             , (select count(*)
+                FROM esca.noticelikes
+                WHERE post_id = #{id}) as likes
+        FROM  notice
+        WHERE delete_yn = 'N'
+        AND   id = #{id}
+    </select>
+
+    <insert id="insertNoticeBoard" parameterType="NoticeBoardDto" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO notice
+                     (title
+                    , content
+                    , category
+                    , FILE
+                    , writer
+                    , created_at
+                    , updated_at
+                    , delete_yn
+                    , user_id)
+        VALUES       (#{title}
+                    , #{content}
+                    , #{category}
+                    , #{file}
+                    , #{writer}
+                    , Now()
+                    , Now()
+                    , 'N'
+                    , (SELECT id
+                        FROM   USER
+                        WHERE  nickname = #{writer}))
+    </insert>
+
+    <update id="updateNoticeBoard" parameterType="NoticeBoardDto">
+        UPDATE notice
+        SET    updated_at = NOW()
+             , title      = #{title}
+             , content    = #{content}
+             , category   = #{category}
+             , file       = #{file}
+        WHERE  id = #{id}
+    </update>
+
+    <update id="deleteNoticeBoard" parameterType="NoticeBoardDto">
+        UPDATE notice
+        SET    delete_yn  = #{deleteYn}
+             , deleted_at = NOW()
+        WHERE  id = #{id}
+    </update>
+
+    <update id="updateViewCount" parameterType="long">
+        UPDATE notice
+        SET    view_cnt = view_cnt + 1
+        WHERE  id = #{id}
+    </update>
+</mapper>
