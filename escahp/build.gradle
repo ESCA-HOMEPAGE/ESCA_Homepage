@@ -24,8 +24,6 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	runtimeOnly 'mysql:mysql-connector-java'
 
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
