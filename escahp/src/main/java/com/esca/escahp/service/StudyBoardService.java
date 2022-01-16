@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class StudyBoardServiceImpl implements I_StudyBoardService {
+public class StudyBoardService implements I_StudyBoardService {
 	private final StudyBoardDao SBDao;
 
 	@Override

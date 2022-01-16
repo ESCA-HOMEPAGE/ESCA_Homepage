@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class GalleryBoardServiceImpl implements I_GalleryBoardService{
+public class GalleryBoardService implements I_GalleryBoardService{
 
     private final GalleryBoardDao galleryBoardDao;
 
