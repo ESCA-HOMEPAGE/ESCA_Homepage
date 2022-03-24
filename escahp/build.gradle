@@ -25,6 +25,13 @@ dependencies {
 	testImplementation 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
 	compileOnly 'org.projectlombok:lombok'
+
+	/** https://mvnrepository.com/ 추가할 라이브러리 찾기 편한 사이트입니다. */
+	// 스웨거 설정 추가
+	// 스웨거 버전 3.0.0은 사용이 안되는 이슈가 있다고 함
+	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+
 }
 
 test {

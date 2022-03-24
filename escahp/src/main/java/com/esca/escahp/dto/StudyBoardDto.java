@@ -1,45 +1,50 @@
 package com.esca.escahp.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@ApiModel(value = "StudyBoard : 게시물 정보", description = "스터디 게시판의 게시물의 상세 정보를 나타낸다.")
 public class StudyBoardDto {
-	// pk
+
+	@ApiModelProperty(value = "게시물 번호(PK)")
 	private Long id;
 
-	// 카테고리
+	@ApiModelProperty(value = "카테고리")
 	private String category;
 
-	// 제목
+	@ApiModelProperty(value = "게시물 제목")
 	private String title;
 
-	// 내용
+	@ApiModelProperty(value = "게시물 내용")
 	private String content;
 
-	// 유저아이디
+	@ApiModelProperty(value = "작성자 아이디")
 	private String writer;
 
-	// 첨부파일
+	@ApiModelProperty(value = "첨부파일")
 	private String file;
 
-	// 작성일자
+	@ApiModelProperty(value = "작성일자")
 	private LocalDateTime createdAt;
 
-	// 수정일자
+	@ApiModelProperty(value = "수정일자")
 	private LocalDateTime updatedAt;
 
-	// 삭제일자
+	@ApiModelProperty(value = "삭제일자")
 	private LocalDateTime deletedAt;
 
-	// 삭제여부
+	@ApiModelProperty(value = "삭제여부")
 	private String deleteYn;
 
-	// 조회수
+	@ApiModelProperty(value = "조회수")
 	private long viewCnt;
 
+	@ApiModelProperty(value = "좋아요 수")
 	private int likes;
 
 }
