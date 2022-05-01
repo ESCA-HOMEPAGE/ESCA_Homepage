@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,8 +24,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 @RequestMapping("/free")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"*"})        // 외부에서도 접속이 가능하게 해주는 어노테이션
-@Api(value = "FreeBoardDto")		// 스웨거 설정
+@CrossOrigin(origins = {"*"})
+@Api(value = "FreeBoardDto")
 public class FreeBoardController {
     private final FreeBoardService freeBoardService;
 
@@ -32,7 +33,9 @@ public class FreeBoardController {
     @GetMapping
     public ResponseEntity<List<FreeBoardDto>> getFreeArticles() {
         List<FreeBoard> list = freeBoardService.getArticles();
-        return ResponseEntity.ok(list);
+        List<FreeBoardDto> dtos = list.stream().map(FreeBoardDto::toDto)
+            .collect(Collectors.toUnmodifiableList());
+        return ResponseEntity.ok(dtos);
     }
 
     @ApiOperation(value = "id에 해당하는 게시물 정보 반환")
@@ -41,7 +44,7 @@ public class FreeBoardController {
         FreeBoard board = freeBoardService.getArticle(id);
         if (board == null)
             return ResponseEntity.noContent().build();
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok(FreeBoardDto.toDto(board));
     }
 
     @ApiOperation(value = "게시물 객체 추가")

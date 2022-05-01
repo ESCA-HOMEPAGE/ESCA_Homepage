@@ -3,10 +3,12 @@ package com.esca.escahp.domain;
 import com.esca.escahp.dto.FreeBoardDto;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class FreeBoard {
 
     private long id;

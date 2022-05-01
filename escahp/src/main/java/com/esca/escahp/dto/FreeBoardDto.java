@@ -1,13 +1,16 @@
 package com.esca.escahp.dto;
 
+import com.esca.escahp.domain.FreeBoard;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @ApiModel(value = "FreeBoard : 게시물 정보", description = "자유 게시판의 게시물의 상세 정보를 나타낸다.")
 public class FreeBoardDto {
 
@@ -46,4 +49,11 @@ public class FreeBoardDto {
 
     @ApiModelProperty(value = "좋아요 수")
     private int likes;
+
+    static public FreeBoardDto toDto(FreeBoard board) {
+        return new FreeBoardDto(board.getId(), board.getTitle(), board.getContent(),
+            board.getWriter(), board.getFile(), board.getCreatedAt(), board.getUpdatedAt(),
+            board.getDeletedAt(), board.getDeleteYn(), board.getViewCnt(), board.getReport(),
+            board.getLikes());
+    }
 }
