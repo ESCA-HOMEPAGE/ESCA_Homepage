@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.esca.escahp.mapper.FreeBoardDao">
-  <select id="selectAll" resultType="FreeBoardDto">
+  <select id="selectAll" resultType="FreeBoard">
     SELECT  f.id
             , f.title
             , IFNULL(u.nickname, "탈퇴 회원") as writer
@@ -15,7 +15,7 @@
     ORDER BY f.id DESC
   </select>
 
-  <select id="select" parameterType="long" resultType="FreeBoardDto">
+  <select id="select" parameterType="long" resultType="FreeBoard">
     SELECT  f.id
             , f.title
             , u.nickname as writer
@@ -33,7 +33,7 @@
   </select>
 
 <!-- https://vesselsdiary.tistory.com/59 -->
-  <insert id="insert" parameterType="FreeBoardDto" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insert" parameterType="FreeBoard" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO free(
                      title
                      , user_id
@@ -48,7 +48,7 @@
             )
   </insert>
 
-  <update id="update" parameterType="FreeBoardDto">
+  <update id="update" parameterType="FreeBoard">
     UPDATE	free
     SET
         title = #{title}
@@ -58,7 +58,7 @@
     WHERE	id = #{id}
   </update>
 
-  <update id="delete" parameterType="FreeBoardDto">
+  <update id="delete" parameterType="FreeBoard">
     UPDATE	free
     SET
         delete_yn = #{deleteYn}
@@ -72,7 +72,7 @@
     WHERE   id = #{id}
   </update>
 
-  <update id="updateReport" parameterType="FreeBoardDto">
+  <update id="updateReport" parameterType="FreeBoard">
     UPDATE  free
     SET     report = report + 1
     WHERE   id = #{id}

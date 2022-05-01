@@ -1,6 +1,6 @@
 package com.esca.escahp.controller;
 
-
+import com.esca.escahp.domain.FreeBoard;
 import com.esca.escahp.dto.FreeBoardDto;
 import com.esca.escahp.service.FreeBoardService;
 import io.swagger.annotations.Api;
@@ -31,15 +31,15 @@ public class FreeBoardController {
     @ApiOperation(value = "자유 게시판의 전체 목록 보여주기")
     @GetMapping
     public ResponseEntity<List<FreeBoardDto>> getFreeArticles() {
-        List<FreeBoardDto> list = freeBoardService.getArticles();
+        List<FreeBoard> list = freeBoardService.getArticles();
         return ResponseEntity.ok(list);
     }
 
     @ApiOperation(value = "id에 해당하는 게시물 정보 반환")
     @GetMapping("/{id}")
     public ResponseEntity<FreeBoardDto> getFreeArticle(@PathVariable long id) {
-        FreeBoardDto dto = freeBoardService.getArticle(id);
-        if (dto == null)
+        FreeBoard board = freeBoardService.getArticle(id);
+        if (board == null)
             return ResponseEntity.noContent().build();
         return ResponseEntity.ok(dto);
     }
@@ -59,8 +59,7 @@ public class FreeBoardController {
     @ApiOperation(value = "id에 해당하는 게시물 정보 수정")
     @PutMapping("/{id}")
     public ResponseEntity<FreeBoardDto> modifyFreeArticle(@PathVariable long id, @RequestBody FreeBoardDto freeBoardDto) {
-        freeBoardDto.setId(id);
-        freeBoardService.modifyArticle(freeBoardDto);
+        freeBoardService.modifyArticle(id, freeBoardDto);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
             .buildAndExpand()
             .toUri();
@@ -70,9 +69,8 @@ public class FreeBoardController {
 
     @ApiOperation(value = "id에 해당하는 게시물 정보 삭제")
     @PatchMapping("/{id}")
-    public ResponseEntity<Object> deleteFreeArticle(@PathVariable long id, @RequestBody FreeBoardDto freeBoardDto) {
-        freeBoardDto.setId(id);
-        freeBoardService.deleteArticle(freeBoardDto);
+    public ResponseEntity<Object> deleteFreeArticle(@PathVariable long id) {
+        freeBoardService.deleteArticle(id);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
             .buildAndExpand()
@@ -83,9 +81,8 @@ public class FreeBoardController {
 
     @ApiOperation(value = "id에 해당하는 게시물의 신고 횟수 증가")
     @PatchMapping("/report/{id}")
-    public ResponseEntity<Object> increaseReport(@PathVariable long id, @RequestBody FreeBoardDto freeBoardDto) {
-        freeBoardDto.setId(id);
-        freeBoardService.updateReport(freeBoardDto);
+    public ResponseEntity<Object> increaseReport(@PathVariable long id) {
+        freeBoardService.updateReport(id);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
             .buildAndExpand()
