@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 @ApiModel(value = "FreeBoard : 게시물 정보", description = "자유 게시판의 게시물의 상세 정보를 나타낸다.")
