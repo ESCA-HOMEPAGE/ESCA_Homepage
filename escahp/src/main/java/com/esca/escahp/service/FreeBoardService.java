@@ -48,7 +48,7 @@ public class FreeBoardService implements I_FreeBoardService {
     @Transactional
     public void modifyArticle(long id, FreeBoardDto dto) {
         FreeBoard board = freeBoardDao.select(id);
-        board.update(dto);
+        board.update(dto.getTitle(), dto.getContent(), dto.getFile());
         freeBoardDao.update(board);
     }
 

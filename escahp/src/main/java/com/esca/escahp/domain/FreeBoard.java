@@ -35,6 +35,10 @@ public class FreeBoard {
 
     private int likes;
 
+    public FreeBoard(String title, String content, String writer) {
+        this(title, content, writer, null);
+    }
+
     public FreeBoard(String title, String content, String writer, String file) {
         this.title = title;
         this.content = content;
@@ -47,10 +51,10 @@ public class FreeBoard {
         this.deleteYn = "Y";
     }
 
-    public void update(FreeBoardDto dto) {
-        this.title = dto.getTitle();
-        this.content = dto.getContent();
-        this.file = dto.getFile();
+    public void update(String title, String content, String file) {
+        this.title = title;
+        this.content = content;
+        this.file = file;
     }
 
     public void updateReport() {
