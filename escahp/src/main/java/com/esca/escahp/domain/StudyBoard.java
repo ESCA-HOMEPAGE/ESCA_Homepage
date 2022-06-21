@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -11,6 +12,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Getter
 @Entity
 @Setter
+@NoArgsConstructor
 public class StudyBoard {
 
     @Id
@@ -53,13 +55,14 @@ public class StudyBoard {
     @Column(nullable = false)
     private int likes;
 
-    @Builder
     public StudyBoard(String title, String content, String writer, String category, String file){
         this.title = title;
         this.content = content;
         this.writer = writer;
         this.category = category;
         this.file = file;
+        this.createdAt = LocalDateTime.now();
+        this.deleteYn = "N";
     }
 
     public void delete(){

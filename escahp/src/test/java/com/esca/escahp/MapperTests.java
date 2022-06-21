@@ -25,7 +25,7 @@ public class MapperTests {
                     System.out.println("==================================");
                     System.out.println(board.getTitle());
                     System.out.println(board.getWriter());
-                    System.out.println(board.getCreateAt());
+                    System.out.println(board.getCreatedAt());
                     System.out.println("==================================");
                 }
             }

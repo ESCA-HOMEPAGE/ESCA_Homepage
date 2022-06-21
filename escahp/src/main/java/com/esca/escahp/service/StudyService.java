@@ -9,7 +9,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class StudyService implements I_StudyBoardService {
 
     private final StudyRepository studyRepository;
@@ -61,7 +65,7 @@ public class StudyService implements I_StudyBoardService {
     @Override
     public void updateViewCnt(long id) {
         StudyBoard board = studyRepository.findById(id)
-            .orElseThrow(() -> new IllegalAccessError("[id=" + b.getId() + "] 해당 게시글은 존재하지 않습니다."));
+            .orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글은 존재하지 않습니다."));
         board.update();
 
     }
