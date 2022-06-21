@@ -2,12 +2,15 @@ package com.esca.escahp.domain;
 
 import java.time.LocalDateTime;
 import javax.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Getter
 @Entity
+@Setter
 public class StudyBoard {
 
     @Id
@@ -50,6 +53,7 @@ public class StudyBoard {
     @Column(nullable = false)
     private int likes;
 
+    @Builder
     public StudyBoard(String title, String content, String writer, String category, String file){
         this.title = title;
         this.content = content;
@@ -64,7 +68,14 @@ public class StudyBoard {
     }
 
     public void update(String title, String content, String file){
+        this.title = title;
+        this.content = content;
+        this.file = file;
+        this.updatedAt = LocalDateTime.now();
+    }
 
+    public void update(){
+        this.viewCnt += 1;
     }
 
 }

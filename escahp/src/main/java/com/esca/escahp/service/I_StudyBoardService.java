@@ -1,19 +1,21 @@
 package com.esca.escahp.service;
 
 
+import com.esca.escahp.domain.StudyBoard;
 import com.esca.escahp.dto.StudyBoardDto;
+import com.esca.escahp.dto.response.StudyResponse;
 import java.util.List;
 
 public interface I_StudyBoardService {
-	public List<StudyBoardDto> getStudyBoardList();
+	public List<StudyResponse> getStudyBoardList();
 
-	public StudyBoardDto selectStudyBoard(long id);
+	public StudyResponse selectStudyBoard(long id);
 
-	public void addBoard(StudyBoardDto b);
+	public void addBoard(StudyBoard b);
 
-	public void updateBoard(StudyBoardDto b);
+	public void updateBoard(StudyBoard b);
 
-	public void deleteBoard(StudyBoardDto b);
+	public void deleteBoard(StudyBoard b);
 
 	public void updateViewCnt(long id);
 }

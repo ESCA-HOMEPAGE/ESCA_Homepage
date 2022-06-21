@@ -4,9 +4,11 @@ import com.esca.escahp.dao.StudyRepository;
 import com.esca.escahp.domain.StudyBoard;
 import com.esca.escahp.dto.StudyBoardDto;
 import com.esca.escahp.dto.response.StudyResponse;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.transaction.Transactional;
 
 public class StudyService implements I_StudyBoardService {
 
@@ -19,34 +21,48 @@ public class StudyService implements I_StudyBoardService {
     @Override
     public List<StudyResponse> getStudyBoardList() {
         List<StudyBoard> studies = studyRepository.findAll();
-        return result = studies
+        return studies
             .stream()
             .map(StudyResponse::new)
             .collect(Collectors.toList());
     }
 
     @Override
-    public StudyBoardDto selectStudyBoard(long id) {
-        return null;
+    public StudyResponse selectStudyBoard(long id) {
+        StudyBoard study = studyRepository.findById(id)
+            .orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글은 존재하지 않습니다."));
+        return new StudyResponse(study);
     }
 
+    @Transactional
     @Override
-    public void addBoard(StudyBoardDto b) {
-
+    public void addBoard(StudyBoard b) {
+        studyRepository.save(b);
     }
 
+    @Transactional
     @Override
-    public void updateBoard(StudyBoardDto b) {
+    public void updateBoard(StudyBoard b) {
+        StudyBoard origin = studyRepository.findById(b.getId())
+            .orElseThrow(() -> new IllegalAccessError("[id=" + b.getId() + "] 해당 게시글은 존재하지 않습니다."));
 
+        origin.update(b.getTitle(), b.getContent(), b.getFile());
     }
 
+    @Transactional
     @Override
-    public void deleteBoard(StudyBoardDto b) {
+    public void deleteBoard(StudyBoard b) {
+        StudyBoard delete = studyRepository.findById(b.getId())
+            .orElseThrow(() -> new IllegalAccessError("[id=" + b.getId() + "] 해당 게시글은 존재하지 않습니다."));
 
+        delete.delete();
     }
 
     @Override
     public void updateViewCnt(long id) {
+        StudyBoard board = studyRepository.findById(id)
+            .orElseThrow(() -> new IllegalAccessError("[id=" + b.getId() + "] 해당 게시글은 존재하지 않습니다."));
+        board.update();
 
     }
 }
