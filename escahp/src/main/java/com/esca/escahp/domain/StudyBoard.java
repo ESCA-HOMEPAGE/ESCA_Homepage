@@ -78,7 +78,7 @@ public class StudyBoard {
     }
 
     public void update(){
-        this.viewCnt += 1;
+        this.viewCnt = this.viewCnt + 1;
     }
 
 }
