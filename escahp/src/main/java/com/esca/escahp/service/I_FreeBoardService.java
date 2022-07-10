@@ -1,14 +1,14 @@
 package com.esca.escahp.service;
 
+import com.esca.escahp.domain.FreeBoard;
 import com.esca.escahp.dto.FreeBoardDto;
 import java.util.List;
 
-
 public interface I_FreeBoardService {
-    public FreeBoardDto getArticle(long no);
-    public List<FreeBoardDto> getArticles();
-    public void writeArticle(FreeBoardDto dto);
-    public void modifyArticle(FreeBoardDto dto);
-    public void deleteArticle(FreeBoardDto dto);
-    public void updateReport(FreeBoardDto dto);
+    FreeBoard getArticle(long id);
+    List<FreeBoard> getArticles();
+    void writeArticle(FreeBoardDto dto);
+    void modifyArticle(long id, FreeBoardDto dto);
+    void deleteArticle(long id);
+    void updateReport(long id);
 }
