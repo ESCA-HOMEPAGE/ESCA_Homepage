@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 15초마다 변경을 확인하여 갱신 -->
+<configuration scan="true" scanPeriod="15 seconds">
+    <!-- 로컬 로그 config -->
+    <springProfile name="local">
+        <!-- 경로 설정 -->
+        <property resource="application.yml"/>
+        <!-- 로그 패턴 -->
+        <property name="LOG_PATTERN" value=" %d{yy-MM-dd HH:mm:ss} %highlight(%-5level) [%thread] [%logger{0}-%M:%line] - %msg%n "/>
+
+        <appender name="LOCAL_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <pattern>${LOG_PATTERN}</pattern>
+            </encoder>
+        </appender>
+
+        <root>
+            <appender-ref ref="LOCAL_CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <!-- 서버 로그 config -->
+    <springProfile name="dev">
+        <!-- 경로 설정 -->
+        <property resource="application.properties"/>
+        <!-- 로그 파일 경로 -->
+        <property name="LOG_PATH" value="${log.config.path}"/>
+        <!-- 로그 파일 이름 -->
+        <property name="LOG_FILE_NAME" value="${log.config.filename}"/>
+        <!-- 에러 로그 파일 이름 -->
+        <property name="ERR_LOG_FILE_NAME" value="${error.log.config.filename}"/>
+        <!-- 로그 패턴 -->
+        <property name="LOG_PATTERN" value="%-5level %d{yy-MM-dd HH:mm:ss} [%thread] [%logger{0}-%M:%line] - %msg%n "/>
+
+        <appender name="DEV_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <pattern>${LOG_PATTERN}</pattern>
+            </encoder>
+        </appender>
+
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <!-- 파일경로 설정 -->
+            <file>${LOG_PATH}/${LOG_FILE_NAME}.log</file>
+            <!-- 출력패턴 설정-->
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <pattern>${LOG_PATTERN}</pattern>
+            </encoder>
+            <!-- Rolling 정책 (파일 관리설정) -->
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- .gz,.zip 등을 넣으면 자동 일자별 로그파일 압축 -->
+                <fileNamePattern>${LOG_PATH}/${LOG_FILE_NAME}.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+                 <!-- 파일 크기 지정할떄 사용 -->
+                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                    <!-- 파일당 최고 용량 kb, mb, gb -->
+                    <maxFileSize>10MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+                <!-- 일자별 로그파일 최대 보관주기 (30일)-->
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+        </appender>
+
+        <appender name="Error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <!-- 에러로그를 설정하고 로그의 레벨이 맞으면 onMatch, 아니라면 onMismatch  -->
+                <level>error</level>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+            <file>${LOG_PATH}/${ERR_LOG_FILE_NAME}.log</file>
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <pattern>${LOG_PATTERN}</pattern>
+            </encoder>
+            <!-- Rolling 정책 -->
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${LOG_PATH}/${ERR_LOG_FILE_NAME}.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                    <maxFileSize>10MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+        </appender>
+        <root>
+            <appender-ref ref="DEV_CONSOLE"/>
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="Error"/>
+        </root>
+    </springProfile>
+</configuration>

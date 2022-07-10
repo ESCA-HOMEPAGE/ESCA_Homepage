@@ -1,0 +1,37 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: local
+  # mysql setting
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/esca?&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: ssafy  #escahp
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        ddl-auto: create
+    generate-ddl: true
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.esca.escahp.dto
+
+logging:
+  file:
+    name: logs/application-debug.log
+  pattern:
+    file: "%d %-5level [%thread] &logger : %msg%n"
+  logback:
+    rollingpolicy:
+      max-file-size: 100MB
+      max-history: 10
+  level:
+    root: info
+    com.esca.escahp: debug
