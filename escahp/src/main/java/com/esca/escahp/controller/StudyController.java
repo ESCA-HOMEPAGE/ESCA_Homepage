@@ -1,13 +1,11 @@
 package com.esca.escahp.controller;
 
 import com.esca.escahp.domain.StudyBoard;
-import com.esca.escahp.dto.StudyBoardDto;
 import com.esca.escahp.dto.response.StudyResponse;
 import com.esca.escahp.service.StudyService;
 import io.swagger.annotations.ApiOperation;
 import java.net.URI;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

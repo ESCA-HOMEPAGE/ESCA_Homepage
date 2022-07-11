@@ -2,15 +2,10 @@ package com.esca.escahp.service;
 
 import com.esca.escahp.dao.StudyRepository;
 import com.esca.escahp.domain.StudyBoard;
-import com.esca.escahp.dto.StudyBoardDto;
 import com.esca.escahp.dto.response.StudyResponse;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

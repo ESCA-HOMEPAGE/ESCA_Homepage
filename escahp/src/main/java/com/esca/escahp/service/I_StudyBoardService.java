@@ -2,7 +2,6 @@ package com.esca.escahp.service;
 
 
 import com.esca.escahp.domain.StudyBoard;
-import com.esca.escahp.dto.StudyBoardDto;
 import com.esca.escahp.dto.response.StudyResponse;
 import java.util.List;
 

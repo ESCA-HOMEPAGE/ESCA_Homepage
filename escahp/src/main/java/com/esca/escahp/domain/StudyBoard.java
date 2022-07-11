@@ -2,7 +2,6 @@ package com.esca.escahp.domain;
 
 import java.time.LocalDateTime;
 import javax.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
