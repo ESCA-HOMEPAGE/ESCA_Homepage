@@ -1,8 +1,8 @@
-package com.esca.escahp.controller;
+package com.esca.escahp.board;
 
 
-import com.esca.escahp.dto.FreeBoardDto;
-import com.esca.escahp.service.FreeBoardService;
+import com.esca.escahp.board.dto.FreeBoardDto;
+import com.esca.escahp.board.FreeBoardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.net.URI;

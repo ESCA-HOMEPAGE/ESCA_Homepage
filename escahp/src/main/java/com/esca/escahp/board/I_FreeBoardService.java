@@ -1,6 +1,6 @@
-package com.esca.escahp.service;
+package com.esca.escahp.board;
 
-import com.esca.escahp.dto.FreeBoardDto;
+import com.esca.escahp.board.dto.FreeBoardDto;
 import java.util.List;
 
 

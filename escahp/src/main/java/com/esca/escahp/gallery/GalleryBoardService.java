@@ -1,7 +1,7 @@
-package com.esca.escahp.service;
+package com.esca.escahp.gallery;
 
-import com.esca.escahp.dto.GalleryBoardDto;
-import com.esca.escahp.mapper.GalleryBoardDao;
+import com.esca.escahp.gallery.dto.GalleryBoardDto;
+import com.esca.escahp.gallery.repository.GalleryBoardDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

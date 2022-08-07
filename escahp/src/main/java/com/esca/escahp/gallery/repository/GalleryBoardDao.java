@@ -1,6 +1,6 @@
-package com.esca.escahp.mapper;
+package com.esca.escahp.gallery.repository;
 
-import com.esca.escahp.dto.GalleryBoardDto;
+import com.esca.escahp.gallery.dto.GalleryBoardDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.*;

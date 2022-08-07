@@ -1,6 +1,6 @@
-package com.esca.escahp.mapper;
+package com.esca.escahp.notice.repository;
 
-import com.esca.escahp.dto.NoticeBoardDto;
+import com.esca.escahp.notice.dto.NoticeBoardDto;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.context.annotation.Configuration;
