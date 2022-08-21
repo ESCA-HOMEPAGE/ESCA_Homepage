@@ -1,6 +1,6 @@
-package com.esca.escahp.dto.response;
+package com.esca.escahp.study.dto;
 
-import com.esca.escahp.domain.StudyBoard;
+import com.esca.escahp.study.entity.StudyBoard;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -60,6 +60,5 @@ public class StudyResponse {
         this.viewCnt = studyBoard.getViewCnt();
         this.likes = studyBoard.getLikes();
     }
-
 
 }

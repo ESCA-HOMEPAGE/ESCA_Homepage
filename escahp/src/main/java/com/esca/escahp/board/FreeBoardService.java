@@ -1,7 +1,7 @@
-package com.esca.escahp.service;
+package com.esca.escahp.board;
 
-import com.esca.escahp.dto.FreeBoardDto;
-import com.esca.escahp.mapper.FreeBoardDao;
+import com.esca.escahp.board.dto.FreeBoardDto;
+import com.esca.escahp.board.repository.FreeBoardDao;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

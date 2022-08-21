@@ -1,4 +1,4 @@
-package com.esca.escahp.domain;
+package com.esca.escahp.study.entity;
 
 import java.time.LocalDateTime;
 import javax.persistence.*;

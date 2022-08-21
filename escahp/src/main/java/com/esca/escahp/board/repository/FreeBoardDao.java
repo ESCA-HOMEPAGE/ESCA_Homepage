@@ -1,6 +1,6 @@
-package com.esca.escahp.mapper;
+package com.esca.escahp.board.repository;
 
-import com.esca.escahp.dto.FreeBoardDto;
+import com.esca.escahp.board.dto.FreeBoardDto;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 

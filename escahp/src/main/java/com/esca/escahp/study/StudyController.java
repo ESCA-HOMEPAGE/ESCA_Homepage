@@ -1,8 +1,8 @@
-package com.esca.escahp.controller;
+package com.esca.escahp.study;
 
-import com.esca.escahp.domain.StudyBoard;
-import com.esca.escahp.dto.response.StudyResponse;
-import com.esca.escahp.service.StudyService;
+import com.esca.escahp.study.entity.StudyBoard;
+import com.esca.escahp.study.dto.StudyResponse;
+import com.esca.escahp.study.StudyService;
 import io.swagger.annotations.ApiOperation;
 import java.net.URI;
 import java.util.List;

@@ -1,7 +1,7 @@
-package com.esca.escahp.service;
+package com.esca.escahp.notice;
 
-import com.esca.escahp.dto.NoticeBoardDto;
-import com.esca.escahp.mapper.NoticeBoardDao;
+import com.esca.escahp.notice.dto.NoticeBoardDto;
+import com.esca.escahp.notice.repository.NoticeBoardDao;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
