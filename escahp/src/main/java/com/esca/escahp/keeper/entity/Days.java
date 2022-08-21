@@ -1,17 +1,22 @@
 package com.esca.escahp.keeper.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
+@Entity
 @Setter
 @NoArgsConstructor
-@Entity
-public class Keeper {
+public class Days {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(nullable = false)
+    private String day;
 }
