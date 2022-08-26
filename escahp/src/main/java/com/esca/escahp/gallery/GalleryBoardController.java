@@ -1,7 +1,7 @@
-package com.esca.escahp.controller;
+package com.esca.escahp.gallery;
 
-import com.esca.escahp.dto.GalleryBoardDto;
-import com.esca.escahp.service.I_GalleryBoardService;
+import com.esca.escahp.gallery.dto.GalleryBoardDto;
+import com.esca.escahp.gallery.I_GalleryBoardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

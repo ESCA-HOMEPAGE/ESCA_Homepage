@@ -1,4 +1,4 @@
-package com.esca.escahp.dto;
+package com.esca.escahp.gallery.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

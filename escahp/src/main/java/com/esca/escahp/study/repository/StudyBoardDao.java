@@ -1,4 +1,4 @@
-package com.esca.escahp.mapper;
+package com.esca.escahp.study.repository;
 
 import org.apache.ibatis.annotations.Mapper;
 

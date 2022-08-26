@@ -1,8 +1,8 @@
-package com.esca.escahp.service;
+package com.esca.escahp.study;
 
 
-import com.esca.escahp.domain.StudyBoard;
-import com.esca.escahp.dto.response.StudyResponse;
+import com.esca.escahp.study.entity.StudyBoard;
+import com.esca.escahp.study.dto.StudyResponse;
 import java.util.List;
 
 public interface I_StudyBoardService {

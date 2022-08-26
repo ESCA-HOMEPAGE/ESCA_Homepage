@@ -1,7 +1,7 @@
-package com.esca.escahp.controller;
+package com.esca.escahp.notice;
 
-import com.esca.escahp.dto.NoticeBoardDto;
-import com.esca.escahp.service.I_NoticeBoardService;
+import com.esca.escahp.notice.dto.NoticeBoardDto;
+import com.esca.escahp.notice.I_NoticeBoardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.net.URI;

@@ -1,4 +1,4 @@
-package com.esca.escahp.dto.request;
+package com.esca.escahp.study.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
-package com.esca.escahp.service;
+package com.esca.escahp.gallery;
 
-import com.esca.escahp.dto.GalleryBoardDto;
-import com.esca.escahp.mapper.GalleryBoardDao;
+import com.esca.escahp.gallery.dto.GalleryBoardDto;
+import com.esca.escahp.gallery.repository.GalleryBoardDao;
 
 import java.util.List;
 
