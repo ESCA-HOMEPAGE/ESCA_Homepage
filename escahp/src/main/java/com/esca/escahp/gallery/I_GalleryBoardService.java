@@ -1,21 +1,23 @@
 package com.esca.escahp.gallery;
 
 import com.esca.escahp.gallery.dto.GalleryBoardDto;
+import com.esca.escahp.gallery.dto.GalleryResponse;
+import com.esca.escahp.gallery.entity.GalleryBoard;
 import com.esca.escahp.gallery.repository.GalleryBoardDao;
 
 import java.util.List;
 
 public interface I_GalleryBoardService {
-    public List<GalleryBoardDto> selectGalleryBoardList();
+    public List<GalleryResponse> getGalleryBoardList();
 
     //1203추가가
-    public GalleryBoardDto selectGalleryBoard(long id);
+    public GalleryResponse selectGalleryBoard(long id);
 
-    public void insertGalleryBoard(GalleryBoardDto params);
+    public void addBoard(GalleryBoard b);
 
-    public void updateGalleryBoard(GalleryBoardDto params);
+    public void updateBoard(GalleryBoard b);
 
-    public void deleteGalleryBoard(GalleryBoardDto params);
+    public void deleteBoard(GalleryBoard b);
 
     public void updateViewCnt(long id);
 
