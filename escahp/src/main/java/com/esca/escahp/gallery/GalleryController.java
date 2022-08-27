@@ -2,6 +2,7 @@ package com.esca.escahp.gallery;
 
 import com.esca.escahp.gallery.dto.GalleryBoardDto;
 import com.esca.escahp.gallery.I_GalleryBoardService;
+import com.esca.escahp.gallery.dto.GalleryRequest;
 import com.esca.escahp.gallery.dto.GalleryResponse;
 import com.esca.escahp.gallery.entity.GalleryBoard;
 import io.swagger.annotations.Api;
@@ -17,7 +18,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/gallery")
-@CrossOrigin(origins = {"*"})        // 외부에서도 접속이 가능하게 해주는 어노테이션	// 스웨거 설정
+@CrossOrigin(origins = {"*"})
+@Api(value = "GalleryBoardDto")// 외부에서도 접속이 가능하게 해주는 어노테이션	// 스웨거 설정
 public class GalleryController {
 
     private final GalleryService galleryService;
@@ -39,26 +41,26 @@ public class GalleryController {
             return ResponseEntity.noContent().build();
         }
         galleryService.updateViewCnt(id);
-        return ResponseEntity.ok().body(result);
+        return ResponseEntity.ok(result);
     }
 
     @ApiOperation(value = "게시물 객체 추가")
     @PostMapping
     public ResponseEntity<GalleryResponse> insertGalleryBoard(
-            @RequestBody GalleryBoard galleryBoard){
-        galleryService.addBoard(galleryBoard);
+            @RequestBody GalleryRequest galleryBoard){
+        Long id = galleryService.addBoard(galleryBoard);
+        System.out.println("/{id}");
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(galleryBoard.getId())
+                .buildAndExpand(id)
                 .toUri();
         return ResponseEntity.created(location).build();
-    };
+    }
 
     @ApiOperation(value = "id에 해당하는 게시물 정보 수정")
    @PutMapping("/{id}")
-    public ResponseEntity<GalleryResponse> updateGalleryBoard(@PathVariable Long id, @RequestBody GalleryBoard galleryBoard){
-        galleryBoard.setId(id);
-        galleryService.updateBoard(galleryBoard);
+    public ResponseEntity<GalleryResponse> updateGalleryBoard(@PathVariable Long id, @RequestBody GalleryRequest galleryBoard){
+        galleryService.updateBoard(id, galleryBoard);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .buildAndExpand()
@@ -68,9 +70,8 @@ public class GalleryController {
 
     @ApiOperation(value = "id에 해당하는 게시물 정보 삭제")
     @PatchMapping("/{id}")
-    public ResponseEntity<Object> deleteAction(@PathVariable Long id, @RequestBody GalleryBoard galleryBoard){
-        galleryBoard.setId(id);
-        galleryService.deleteBoard(galleryBoard);
+    public ResponseEntity<Object> deleteAction(@PathVariable Long id){
+        galleryService.deleteBoard(id);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .buildAndExpand()

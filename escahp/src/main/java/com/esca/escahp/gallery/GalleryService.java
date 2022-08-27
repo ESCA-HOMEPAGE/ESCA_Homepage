@@ -1,6 +1,7 @@
 package com.esca.escahp.gallery;
 
 import com.esca.escahp.gallery.dto.GalleryBoardDto;
+import com.esca.escahp.gallery.dto.GalleryRequest;
 import com.esca.escahp.gallery.dto.GalleryResponse;
 import com.esca.escahp.gallery.entity.GalleryBoard;
 import com.esca.escahp.gallery.repository.GalleryBoardDao;
@@ -44,22 +45,22 @@ public class GalleryService implements I_GalleryBoardService{
 
     @Transactional
     @Override
-    public void addBoard(GalleryBoard b){galleryRepository.save(b);}
+    public Long addBoard(GalleryRequest b){return galleryRepository.save(b.toEntity()).getId();}
 
     @Transactional
     @Override
-    public void updateBoard(GalleryBoard b){
-        GalleryBoard origin = galleryRepository.findById(b.getId())
-                .orElseThrow(()->new IllegalAccessError("[id=" + b.getId() + "] 해당 게시글은 존재하지 않습니다."));
+    public void updateBoard(Long id, GalleryRequest b){
+        GalleryBoard origin = galleryRepository.findById(id)
+                .orElseThrow(()->new IllegalAccessError("[id=" + id + "] 해당 게시글은 존재하지 않습니다."));
 
         origin.update(b.getTitle(), b.getContent(), b.getFile());
     }
 
     @Transactional
     @Override
-    public void deleteBoard(GalleryBoard b){
-        GalleryBoard delete = galleryRepository.findById(b.getId())
-                .orElseThrow(() -> new IllegalAccessError("[id=" + b.getId() + "] 해당 게시글은 존재하지 않습니다."));
+    public void deleteBoard(Long id){
+        GalleryBoard delete = galleryRepository.findById(id)
+                .orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글은 존재하지 않습니다."));
 
         delete.delete();
     }

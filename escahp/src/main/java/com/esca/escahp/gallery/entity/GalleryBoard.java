@@ -1,6 +1,7 @@
 package com.esca.escahp.gallery.entity;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -54,6 +55,7 @@ public class GalleryBoard {
     @Column(nullable = false)
     private int likes;
 
+    @Builder
     public GalleryBoard(String title, String content, String writer, String category, String file){
         this.title = title;
         this.content = content;
