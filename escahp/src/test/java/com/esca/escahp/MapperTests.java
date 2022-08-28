@@ -1,7 +1,7 @@
 package com.esca.escahp;
 
-import com.esca.escahp.dto.NoticeBoardDto;
-import com.esca.escahp.mapper.NoticeBoardDao;
+import com.esca.escahp.notice.dto.NoticeBoardDto;
+import com.esca.escahp.notice.repository.NoticeBoardDao;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
