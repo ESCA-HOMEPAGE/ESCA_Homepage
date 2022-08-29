@@ -2,8 +2,8 @@ package com.esca.escahp.keeper.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
-import org.springframework.data.annotation.Id;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

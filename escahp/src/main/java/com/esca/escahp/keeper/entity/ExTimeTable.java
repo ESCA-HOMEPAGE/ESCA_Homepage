@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.Id;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +17,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ExTimeTable {
+
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
