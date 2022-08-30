@@ -1,15 +1,16 @@
 package com.esca.escahp.notice.dto;
 
+import com.esca.escahp.notice.entity.NoticeBoard;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Setter
-@ApiModel(value = "NoticeBoard : 게시물 정보", description = "공지 게시판의 게시물의 상세 정보를 나타낸다.")
-public class NoticeBoardDto {
+@NoArgsConstructor
+@ApiModel(value = "NoticeBoard : 게시물 응답 정보", description = "공지 게시판의 게시물의 응답 정보를 나타낸다.")
+public class NoticeResponse {
 
     @ApiModelProperty(value = "게시물 번호(PK)")
     private Long id;
@@ -47,4 +48,18 @@ public class NoticeBoardDto {
     @ApiModelProperty(value = "삭제여부")
     private String deleteYn;
 
+    public NoticeResponse(NoticeBoard noticeBoard) {
+        this.id = noticeBoard.getId();
+        this.title = noticeBoard.getTitle();
+        this.category = noticeBoard.getCategory();
+        this.writer = noticeBoard.getWriter();
+        this.content = noticeBoard.getContent();
+        this.file = noticeBoard.getFile();
+        this.likes = noticeBoard.getLikes();
+        this.viewCnt = noticeBoard.getViewCnt();
+        this.createdAt = noticeBoard.getCreatedAt();
+        this.updatedAt = noticeBoard.getUpdatedAt();
+        this.deletedAt = noticeBoard.getDeletedAt();
+        this.deleteYn = noticeBoard.getDeleteYn();
+    }
 }
