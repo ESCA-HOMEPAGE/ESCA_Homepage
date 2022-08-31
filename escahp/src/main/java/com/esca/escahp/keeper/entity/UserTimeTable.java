@@ -1,8 +1,6 @@
 package com.esca.escahp.keeper.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 import lombok.Getter;
@@ -21,9 +19,11 @@ public class UserTimeTable {
     @Column(nullable = false)
     private Long userId;
 
-    @Column(nullable = false)
-    private Long dayId;
+    @ManyToOne
+    @JoinColumn(name = "days_id")
+    private Days day;
 
-    @Column(nullable = false)
-    private Long timeId;
+    @ManyToOne
+    @JoinColumn(name = "times_id")
+    private Times time;
 }

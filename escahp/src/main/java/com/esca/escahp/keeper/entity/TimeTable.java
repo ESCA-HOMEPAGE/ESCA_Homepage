@@ -16,7 +16,7 @@ import lombok.Setter;
 @Entity
 @Setter
 @NoArgsConstructor
-public class ExTimeTable {
+public class TimeTable {
 
     @Id
     @Column(name = "id", nullable = false)
@@ -27,7 +27,7 @@ public class ExTimeTable {
 
     @Column(nullable = false)
     private String semester;
-    
+
     @Column(nullable = false)
     @CreationTimestamp()
     private LocalDateTime startDate;

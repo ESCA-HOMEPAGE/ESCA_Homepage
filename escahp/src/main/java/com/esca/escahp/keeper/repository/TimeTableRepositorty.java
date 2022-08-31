@@ -3,9 +3,9 @@ package com.esca.escahp.keeper.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.esca.escahp.keeper.entity.ExTimeTable;
+import com.esca.escahp.keeper.entity.TimeTable;
 
 @Repository
-public class ExTimeTableRepositorty extends JpaRepository<ExTimeTable, Long>{
+public interface TimeTableRepositorty extends JpaRepository<TimeTable, Long>{
     
 }
