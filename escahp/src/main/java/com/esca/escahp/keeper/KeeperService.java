@@ -1,6 +1,6 @@
 package com.esca.escahp.keeper;
 
-import com.esca.escahp.keeper.repository.CalendarRepository;
+import com.esca.escahp.calendar.repository.CalendarRepository;
 import com.esca.escahp.keeper.repository.TimeTableRepositorty;
 
 import org.springframework.stereotype.Service;

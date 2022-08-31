@@ -1,4 +1,4 @@
-package com.esca.escahp.keeper.entity;
+package com.esca.escahp.calendar.entity;
 
 import java.time.LocalDateTime;
 
