@@ -1,6 +1,5 @@
-package com.esca.escahp.keeper;
+package com.esca.escahp.timetable;
 
-import com.esca.escahp.keeper.KeeperService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,12 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/keeper")
 @CrossOrigin(origins = {"*"})
-public class KeeperController {
+public class TimeTableController {
 
-    private final KeeperService keeperService;
+    private final TimeTableService timeTableService;
 
-    public KeeperController(KeeperService keeperService) {
-        this.keeperService = keeperService;
+    public TimeTableController(TimeTableService timeTableService) {
+        this.timeTableService = timeTableService;
     }
 
     @ApiOperation(value = "지킴이 선정 게시판을 생성한다.")
