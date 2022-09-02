@@ -1,4 +1,4 @@
-package com.esca.escahp.calendar.entity;
+package com.esca.escahp.schedule.entity;
 
 import java.time.LocalDateTime;
 
@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Calendar {
+public class Schedule {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;

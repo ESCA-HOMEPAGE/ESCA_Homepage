@@ -1,8 +1,8 @@
-package com.esca.escahp.calendar;
+package com.esca.escahp.schedule;
 
 
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class CalendarController {
+public class ScheduleController {
 }
