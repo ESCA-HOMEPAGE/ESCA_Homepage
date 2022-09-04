@@ -29,7 +29,6 @@ public class Schedule {
     private String content;
 
     @Column(nullable = false)
-    @CreationTimestamp()
     private LocalDateTime startDate;
 
     @Column(nullable = false)

@@ -29,7 +29,6 @@ public class TimeTable {
     private String semester;
 
     @Column(nullable = false)
-    @CreationTimestamp()
     private LocalDateTime startDate;
 
     @Column(nullable = false)
