@@ -1,6 +1,5 @@
-package com.esca.escahp.keeper.dto;
+package com.esca.escahp.timetable.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
