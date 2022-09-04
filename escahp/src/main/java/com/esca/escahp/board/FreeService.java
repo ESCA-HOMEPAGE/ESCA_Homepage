@@ -23,7 +23,6 @@ public class FreeService implements I_FreeBoardService {
         List<FreeBoard> boards = freeRepository.findAll();
         return boards
             .stream()
-            .peek(FreeBoard::mosaicTitle)
             .map(FreeResponse::new)
             .collect(Collectors.toList());
     }

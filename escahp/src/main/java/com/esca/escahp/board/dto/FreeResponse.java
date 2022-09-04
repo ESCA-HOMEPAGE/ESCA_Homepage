@@ -37,7 +37,7 @@ public class FreeResponse {
 
     public FreeResponse(FreeBoard freeBoard) {
         this.id = freeBoard.getId();
-        this.title = freeBoard.getTitle();
+        this.title = freeBoard.mosaicTitle();
         this.content = freeBoard.getContent();
         this.writer = freeBoard.getWriter();
         this.file = freeBoard.getFile();
