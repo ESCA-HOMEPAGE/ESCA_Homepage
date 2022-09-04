@@ -1,13 +1,12 @@
 package com.esca.escahp.board;
 
 
-import com.esca.escahp.board.dto.FreeBoardDto;
-import com.esca.escahp.board.FreeBoardService;
+import com.esca.escahp.board.dto.FreeRequest;
+import com.esca.escahp.board.dto.FreeResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.net.URI;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,35 +21,40 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/free")
-@RequiredArgsConstructor
 @CrossOrigin(origins = {"*"})        // 외부에서도 접속이 가능하게 해주는 어노테이션
 @Api(value = "FreeBoardDto")		// 스웨거 설정
-public class FreeBoardController {
-    private final FreeBoardService freeBoardService;
+public class FreeController {
+    private final FreeService freeService;
+
+    public FreeController(FreeService freeService) {
+        this.freeService = freeService;
+    }
 
     @ApiOperation(value = "자유 게시판의 전체 목록 보여주기")
     @GetMapping
-    public ResponseEntity<List<FreeBoardDto>> getFreeArticles() {
-        List<FreeBoardDto> list = freeBoardService.getArticles();
-        return ResponseEntity.ok(list);
+    public ResponseEntity<List<FreeResponse>> getAllFreeBoard() {
+        List<FreeResponse> list = freeService.getFreeBoardList();
+        return ResponseEntity.ok().body(list);
     }
 
     @ApiOperation(value = "id에 해당하는 게시물 정보 반환")
     @GetMapping("/{id}")
-    public ResponseEntity<FreeBoardDto> getFreeArticle(@PathVariable long id) {
-        FreeBoardDto dto = freeBoardService.getArticle(id);
-        if (dto == null)
+    public ResponseEntity<FreeResponse> getFreeBoardById(@PathVariable long id) {
+        FreeResponse result = freeService.selectFreeBoard(id);
+        if (result == null)
             return ResponseEntity.noContent().build();
-        return ResponseEntity.ok(dto);
+
+        return ResponseEntity.ok(result);
     }
 
     @ApiOperation(value = "게시물 객체 추가")
     @PostMapping
-    public ResponseEntity<FreeBoardDto> writeFreeArticle(@RequestBody FreeBoardDto freeBoardDto) {
-        freeBoardService.writeArticle(freeBoardDto);
+    public ResponseEntity<FreeResponse> postFreeBoard(@RequestBody FreeRequest freeBoard) {
+        Long id = freeService.postBoard(freeBoard);
+        System.out.println(id);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}")
-            .buildAndExpand(freeBoardDto.getId())
+            .buildAndExpand(id)
             .toUri();
 
         return ResponseEntity.created(location).build();
@@ -58,9 +62,8 @@ public class FreeBoardController {
 
     @ApiOperation(value = "id에 해당하는 게시물 정보 수정")
     @PutMapping("/{id}")
-    public ResponseEntity<FreeBoardDto> modifyFreeArticle(@PathVariable long id, @RequestBody FreeBoardDto freeBoardDto) {
-        freeBoardDto.setId(id);
-        freeBoardService.modifyArticle(freeBoardDto);
+    public ResponseEntity<FreeResponse> updateFreeBoard(@PathVariable Long id, @RequestBody FreeRequest freeBoard) {
+        freeService.updateBoard(id, freeBoard);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
             .buildAndExpand()
             .toUri();
@@ -70,9 +73,8 @@ public class FreeBoardController {
 
     @ApiOperation(value = "id에 해당하는 게시물 정보 삭제")
     @PatchMapping("/{id}")
-    public ResponseEntity<Object> deleteFreeArticle(@PathVariable long id, @RequestBody FreeBoardDto freeBoardDto) {
-        freeBoardDto.setId(id);
-        freeBoardService.deleteArticle(freeBoardDto);
+    public ResponseEntity<Object> deleteFreeBoard(@PathVariable Long id) {
+        freeService.deleteBoard(id);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
             .buildAndExpand()
@@ -81,16 +83,16 @@ public class FreeBoardController {
         return ResponseEntity.created(location).build();
     }
 
-    @ApiOperation(value = "id에 해당하는 게시물의 신고 횟수 증가")
-    @PatchMapping("/report/{id}")
-    public ResponseEntity<Object> increaseReport(@PathVariable long id, @RequestBody FreeBoardDto freeBoardDto) {
-        freeBoardDto.setId(id);
-        freeBoardService.updateReport(freeBoardDto);
-
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-            .buildAndExpand()
-            .toUri();
-
-        return ResponseEntity.created(location).build();
-    }
+//    @ApiOperation(value = "id에 해당하는 게시물의 신고 횟수 증가")
+//    @PatchMapping("/report/{id}")
+//    public ResponseEntity<Object> updateReport(@PathVariable long id, @RequestBody FreeBoard freeBoard) {
+//        freeBoard.setId(id);
+//        freeBoardService.updateReport(freeBoardDto);
+//
+//        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+//            .buildAndExpand()
+//            .toUri();
+//
+//        return ResponseEntity.created(location).build();
+//    }
 }
