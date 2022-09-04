@@ -38,4 +38,11 @@ public class User {
 
 	@Column(nullable = false)
 	private String email;
+
+	@Column
+	private String profileImg;
+
+	@Column
+	private String pr;
+
 }
