@@ -14,9 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FreeRequest {
 
-//    @ApiModelProperty(value = "게시물 번호(PK)")
-//    private Long id;
-
     @ApiModelProperty(value = "게시물 제목")
     private String title;
 

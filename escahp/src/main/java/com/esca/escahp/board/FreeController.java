@@ -44,7 +44,6 @@ public class FreeController {
         if (result == null)
             return ResponseEntity.noContent().build();
 
-        freeService.increaseViewCnt(id);
         return ResponseEntity.ok(result);
     }
 
