@@ -3,17 +3,22 @@ package com.esca.escahp.board.entity;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @NoArgsConstructor
 @Entity
-public class FreeBoard {
+@EntityListeners(AuditingEntityListener.class)
+    public class FreeBoard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,12 +33,18 @@ public class FreeBoard {
     @Column(nullable = false)
     private String writer;
 
+    @Column
     private String file;
 
+    @Column
+    @CreatedDate
     private LocalDateTime createdAt;
 
+    @Column
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    @Column
     private LocalDateTime deletedAt;
 
     @Column(nullable = false)
@@ -55,7 +66,6 @@ public class FreeBoard {
         this.writer = writer;
         this.file = file;
         this.deleteYn = "N";
-        this.createdAt = LocalDateTime.now();
     }
 
     public void delete() {
@@ -67,7 +77,6 @@ public class FreeBoard {
         this.title = title;
         this.content = content;
         this.file = file;
-        this.updatedAt = LocalDateTime.now();
     }
 
     public void increaseViewCnt() {
@@ -82,9 +91,10 @@ public class FreeBoard {
         this.likes = this.likes + 1;
     }
 
-    public void mosaicTitle() {
-        if (this.report >= 5) {
-            this.title = "블라인드된 글입니다.";
-        }
+    public String mosaicTitle() {
+        if (this.report >= 5)
+            return "블라인드된 글입니다.";
+        else
+            return this.title;
     }
 }
