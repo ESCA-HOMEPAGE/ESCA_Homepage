@@ -1,4 +1,4 @@
-package com.esca.escahp.auth.entity;
+package com.esca.escahp.user.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @Entity
 @Setter
 @NoArgsConstructor
-public class AuthDto {
+public class User {
 
 	@Id
 	@GeneratedValue
