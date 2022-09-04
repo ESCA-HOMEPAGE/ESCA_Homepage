@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Getter
 @Entity
@@ -35,11 +37,11 @@ public class StudyBoard {
     private String file;
 
     @Column(nullable = false)
-    @CreationTimestamp
+    @CreatedDate
     private LocalDateTime createdAt;
 
     @Column
-    @UpdateTimestamp
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
     @Column
