@@ -2,62 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.esca.escahp.mapper.StudyBoardDao">
-  <select id="getStudyBoardList" resultType="StudyBoardDto">
-    SELECT s.id
-         , s.category
-         , s.title
-         , IFNULL(u.nickname, "탈퇴 회원") as writer
-         , s.created_at
-         , s.view_cnt
-    FROM user u RIGHT OUTER JOIN study s
-                                 ON u.id = s.user_id
-    Where s.delete_yn = 'N'
-    ORDER BY s.id DESC
-  </select>
-
-  <select id="selectStudyBoard" parameterType="Long" resultType="StudyBoardDto">
-    SELECT s.id
-         , s.category
-         , s.title
-         , u.nickname as writer
-         , s.content
-         , s.file
-         , s.created_at
-         , s.updated_at
-         , s.view_cnt
-         , (SELECT COUNT(*) FROM studylikes WHERE post_id = s.id) as likes
-    FROM user u JOIN study s
-                     ON u.id = s.user_id
-    where delete_yn = 'N'
-      and id = #{id};
-
-  </select>
-
-  <insert id="addBoard" parameterType="StudyBoardDto" useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO study(category, title, content, file, view_cnt, user_id)
-    VALUES (#{category}, #{title}, #{content}, #{file}, #{viewCnt}, (select id from user where nickname = #{writer}));
-  </insert>
-
-  <update id="updateBoard" parameterType="StudyBoardDto">
-    UPDATE study
-    SET
-      category = #{category},
-      title = #{title},
-      content = #{content},
-      file = #{file},
-      updated_at = now()
-    where
-      id = #{id}
-  </update>
-
-  <update id="deleteBoard" parameterType="StudyBoardDto">
-    UPDATE study
-    SET
-      delete_yn = #{deleteYn},
-      deleted_at = now()
-    where
-      id = #{id}
-  </update>
 
   <update id="updateViewCnt" parameterType="studyBoardDto">
     UPDATE study

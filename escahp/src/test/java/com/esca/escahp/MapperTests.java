@@ -1,7 +1,7 @@
 package com.esca.escahp;
 
-import com.esca.escahp.dto.NoticeBoardDto;
-import com.esca.escahp.mapper.NoticeBoardDao;
+import com.esca.escahp.notice.dto.NoticeBoardDto;
+import com.esca.escahp.notice.repository.NoticeBoardDao;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ public class MapperTests {
                     System.out.println("==================================");
                     System.out.println(board.getTitle());
                     System.out.println(board.getWriter());
-                    System.out.println(board.getCreateAt());
+                    System.out.println(board.getCreatedAt());
                     System.out.println("==================================");
                 }
             }
