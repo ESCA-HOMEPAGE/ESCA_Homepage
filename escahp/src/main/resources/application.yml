@@ -17,11 +17,6 @@ spring:
         format_sql: true
         ddl-auto: create
     generate-ddl: true
-mybatis:
-  mapper-locations: classpath:mapper/**/*.xml
-  configuration:
-    map-underscore-to-camel-case: true
-  type-aliases-package: com.esca.escahp.dto
 
 logging:
   file:
