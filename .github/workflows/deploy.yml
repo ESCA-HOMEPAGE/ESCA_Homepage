@@ -35,4 +35,4 @@ jobs:
           # Path to an localized env file
           env_file: # optional, default is
           # The region in which you would like to deploy a server
-          region: "# optional, default is"
+          region: # optional, default is
