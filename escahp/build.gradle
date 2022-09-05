@@ -20,6 +20,7 @@ dependencies {
 	implementation 'org.projectlombok:lombok'
 	implementation 'junit:junit:4.13.2'
 	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
 	runtimeOnly 'mysql:mysql-connector-java'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'io.rest-assured:rest-assured:3.3.0'

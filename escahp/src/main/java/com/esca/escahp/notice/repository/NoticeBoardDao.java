@@ -3,8 +3,6 @@ package com.esca.escahp.notice.repository;
 import com.esca.escahp.notice.dto.NoticeBoardDto;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Repository;
 
 @Mapper
 public interface NoticeBoardDao {
