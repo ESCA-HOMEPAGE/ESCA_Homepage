@@ -5,8 +5,7 @@ server:
 
 spring:
   profiles:
-    active: local
-  # mysql setting
+    active: prod
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: mysql://b8875c88c31cf7:b6933a6a@us-cdbr-east-06.cleardb.net/heroku_a9f78cbacba7331?reconnect=true
