@@ -23,7 +23,7 @@ jobs:
           buildpack: "https://github.com/heroku/heroku-buildpack-gradle.git"
           branch: "develop"
           appdir: "escahp"
-          procfile: "web: java -Dserver.port=8080 -Dspring.properties.activate=prod -jar target/eschap-0.0.1-SNAPSHOT.jar"
+          procfile: "web: java -Dspring.properties.activate=prod -Dserver.port=$PORT $JAVA_OPTS -jar escahp/target/eschap-0.0.1-SNAPSHOT.jar"
           # A URL to which a healthcheck is performed (checks for 200 request)
           healthcheck: # optional, default is
           # Value to check for when conducting healthcheck request
