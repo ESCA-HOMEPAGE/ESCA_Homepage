@@ -1,0 +1,38 @@
+name: Deploy to Heroku
+
+on:
+  push:
+    branches: [ "develop" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Deploy to Heroku
+        uses: AkhileshNS/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.heroku_api_key }}
+          heroku_email: ${{ secrets.heroku_email }}
+          heroku_app_name: "esca-official"
+          buildpack: "https://github.com/heroku/heroku-buildpack-gradle.git"
+          branch: "develop"
+          appdir: "escahp"
+          procfile: "web: java -Dserver.port=$PORT -Dspring.properties.activate=prod -jar target/eschap-0.0.1-SNAPSHOT.jar"
+          # A URL to which a healthcheck is performed (checks for 200 request)
+          healthcheck: # optional, default is
+          # Value to check for when conducting healthcheck request
+          checkstring: # optional, default is
+          # Time (in seconds) to wait before performing healthcheck
+          delay: # optional, default is 0
+          # When set to true this will attempt to rollback to the previous release if the healthcheck fails
+          rollbackonhealthcheckfailed: # optional, default is false
+          # Path to an localized env file
+          env_file: # optional, default is
+          # The region in which you would like to deploy a server
+          region: # optional, default is
