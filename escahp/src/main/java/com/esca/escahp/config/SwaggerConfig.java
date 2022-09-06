@@ -2,8 +2,8 @@ package com.esca.escahp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.function.RouterFunction;
+import org.springframework.web.servlet.function.ServerResponse;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -11,21 +11,16 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import java.net.URI;
+
+import static org.springframework.web.servlet.function.RequestPredicates.GET;
+import static org.springframework.web.servlet.function.RouterFunctions.route;
 
 @Configuration
 @EnableSwagger2
-public class SwaggerConfig implements WebMvcConfigurer {
-
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("swagger-ui.html")
-			.addResourceLocations("classpath:/META-INF/resources/");
-		registry.addResourceHandler("/webjars/**")
-			.addResourceLocations("classpath:/META-INF/resources/webjars/");
-	}
-
+public class SwaggerConfig {
 	@Bean
-	public Docket infoV1(){
+	public Docket restAPI(){
 		final ApiInfo apiInfo = new ApiInfoBuilder()
 			.title("ESCA 홈페이지 게시판 API")
 			.version("1.0")
@@ -35,10 +30,13 @@ public class SwaggerConfig implements WebMvcConfigurer {
 			.useDefaultResponseMessages(false)
 			.apiInfo(apiInfo)
 			.select()
-			.apis(RequestHandlerSelectors.basePackage("com.esca.escahp.controller"))
+			.apis(RequestHandlerSelectors.basePackage("com.esca.escahp"))
 			.paths(PathSelectors.any())
 			.build();
 	}
-
-
+	@Bean
+	RouterFunction<ServerResponse> routerFunction() {
+		return route(GET("/docs"), req ->
+				ServerResponse.temporaryRedirect(URI.create("swagger-ui.html")).build());
+	}
 }
