@@ -78,5 +78,5 @@ public class GalleryBoard {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public void update(){this.viewCnt = this.viewCnt + 1;}
+    public void updateViewCount(){this.viewCnt = this.viewCnt + 1;}
 }

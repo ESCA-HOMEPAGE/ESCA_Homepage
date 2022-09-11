@@ -49,7 +49,6 @@ public class GalleryController {
     public ResponseEntity<GalleryResponse> insertGalleryBoard(
             @RequestBody GalleryRequest galleryBoard){
         Long id = galleryService.addBoard(galleryBoard);
-        System.out.println("/{id}");
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(id)

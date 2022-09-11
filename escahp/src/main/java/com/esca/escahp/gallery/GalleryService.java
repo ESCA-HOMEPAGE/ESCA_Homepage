@@ -65,11 +65,12 @@ public class GalleryService implements I_GalleryBoardService{
         delete.delete();
     }
 
+    @Transactional
     @Override
     public void updateViewCnt(long id){
         GalleryBoard board = galleryRepository.findById(id)
                 .orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글은 존재하지 않습니다."));
-        board.update();
+        board.updateViewCount();
     }
 }
 
