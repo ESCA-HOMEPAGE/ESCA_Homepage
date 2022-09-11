@@ -2,7 +2,6 @@ package com.esca.escahp.study;
 
 import com.esca.escahp.study.entity.StudyBoard;
 import com.esca.escahp.study.dto.StudyResponse;
-import com.esca.escahp.study.StudyService;
 import io.swagger.annotations.ApiOperation;
 import java.net.URI;
 import java.util.List;

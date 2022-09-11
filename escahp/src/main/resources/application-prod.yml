@@ -1,20 +1,19 @@
 server:
   port: 8080
+  servlet:
+    context-path: /api
 
 spring:
-  profiles:
-    active: local
-  # mysql setting
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/esca?&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false
-    username: root
-    password: ssafy  #escahp
+    url: mysql://b8875c88c31cf7:b6933a6a@us-cdbr-east-06.cleardb.net/heroku_a9f78cbacba7331?reconnect=true
+    username: b8875c88c31cf7
+    password: b6933a6a
   jpa:
     properties:
       hibernate:
-        show_sql: true
-        format_sql: true
+        show_sql: false
+        format_sql: false
         ddl-auto: create
     generate-ddl: true
 
