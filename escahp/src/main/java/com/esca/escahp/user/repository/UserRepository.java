@@ -1,7 +1,10 @@
 package com.esca.escahp.user.repository;
 
 import com.esca.escahp.user.entity.User;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -15,8 +18,16 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	* 	3 = 졸업기수
 	* 	4 = 회원가입 미인증 회원
 	* */
-	public User findByUserIdAndRank(
-		String userId,
-		int rank
+	User findByUserId(String userId);
+
+	User findByNicknameAndGeneration(
+		String nickname,
+		int generation
 	);
+
+	@Modifying
+	@Query(UserQuery.updatePassword)
+	boolean updatePassword(String password, long id);
+
+	User findByNameAndEmail(String name, String email);
 }
