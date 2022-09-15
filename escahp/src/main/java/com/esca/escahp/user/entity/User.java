@@ -1,5 +1,6 @@
 package com.esca.escahp.user.entity;
 
+import com.esca.escahp.user.dto.AuthRequest;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,4 +46,16 @@ public class User {
 	@Column
 	private String pr;
 
+	public User(AuthRequest auth){
+		this.id = auth.getId();
+		this.userId = auth.getUserId();
+		this.password = auth.getPassword();
+		this.generation = auth.getGeneration();
+		this.nickname = auth.getNickname();
+		this.name = auth.getName();
+		this.rank = auth.getRank();
+		this.email = auth.getEmail();
+		this.profileImg = auth.getProfileImg();
+		this.pr = auth.getPr();
+	}
 }
