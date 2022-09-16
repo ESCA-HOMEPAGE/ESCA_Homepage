@@ -38,10 +38,10 @@ public class NoticeBoard {
     @Column
     private String file;
 
-    @Column
+    @Column(nullable = false)
     private int likes;
 
-    @Column
+    @Column(nullable = false)
     private long viewCnt;
 
     @Column(updatable = false)
@@ -55,7 +55,7 @@ public class NoticeBoard {
     @Column
     private LocalDateTime deletedAt;
 
-    @Column
+    @Column(nullable = false)
     private String deleteYn;
 
     @Builder

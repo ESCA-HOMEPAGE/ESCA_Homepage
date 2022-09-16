@@ -1,46 +1,69 @@
 package com.esca.escahp.notice;
 
-import com.esca.escahp.notice.dto.NoticeBoardDto;
-import com.esca.escahp.notice.repository.NoticeBoardDao;
+import com.esca.escahp.notice.dto.NoticeRequest;
+import com.esca.escahp.notice.dto.NoticeResponse;
+import com.esca.escahp.notice.entity.NoticeBoard;
+import com.esca.escahp.notice.repository.NoticeRepository;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
 public class NoticeBoardService implements I_NoticeBoardService {
 
-    private final NoticeBoardDao noticeBoardDao;
+    private final NoticeRepository noticeRepository;
 
-    @Override
-    public List<NoticeBoardDto> selectNoticeBoardList(){
-        return noticeBoardDao.selectNoticeBoardList();
+    public NoticeBoardService(NoticeRepository noticeRepository) {
+        this.noticeRepository = noticeRepository;
     }
 
     @Override
-    public NoticeBoardDto selectNoticeBoard(long id){
-        return noticeBoardDao.selectNoticeBoard(id);
+    @Transactional(readOnly = true)
+    public List<NoticeResponse> getNoticeBoardList(){
+        return noticeRepository.findAll()
+                .stream()
+                .map(NoticeResponse::new)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void insertNoticeBoard(NoticeBoardDto params){
-        noticeBoardDao.insertNoticeBoard(params);
+    @Transactional(readOnly = true)
+    public NoticeResponse selectNoticeBoard(Long id){
+        NoticeBoard noticeBoard = noticeRepository.findById(id)
+            .orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글은 존재하지 않습니다."));
+        return new NoticeResponse(noticeBoard);
     }
 
     @Override
-    public void updateNoticeBoard(NoticeBoardDto params){
-        noticeBoardDao.updateNoticeBoard(params);
+    @Transactional
+    public Long insertNoticeBoard(NoticeRequest notice){
+        return noticeRepository.save(notice.toEntity()).getId();
     }
 
     @Override
-    public void deleteNoticeBoard(NoticeBoardDto params){
-        noticeBoardDao.deleteNoticeBoard(params);
+    @Transactional
+    public void updateNoticeBoard(Long id, NoticeRequest noticeBoard){
+        NoticeBoard notice = noticeRepository.findById(id)
+            .orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글은 존재하지 않습니다."));
+        notice.update(noticeBoard.getTitle(), noticeBoard.getContent(),
+            noticeBoard.getFile(), noticeBoard.getCategory());
     }
 
     @Override
-    public void updateViewCount(long id){
-        noticeBoardDao.updateViewCount(id);
+    @Transactional
+    public void deleteNoticeBoard(Long id){
+        NoticeBoard notice = noticeRepository.findById(id)
+            .orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글은 존재하지 않습니다."));
+        notice.delete();
+    }
+
+    @Override
+    @Transactional
+    public void updateViewCount(Long id){
+        NoticeBoard notice = noticeRepository.findById(id)
+            .orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글은 존재하지 않습니다."));
+        notice.updateViewCnt();
+
     }
 }

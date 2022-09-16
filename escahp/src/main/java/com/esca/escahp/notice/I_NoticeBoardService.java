@@ -1,30 +1,19 @@
 package com.esca.escahp.notice;
 
-import com.esca.escahp.notice.dto.NoticeBoardDto;
-import com.esca.escahp.notice.repository.NoticeBoardDao;
+import com.esca.escahp.notice.dto.NoticeRequest;
+import com.esca.escahp.notice.dto.NoticeResponse;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Service;
 
 public interface I_NoticeBoardService {
+    List<NoticeResponse> getNoticeBoardList();
 
-    // 게시글 목록 조회 서비스
-    public List<NoticeBoardDto> selectNoticeBoardList();
+    NoticeResponse selectNoticeBoard(Long id);
 
-    // 단일 게시글 조회 서비스
-    public NoticeBoardDto selectNoticeBoard(long id);
+    Long insertNoticeBoard(NoticeRequest notice);
 
-    // 게시글 생성 서비스
-    public void insertNoticeBoard(NoticeBoardDto params);
+    void updateNoticeBoard(Long id, NoticeRequest noticeBoard);
 
-    // 게시글 수정 서비스
-    public void updateNoticeBoard(NoticeBoardDto noticeBoardDto);
+    void deleteNoticeBoard(Long id);
 
-    // 게시글 삭제 서비스
-    public void deleteNoticeBoard(NoticeBoardDto params);
-
-    // 게시글 조회수 서비스
-    public void updateViewCount(long id);
+    void updateViewCount(Long id);
 }
