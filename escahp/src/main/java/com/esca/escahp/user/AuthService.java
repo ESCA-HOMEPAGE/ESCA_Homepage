@@ -1,13 +1,11 @@
 package com.esca.escahp.user;
 
 import com.esca.escahp.user.code.UserCode;
-import com.esca.escahp.user.dto.AuthResponse;
 import com.esca.escahp.user.entity.User;
 import com.esca.escahp.user.exception.ResourceNotFoundException;
 import com.esca.escahp.user.exception.SignUpException;
 import com.esca.escahp.user.repository.UserRepository;
 import java.util.Random;
-import org.apache.ibatis.ognl.BooleanExpression;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +27,7 @@ public class AuthService implements I_AuthService{
 
 	@Transactional
 	@Override
-	public void addUser(User auth) {
+	public User addUser(User auth) {
 		// 1. 아이디 중복 체크
 		User user = checkUserId(auth.getUserId());
 		if(user.getRank() != 4) throw new SignUpException("이미 회원가입된 회원입니다.");
@@ -43,11 +41,12 @@ public class AuthService implements I_AuthService{
 		// 3. 회원가입
 		if(user != null)
 			auth.setId(user.getId());
-		userRepository.save(auth);
+		User result = userRepository.save(auth);
 
 		// 4. 회원인증 메일 전송
 		sendEmail(auth.getEmail(), UserCode.VALIDATE.name(), "");
 
+		return result;
 	}
 
 	@Override
@@ -57,27 +56,28 @@ public class AuthService implements I_AuthService{
 
 	@Transactional
 	@Override
-	public void resetPassword(String userId, String oldPassword, String newPassword) {
+	public boolean resetPassword(String userId, String oldPassword, String newPassword) {
 		User user = userRepository.findByUserId(userId);
 		if(user == null || user.getRank() == 4) throw new ResourceNotFoundException(userId, "아이디가 다릅니다.");
 		if(user.getPassword() != oldPassword) throw new SignUpException("비밀번호가 다릅니다.");
 
-		userRepository.updatePassword(newPassword, user.getId());
+		return userRepository.updatePassword(newPassword, user.getId());
 	}
 
 	@Transactional
 	@Override
-	public void resetPassword(String userId){
+	public boolean resetPassword(String userId){
 		// 1. 회원 정보
 		User user = userRepository.findByUserId(userId);
 
 		// 2. 비밀번호 초기화
 		String newPassword = randomPassword();
-		userRepository.updatePassword(newPassword, user.getId());
+		boolean result = userRepository.updatePassword(newPassword, user.getId());
 
 		// 3. 비밀번호 메일로 전송
 		sendEmail(user.getEmail(), UserCode.RESET_PASSWORD.name(), newPassword);
 
+		return result;
 	}
 
 	@Override

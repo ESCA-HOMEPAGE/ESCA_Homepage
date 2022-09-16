@@ -1,6 +1,5 @@
 package com.esca.escahp.user;
 
-import com.esca.escahp.user.dto.AuthResponse;
 import com.esca.escahp.user.entity.User;
 
 public interface I_AuthService {
@@ -9,16 +8,16 @@ public interface I_AuthService {
 	public User checkUserId(String userId);
 
 	// 회원가입
-	public void addUser(User auth);
+	public User addUser(User auth);
 
 	// 회원가입 인증
 	public void sendEmail(String email, String code, String message);
 
 	// 비밀번호 변경
-	public void resetPassword(String userId, String oldPassword, String password);
+	public boolean resetPassword(String userId, String oldPassword, String password);
 
 	// 비밀번호 초기화
-	public void resetPassword(String userId);
+	public boolean resetPassword(String userId);
 
 	// 랜덤 비밀번호 생성
 	public String randomPassword();
