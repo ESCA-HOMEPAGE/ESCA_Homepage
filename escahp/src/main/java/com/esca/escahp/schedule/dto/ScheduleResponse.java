@@ -1,5 +1,6 @@
 package com.esca.escahp.schedule.dto;
 
+import com.esca.escahp.schedule.entity.Schedule;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,4 +38,14 @@ public class ScheduleResponse {
 
     @ApiModelProperty(value = "수정일자")
     private LocalDateTime updatedAt;
+
+    public ScheduleResponse(Schedule schedule) {
+        this.id = schedule.getId();
+        this.tag = schedule.getTag();
+        this.content = schedule.getContent();
+        this.startDate = schedule.getStartDate();
+        this.endDate = schedule.getEndDate();
+        this.createdAt = schedule.getCreatedAt();
+        this.updatedAt = schedule.getUpdatedAt();
+    }
 }
