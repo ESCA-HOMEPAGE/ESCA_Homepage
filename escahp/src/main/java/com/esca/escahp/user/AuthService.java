@@ -28,22 +28,20 @@ public class AuthService implements I_AuthService{
 	@Transactional
 	@Override
 	public User addUser(User auth) {
-		// 1. 아이디 중복 체크
 		User user = checkUserId(auth.getUserId());
-		if(user.getRank() != 4) throw new SignUpException("이미 회원가입된 회원입니다.");
+		if(user != null && user.getRank() != 4) throw new SignUpException("이미 회원가입된 회원입니다.");
 
-		// 2. 닉네임 체크
-		if(userRepository.findByNicknameAndGeneration(
+		User nickname = userRepository.findByNicknameAndGeneration(
 			auth.getNickname(),
 			auth.getGeneration()
-		) != null) throw new SignUpException("중복된 닉네임입니다.");
+		);
 
-		// 3. 회원가입
+		if(nickname != null) throw new SignUpException("중복된 닉네임입니다.");
+
 		if(user != null)
 			auth.setId(user.getId());
 		User result = userRepository.save(auth);
 
-		// 4. 회원인증 메일 전송
 		sendEmail(auth.getEmail(), UserCode.VALIDATE.name(), "");
 
 		return result;
@@ -67,14 +65,11 @@ public class AuthService implements I_AuthService{
 	@Transactional
 	@Override
 	public void resetPassword(String userId){
-		// 1. 회원 정보
 		User user = userRepository.findByUserId(userId);
 
-		// 2. 비밀번호 초기화
 		String newPassword = randomPassword();
 		user.updatePassword(newPassword);
 
-		// 3. 비밀번호 메일로 전송
 		sendEmail(user.getEmail(), UserCode.RESET_PASSWORD.name(), newPassword);
 	}
 
