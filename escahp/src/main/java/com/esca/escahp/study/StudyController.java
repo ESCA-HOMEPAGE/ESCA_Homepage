@@ -2,6 +2,7 @@ package com.esca.escahp.study;
 
 import com.esca.escahp.study.entity.StudyBoard;
 import com.esca.escahp.study.dto.StudyResponse;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.net.URI;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+@Api(tags = {"Study"})
 @RestController
 @RequestMapping("/study")
 @CrossOrigin(origins = {"*"})

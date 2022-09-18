@@ -9,7 +9,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import io.swagger.annotations.Api;
+import org.springframework.web.bind.annotation.RestController;
 
+@Api(tags = {"Schedule"})
 @RestController
 @RequestMapping("/schedules")
 @CrossOrigin(origins = {"*"})
