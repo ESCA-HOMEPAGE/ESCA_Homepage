@@ -19,15 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = {"User"})
+@Api(tags = {"Auth"})
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = {"*"})
 public class AuthController {
 
 	private final AuthService authService;
-
-	private final String SUCCESS = "SUCCESS";
 
 	public AuthController(AuthService authService) { this.authService = authService; }
 
@@ -51,27 +49,27 @@ public class AuthController {
 
 	@ApiOperation(value = "사용자 자의에 의한 비밀번호 변경")
 	@PutMapping("/change-password")
-	public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request) {
+	public ResponseEntity<Void> changePassword(@RequestBody ChangePasswordRequest request) {
 		authService.resetPassword(
 					request.getUserId(),
 					request.getOldPassword(),
 					request.getOldPassword()
 				);
 
-		return ResponseEntity.ok().body("");
+		return ResponseEntity.noContent().build();
 	}
 
 	@ApiOperation(value = "분실한 비밀번호 재설정")
 	@PutMapping("/reset-password")
-	public ResponseEntity<String> resetPassword(@RequestBody String userId) {
+	public ResponseEntity<Void> resetPassword(@RequestBody String userId) {
 		authService.resetPassword(userId);
-		return ResponseEntity.ok().body("");
+		return ResponseEntity.noContent().build();
 	}
 
 	@ApiOperation(value = "회원탈퇴")
 	@DeleteMapping
-	public ResponseEntity<String> deleteUser(@RequestBody Long id){
+	public ResponseEntity<Void> deleteUser(@RequestBody Long id){
 		authService.deleteUser(id);
-		return ResponseEntity.ok().body(SUCCESS);
+		return ResponseEntity.noContent().build();
 	}
 }
