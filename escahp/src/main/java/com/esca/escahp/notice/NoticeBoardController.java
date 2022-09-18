@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+@Api(tags = "Notice")		// 스웨거 설정
 @RestController
 @RequestMapping("/notice")
 @RequiredArgsConstructor
 @CrossOrigin(origins = {"*"})        // 외부에서도 접속이 가능하게 해주는 어노테이션
-@Api(value = "NoticeBoardDto")		// 스웨거 설정
 public class NoticeBoardController {
 
     private final I_NoticeBoardService noticeBoardService;
