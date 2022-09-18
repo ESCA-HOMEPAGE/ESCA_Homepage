@@ -14,10 +14,10 @@ public interface I_AuthService {
 	public void sendEmail(String email, String code, String message);
 
 	// 비밀번호 변경
-	public boolean resetPassword(String userId, String oldPassword, String password);
+	public void resetPassword(String userId, String oldPassword, String password);
 
 	// 비밀번호 초기화
-	public boolean resetPassword(String userId);
+	public void resetPassword(String userId);
 
 	// 랜덤 비밀번호 생성
 	public String randomPassword();
