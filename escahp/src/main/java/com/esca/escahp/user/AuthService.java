@@ -56,28 +56,26 @@ public class AuthService implements I_AuthService{
 
 	@Transactional
 	@Override
-	public boolean resetPassword(String userId, String oldPassword, String newPassword) {
+	public void resetPassword(String userId, String oldPassword, String newPassword) {
 		User user = userRepository.findByUserId(userId);
 		if(user == null || user.getRank() == 4) throw new ResourceNotFoundException(userId, "아이디가 다릅니다.");
 		if(user.getPassword() != oldPassword) throw new SignUpException("비밀번호가 다릅니다.");
 
-		return userRepository.updatePassword(newPassword, user.getId());
+		user.updatePassword(newPassword);
 	}
 
 	@Transactional
 	@Override
-	public boolean resetPassword(String userId){
+	public void resetPassword(String userId){
 		// 1. 회원 정보
 		User user = userRepository.findByUserId(userId);
 
 		// 2. 비밀번호 초기화
 		String newPassword = randomPassword();
-		boolean result = userRepository.updatePassword(newPassword, user.getId());
+		user.updatePassword(newPassword);
 
 		// 3. 비밀번호 메일로 전송
 		sendEmail(user.getEmail(), UserCode.RESET_PASSWORD.name(), newPassword);
-
-		return result;
 	}
 
 	@Override

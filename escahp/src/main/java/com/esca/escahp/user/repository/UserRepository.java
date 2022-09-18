@@ -25,9 +25,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 		int generation
 	);
 
-	@Modifying
-	@Query(UserQuery.updatePassword)
-	boolean updatePassword(String password, long id);
-
 	User findByNameAndEmail(String name, String email);
 }

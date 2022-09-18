@@ -58,4 +58,8 @@ public class User {
 		this.profileImg = auth.getProfileImg();
 		this.pr = auth.getPr();
 	}
+
+	public void updatePassword(String newPassword) {
+		this.password = newPassword;
+	}
 }

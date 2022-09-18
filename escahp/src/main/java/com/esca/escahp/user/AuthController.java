@@ -49,19 +49,20 @@ public class AuthController {
 	@ApiOperation(value = "사용자 자의에 의한 비밀번호 변경")
 	@PutMapping("/change-password")
 	public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request) {
-		boolean result = authService.resetPassword(
-							request.getUserId(),
-							request.getOldPassword(),
-							request.getOldPassword()
-						);
+		authService.resetPassword(
+					request.getUserId(),
+					request.getOldPassword(),
+					request.getOldPassword()
+				);
 
-		return (result) ? ResponseEntity.ok().body(SUCCESS) : ResponseEntity.badRequest().body(FAIL);
+		return ResponseEntity.ok().body(SUCCESS);
 	}
 
 	@ApiOperation(value = "분실한 비밀번호 재설정")
 	@PutMapping("/reset-password")
 	public ResponseEntity<String> resetPassword(@RequestBody String userId) {
-		return (authService.resetPassword(userId)) ? ResponseEntity.ok().body(SUCCESS) : ResponseEntity.badRequest().body(FAIL);
+		authService.resetPassword(userId);
+		return ResponseEntity.ok().body(SUCCESS);
 	}
 
 	@ApiOperation(value = "회원탈퇴")
