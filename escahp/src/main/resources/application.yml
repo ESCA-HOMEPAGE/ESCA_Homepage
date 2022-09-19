@@ -4,7 +4,6 @@ server:
 spring:
   profiles:
     active: local
-  # mysql setting
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/esca?&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false
@@ -17,6 +16,18 @@ spring:
         format_sql: true
         ddl-auto: create
     generate-ddl: true
+
+cloud:
+  aws:
+    credentials:
+      accessKey: ${AWS_ACCESS_KEY_ID}
+      secretKey: ${AWS_SECRET_ACCESS_KEY}
+    s3:
+      bucket: ${AWS_BUCKET_NAME}
+    region:
+      static: ${AWS_REGION}
+    stack:
+      auto: false
 
 logging:
   file:
