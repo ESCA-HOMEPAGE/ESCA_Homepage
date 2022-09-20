@@ -29,7 +29,7 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 
 	//aws
-	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+	implementation 'com.amazonaws:aws-java-sdk-s3:1.12.300'
 
 	/** https://mvnrepository.com/ 추가할 라이브러리 찾기 편한 사이트입니다. */
 	// 스웨거 설정 추가
