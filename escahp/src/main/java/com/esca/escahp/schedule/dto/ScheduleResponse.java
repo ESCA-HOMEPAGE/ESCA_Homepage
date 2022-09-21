@@ -41,6 +41,7 @@ public class ScheduleResponse {
 
     public ScheduleResponse(Schedule schedule) {
         this.id = schedule.getId();
+        this.title = schedule.getTitle();
         this.tag = schedule.getTag();
         this.content = schedule.getContent();
         this.startDate = schedule.getStartDate();
