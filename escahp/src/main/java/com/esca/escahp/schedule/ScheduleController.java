@@ -40,7 +40,7 @@ public class ScheduleController {
 
     @ApiOperation(value = "연간일정 등록")
     @PostMapping
-    public ResponseEntity<ScheduleResponse> insertSchedule(@RequestBody ScheduleRequest request) {
+    public ResponseEntity<Void> insertSchedule(@RequestBody ScheduleRequest request) {
         ScheduleResponse response = scheduleService.addSchedule(request);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
