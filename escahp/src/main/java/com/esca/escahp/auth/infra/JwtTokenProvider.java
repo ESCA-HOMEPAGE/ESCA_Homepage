@@ -1,5 +1,7 @@
 package com.esca.escahp.auth.infra;
 
+import com.esca.escahp.auth.exception.AuthExceptionSet;
+import com.esca.escahp.exception.EscaException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import org.springframework.stereotype.Component;
@@ -14,7 +16,7 @@ public class JwtTokenProvider {
             Jwts.parser().setSigningKey(secretKey.getBytes()).parseClaimsJws(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            throw new RuntimeException("invalid token");
+            throw new EscaException(AuthExceptionSet.INVALID_TOKEN);
         }
     }
 }

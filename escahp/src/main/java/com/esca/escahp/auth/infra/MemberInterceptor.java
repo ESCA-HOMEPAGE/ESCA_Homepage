@@ -1,5 +1,7 @@
 package com.esca.escahp.auth.infra;
 
+import com.esca.escahp.auth.exception.AuthExceptionSet;
+import com.esca.escahp.exception.EscaException;
 import lombok.AllArgsConstructor;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -17,6 +19,6 @@ public class MemberInterceptor extends AbstractInterceptor {
         if (token != null && token.length() > 0) {
             return jwtTokenProvider.validateToken(token);
         }
-        throw new RuntimeException("invalid token");
+        throw new EscaException(AuthExceptionSet.INVALID_TOKEN);
     }
 }
