@@ -11,7 +11,7 @@ public abstract class AbstractInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
-                             Object handler) throws Exception {
+                             Object handler) {
         if (HttpMethod.OPTIONS.matches(request.getMethod()) || process(request)) {
             return true;
         }
@@ -19,5 +19,5 @@ public abstract class AbstractInterceptor implements HandlerInterceptor {
         return false;
     }
 
-    abstract boolean process(HttpServletRequest request) throws Exception;
+    abstract boolean process(HttpServletRequest request);
 }
