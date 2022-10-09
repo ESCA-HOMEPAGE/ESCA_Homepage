@@ -1,18 +1,10 @@
 package com.esca.escahp.gallery;
 
-import com.esca.escahp.gallery.dto.GalleryBoardDto;
 import com.esca.escahp.gallery.dto.GalleryRequest;
 import com.esca.escahp.gallery.dto.GalleryResponse;
 import com.esca.escahp.gallery.entity.GalleryBoard;
-import com.esca.escahp.gallery.repository.GalleryBoardDao;
 import com.esca.escahp.gallery.repository.GalleryRepository;
-import com.esca.escahp.study.StudyService;
-import com.esca.escahp.study.entity.StudyBoard;
-import com.esca.escahp.study.repository.StudyRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -23,6 +15,7 @@ public class GalleryService implements I_GalleryBoardService{
 
 
     private final GalleryRepository galleryRepository;
+
 
     public GalleryService(GalleryRepository galleryRepository){this.galleryRepository = galleryRepository;}
 
@@ -72,5 +65,7 @@ public class GalleryService implements I_GalleryBoardService{
                 .orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글은 존재하지 않습니다."));
         board.updateViewCount();
     }
+
+
 }
 

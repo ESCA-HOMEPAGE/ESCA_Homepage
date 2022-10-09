@@ -58,6 +58,5 @@ public class GalleryResponse {
         this.deletedAt = galleryBoard.getDeletedAt();
         this.deleteYn = galleryBoard.getDeleteYn();
         this.viewCnt = galleryBoard.getViewCnt();
-        this.likes = galleryBoard.getLikes();
     }
 }
