@@ -1,11 +1,18 @@
 package com.esca.escahp.user;
 
+import com.esca.escahp.exception.EscaException;
 import com.esca.escahp.user.code.UserCode;
+import com.esca.escahp.user.config.JwtTokenProvider;
+import com.esca.escahp.user.dto.LoginRequest;
+import com.esca.escahp.user.dto.LoginResponse;
 import com.esca.escahp.user.entity.User;
 import com.esca.escahp.user.exception.ResourceNotFoundException;
 import com.esca.escahp.user.exception.SignUpException;
 import com.esca.escahp.user.repository.UserRepository;
+import java.security.InvalidParameterException;
 import java.util.Random;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +20,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthService implements I_AuthService{
 
 	private final UserRepository userRepository;
+	private final JwtTokenProvider jwtTokenProvider;
 
-	public AuthService(UserRepository userRepository) {
+	public AuthService(UserRepository userRepository, JwtTokenProvider jwtTokenProvider) {
 		this.userRepository = userRepository;
+		this.jwtTokenProvider = jwtTokenProvider;
 	}
 
 	@Override
@@ -102,5 +111,17 @@ public class AuthService implements I_AuthService{
 		if(user == null) throw new ResourceNotFoundException(name, "일치하는 회원이 없습니다.");
 
 		return user.getUserId();
+	}
+
+	public String login(LoginRequest loginRequest){
+		if(loginRequest.getJwtToken() != null)
+			return loginRequest.getJwtToken();
+
+		User user = userRepository.findByUserId(loginRequest.getUserId());
+		if(user == null || !user.getPassword().equals(loginRequest.getPassword()))
+			throw new InvalidParameterException("아이디나 비밀번호가 다릅니다.");
+
+		String token = jwtTokenProvider.createToken(user.getUserId(), user.getRoles());
+		return token;
 	}
 }
