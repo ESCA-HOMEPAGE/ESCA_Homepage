@@ -1,14 +1,8 @@
-package com.esca.escahp.user.config;
+package com.esca.escahp.auth.config;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -19,7 +13,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 @Component
 public class JwtTokenProvider {
-    @Value("${jwt.secret}")  // jwt secret key -> application-local.yml에 설정
+    @Value("${jwt.secret}")
     private String secretKey;
     private final long tokenValidMillisecond = 1000L * 60 * 60; // 1시간 토큰 유효
 
@@ -28,14 +22,14 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    // Jwt 토큰 생성
-    public String createToken(String userPk) {
-        Claims claims = Jwts.claims().setSubject(userPk);
+    public String createToken(String payload) {
+        Claims claims = Jwts.claims().setSubject(payload);
         Date now = new Date();
+        Date validity = new Date(now.getTime() + tokenValidMillisecond);
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + tokenValidMillisecond))
+                .setExpiration(validity)
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
@@ -47,8 +41,13 @@ public class JwtTokenProvider {
 //    }
 
     // Jwt 토큰에서 회원 구별 정보 추출
-    public String getUserPk(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+    public String extractId(String token) {
+        if (!validateToken(token)) {
+            throw new RuntimeException();
+        }
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 
     // Request의 Header에서 token 파싱 : "X-AUTH-TOKEN: jwt토큰"
@@ -56,12 +55,11 @@ public class JwtTokenProvider {
         return req.getHeader("X-AUTH-TOKEN");
     }
 
-    // Jwt 토큰의 유효성 + 만료일자 확인
-    public boolean validateToken(String jwtToken) {
+    public boolean validateToken(String token) {
         try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
+            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return !claims.getBody().getExpiration().before(new Date());
-        } catch (Exception e) {
+        } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
     }

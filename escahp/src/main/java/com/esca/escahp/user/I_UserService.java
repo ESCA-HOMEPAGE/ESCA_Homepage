@@ -1,9 +1,9 @@
 package com.esca.escahp.user;
 
-import com.esca.escahp.user.dto.LoginRequest;
+import com.esca.escahp.auth.dto.LoginRequest;
 import com.esca.escahp.user.entity.User;
 
-public interface I_AuthService {
+public interface I_UserService {
 
 	User checkUserId(String userId);
 
@@ -20,6 +20,4 @@ public interface I_AuthService {
 	void deleteUser(Long id);
 
 	String findUserId(String name, String email);
-
-	String login(LoginRequest loginRequest);
 }

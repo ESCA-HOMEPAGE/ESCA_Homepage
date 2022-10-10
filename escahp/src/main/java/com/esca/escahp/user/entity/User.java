@@ -1,6 +1,6 @@
 package com.esca.escahp.user.entity;
 
-import com.esca.escahp.user.dto.AuthRequest;
+import com.esca.escahp.user.dto.UserRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -47,7 +47,7 @@ public class User {
     @Column
     private String pr;
 
-    public User(AuthRequest auth) {
+    public User(UserRequest auth) {
         this.id = auth.getId();
         this.userId = auth.getUserId();
         this.password = auth.getPassword();

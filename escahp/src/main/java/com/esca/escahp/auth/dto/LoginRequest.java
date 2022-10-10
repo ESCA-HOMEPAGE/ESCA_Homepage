@@ -1,4 +1,4 @@
-package com.esca.escahp.user.dto;
+package com.esca.escahp.auth.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

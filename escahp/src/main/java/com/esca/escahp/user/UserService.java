@@ -1,8 +1,8 @@
 package com.esca.escahp.user;
 
 import com.esca.escahp.user.code.UserCode;
-import com.esca.escahp.user.config.JwtTokenProvider;
-import com.esca.escahp.user.dto.LoginRequest;
+import com.esca.escahp.auth.config.JwtTokenProvider;
+import com.esca.escahp.auth.dto.LoginRequest;
 import com.esca.escahp.user.entity.User;
 import com.esca.escahp.user.exception.ResourceNotFoundException;
 import com.esca.escahp.user.exception.SignUpException;
@@ -14,12 +14,12 @@ import java.security.InvalidParameterException;
 import java.util.Random;
 
 @Service
-public class AuthService implements I_AuthService {
+public class UserService implements I_UserService {
 
     private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public AuthService(UserRepository userRepository, JwtTokenProvider jwtTokenProvider) {
+    public UserService(UserRepository userRepository, JwtTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
     }

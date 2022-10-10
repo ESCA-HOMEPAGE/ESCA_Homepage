@@ -1,4 +1,4 @@
-package com.esca.escahp.user;
+package com.esca.escahp.auth;
 
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/users")
 @CrossOrigin(origins = {"*"})
-public class LoginController {
+public class AuthController {
 	
 }
