@@ -20,3 +20,5 @@ spring:
         ddl-auto: create
         enable_lazy_load_no_trans: true
     generate-ddl: true
+jwt:
+  secret: jwt
