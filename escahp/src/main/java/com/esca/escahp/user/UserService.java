@@ -1,8 +1,6 @@
 package com.esca.escahp.user;
 
 import com.esca.escahp.user.code.UserCode;
-import com.esca.escahp.auth.config.JwtTokenProvider;
-import com.esca.escahp.auth.dto.LoginRequest;
 import com.esca.escahp.user.entity.User;
 import com.esca.escahp.user.exception.ResourceNotFoundException;
 import com.esca.escahp.user.exception.SignUpException;
@@ -11,17 +9,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.InvalidParameterException;
+import java.util.Objects;
 import java.util.Random;
 
 @Service
 public class UserService implements I_UserService {
 
     private final UserRepository userRepository;
-    private final JwtTokenProvider jwtTokenProvider;
 
-    public UserService(UserRepository userRepository, JwtTokenProvider jwtTokenProvider) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @Override
@@ -63,7 +60,7 @@ public class UserService implements I_UserService {
     public void resetPassword(String userId, String oldPassword, String newPassword) {
         User user = userRepository.findByUserId(userId);
         if (user == null || user.getRank() == 4) throw new ResourceNotFoundException(userId, "아이디가 다릅니다.");
-        if (user.getPassword() != oldPassword) throw new SignUpException("비밀번호가 다릅니다.");
+        if (!Objects.equals(user.getPassword(), oldPassword)) throw new SignUpException("비밀번호가 다릅니다.");
 
         user.updatePassword(newPassword);
     }
@@ -110,15 +107,11 @@ public class UserService implements I_UserService {
         return user.getUserId();
     }
 
-    public String login(LoginRequest loginRequest) {
-        if (loginRequest.getJwtToken() != null)
-            return loginRequest.getJwtToken();
-
-        User user = userRepository.findByUserId(loginRequest.getUserId());
-        if (user == null || !user.getPassword().equals(loginRequest.getPassword()))
+    @Override
+    public User findUserByLoginInfo(String userId, String password) {
+        User user = userRepository.findByUserId(userId);
+        if (user == null || !user.getPassword().equals(password))
             throw new InvalidParameterException("아이디나 비밀번호가 다릅니다.");
-
-        String token = jwtTokenProvider.createToken(user.getUserId());
-        return token;
+        return user;
     }
 }

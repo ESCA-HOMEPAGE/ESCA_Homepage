@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "분실한 비밀번호 재설정")
-    @PutMapping("/help/myInfo")
+    @PutMapping("/help")
     public ResponseEntity<Void> resetPassword(@RequestBody String userId) {
         userService.resetPassword(userId);
         return ResponseEntity.noContent().build();

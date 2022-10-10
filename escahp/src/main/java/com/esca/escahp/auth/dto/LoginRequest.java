@@ -8,5 +8,4 @@ import lombok.NoArgsConstructor;
 public class LoginRequest {
     String userId;
     String password;
-    String jwtToken;
 }
