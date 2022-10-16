@@ -32,3 +32,5 @@ cloud:
       static: region
     stack:
       auto: false
+jwt:
+  secret: jwt

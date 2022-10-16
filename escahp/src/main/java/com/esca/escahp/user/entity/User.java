@@ -1,15 +1,16 @@
 package com.esca.escahp.user.entity;
 
-import com.esca.escahp.user.dto.AuthRequest;
-import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.esca.escahp.user.dto.UserRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.util.Objects;
 
 @Getter
 @Entity
@@ -17,37 +18,49 @@ import lombok.Setter;
 @NoArgsConstructor
 public class User {
 
-	@Id
-	@GeneratedValue
-	private long id;
+    @Id
+    @GeneratedValue
+    private long id;
 
-	@Column(nullable = false)
-	private String userId;
+    @Column(nullable = false, unique = true)
+    private String userId;
 
-	@Column(nullable = false)
-	private String password;
+    @Column(nullable = false)
+    private String password;
 
-	@Column(nullable = false)
-	private int generation;
+    @Column(nullable = false)
+    private int generation;
 
-	@Column(nullable = false)
-	private String nickname;
+    @Column(nullable = false)
+    private String nickname;
 
-	@Column(nullable = false)
-	private String name;
+    @Column(nullable = false)
+    private String name;
 
-	@Column
-	private int rank;
+    @Column
+    private int rank;
 
-	@Column(nullable = false)
-	private String email;
+    @Column(nullable = false)
+    private String email;
 
-	@Column
-	private String profileImg;
+    @Column
+    private String profileImg;
 
-	@Column
-	private String pr;
+    @Column
+    private String pr;
 
+    public User(UserRequest auth) {
+        this.id = auth.getId();
+        this.userId = auth.getUserId();
+        this.password = auth.getPassword();
+        this.generation = auth.getGeneration();
+        this.nickname = auth.getNickname();
+        this.name = auth.getName();
+        this.rank = auth.getRank();
+        this.email = auth.getEmail();
+        this.profileImg = auth.getProfileImg();
+        this.pr = auth.getPr();
+    }
 	@Builder
 	public User(String userId, String password, int generation, String nickname, String name,
 		int rank, String email, String profileImg, String pr) {
@@ -61,19 +74,6 @@ public class User {
 		this.email = email;
 		this.profileImg = profileImg;
 		this.pr = pr;
-	}
-
-	public User(AuthRequest auth){
-		this.id = auth.getId();
-		this.userId = auth.getUserId();
-		this.password = auth.getPassword();
-		this.generation = auth.getGeneration();
-		this.nickname = auth.getNickname();
-		this.name = auth.getName();
-		this.rank = auth.getRank();
-		this.email = auth.getEmail();
-		this.profileImg = auth.getProfileImg();
-		this.pr = auth.getPr();
 	}
 
 	public void updatePassword(String newPassword) {

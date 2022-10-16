@@ -1,7 +1,7 @@
 plugins {
-	id 'org.springframework.boot' version '2.5.5'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id 'java'
+    id 'org.springframework.boot' version '2.5.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
 }
 
 group = 'com.esca'
@@ -9,10 +9,11 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//implementation 'org.flywaydb:flyway-core:7.14.0'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
@@ -28,7 +29,6 @@ dependencies {
 	testAnnotationProcessor 'org.projectlombok:lombok'
 	compileOnly 'org.projectlombok:lombok'
 
-	//aws
 	implementation 'com.amazonaws:aws-java-sdk-s3:1.12.300'
 
 	/** https://mvnrepository.com/ 추가할 라이브러리 찾기 편한 사이트입니다. */
@@ -37,12 +37,14 @@ dependencies {
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 
+    implementation 'org.springframework.security:spring-security-test'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
 }
 
 bootJar {
-	destinationDirectory = file("./target")
+    destinationDirectory = file("./target")
 }
 
 test {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
