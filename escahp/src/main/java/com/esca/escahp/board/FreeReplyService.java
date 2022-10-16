@@ -4,7 +4,7 @@ import com.esca.escahp.board.dto.FreeReplyRequest;
 import com.esca.escahp.board.dto.FreeReplyResponse;
 import com.esca.escahp.board.entity.FreeBoard;
 import com.esca.escahp.board.entity.FreeReply;
-import com.esca.escahp.board.exceptions.BoardExceptions;
+import com.esca.escahp.common.exceptions.BoardExceptions;
 import com.esca.escahp.board.repository.FreeReplyRepository;
 import com.esca.escahp.board.repository.FreeRepository;
 import com.esca.escahp.exception.EscaException;

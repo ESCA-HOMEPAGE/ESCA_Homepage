@@ -1,4 +1,4 @@
-package com.esca.escahp.board.exceptions;
+package com.esca.escahp.common.exceptions;
 
 import com.esca.escahp.exception.CustomException;
 import org.springframework.http.HttpStatus;
