@@ -4,7 +4,8 @@ import com.esca.escahp.exception.CustomException;
 import org.springframework.http.HttpStatus;
 
 public enum UserExceptions implements CustomException {
-    NOT_FOUND_USER("유효하지 않은 유저 정보입니다.", HttpStatus.UNAUTHORIZED.value());
+    NOT_FOUND_USER("유효하지 않은 유저 정보입니다.", HttpStatus.UNAUTHORIZED.value()),
+    ALREADY_RANK_UP_USER("이미 등급이 변경된 유저입니다.", HttpStatus.UNAUTHORIZED.value());
 
     private final String message;
     private final int status;
