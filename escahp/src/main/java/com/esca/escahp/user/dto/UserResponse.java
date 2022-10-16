@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class AuthRequest {
+public class UserResponse {
+
 	@ApiModelProperty(value = "사용자 ID(PK)")
 	private Long id;
 
@@ -38,4 +39,16 @@ public class AuthRequest {
 	@ApiModelProperty(value = "자기소개")
 	private String pr;
 
+	public UserResponse(User auth){
+		this.id = auth.getId();
+		this.userId = auth.getUserId();
+		this.password = auth.getPassword();
+		this.generation = auth.getGeneration();
+		this.nickname = auth.getNickname();
+		this.name = auth.getName();
+		this.rank = auth.getRank();
+		this.email = auth.getEmail();
+		this.profileImg = auth.getProfileImg();
+		this.pr = auth.getPr();
+	}
 }
