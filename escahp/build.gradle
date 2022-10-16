@@ -29,6 +29,8 @@ dependencies {
 	testAnnotationProcessor 'org.projectlombok:lombok'
 	compileOnly 'org.projectlombok:lombok'
 
+	implementation 'com.amazonaws:aws-java-sdk-s3:1.12.300'
+
 	/** https://mvnrepository.com/ 추가할 라이브러리 찾기 편한 사이트입니다. */
 	// 스웨거 설정 추가
 	// 스웨거 버전 3.0.0은 사용이 안되는 이슈가 있다고 함
