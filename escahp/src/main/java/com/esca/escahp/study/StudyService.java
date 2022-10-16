@@ -1,5 +1,7 @@
 package com.esca.escahp.study;
 
+import com.esca.escahp.common.exceptions.BoardExceptions;
+import com.esca.escahp.exception.EscaException;
 import com.esca.escahp.study.repository.StudyRepository;
 import com.esca.escahp.study.entity.StudyBoard;
 import com.esca.escahp.study.dto.StudyResponse;
@@ -29,7 +31,7 @@ public class StudyService implements I_StudyBoardService {
     @Override
     public StudyResponse selectStudyBoard(long id) {
         StudyBoard study = studyRepository.findById(id)
-            .orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글은 존재하지 않습니다."));
+            .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
         return new StudyResponse(study);
     }
 
@@ -43,7 +45,7 @@ public class StudyService implements I_StudyBoardService {
     @Override
     public void updateBoard(StudyBoard b) {
         StudyBoard origin = studyRepository.findById(b.getId())
-            .orElseThrow(() -> new IllegalAccessError("[id=" + b.getId() + "] 해당 게시글은 존재하지 않습니다."));
+            .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
 
         origin.update(b.getTitle(), b.getContent(), b.getFile());
     }
@@ -52,7 +54,7 @@ public class StudyService implements I_StudyBoardService {
     @Override
     public void deleteBoard(StudyBoard b) {
         StudyBoard delete = studyRepository.findById(b.getId())
-            .orElseThrow(() -> new IllegalAccessError("[id=" + b.getId() + "] 해당 게시글은 존재하지 않습니다."));
+            .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
 
         delete.delete();
     }
@@ -60,7 +62,7 @@ public class StudyService implements I_StudyBoardService {
     @Override
     public void updateViewCnt(long id) {
         StudyBoard board = studyRepository.findById(id)
-            .orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글은 존재하지 않습니다."));
+            .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
         board.update();
 
     }

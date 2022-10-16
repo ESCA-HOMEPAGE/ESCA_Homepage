@@ -3,7 +3,9 @@ package com.esca.escahp.board;
 import com.esca.escahp.board.dto.FreeRequest;
 import com.esca.escahp.board.dto.FreeResponse;
 import com.esca.escahp.board.entity.FreeBoard;
+import com.esca.escahp.common.exceptions.BoardExceptions;
 import com.esca.escahp.board.repository.FreeRepository;
+import com.esca.escahp.exception.EscaException;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
@@ -30,7 +32,7 @@ public class FreeService implements I_FreeBoardService {
     @Override
     public FreeResponse selectFreeBoard(long id) {
         FreeBoard board = freeRepository.findById(id)
-            .orElseThrow(() -> new IllegalAccessError("[id=" + id +" ] 해당 게시글은 존재하지 않습니다."));
+            .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
         return new FreeResponse(board);
     }
 
@@ -44,7 +46,7 @@ public class FreeService implements I_FreeBoardService {
     @Override
     public void updateBoard(Long id, FreeRequest f) {
         FreeBoard origin = freeRepository.findById(id)
-            .orElseThrow(() -> new IllegalAccessError("[id=" + id +" ] 해당 게시글은 존재하지 않습니다."));
+            .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
         origin.update(f.getTitle(), f.getContent(), f.getFile());
     }
 
@@ -52,7 +54,7 @@ public class FreeService implements I_FreeBoardService {
     @Override
     public void deleteBoard(Long id) {
         FreeBoard delete = freeRepository.findById(id)
-            .orElseThrow(() -> new IllegalAccessError("[id=" + id +" ] 해당 게시글은 존재하지 않습니다."));
+            .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
         delete.delete();
     }
 
@@ -60,7 +62,7 @@ public class FreeService implements I_FreeBoardService {
     @Override
     public void increaseViewCnt(long id) {
         FreeBoard board = freeRepository.findById(id)
-            .orElseThrow(() -> new IllegalAccessError("[id=" + id +" ] 해당 게시글은 존재하지 않습니다."));
+            .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
         board.increaseViewCnt();
     }
 }
