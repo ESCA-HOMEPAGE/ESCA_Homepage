@@ -1,10 +1,12 @@
 package com.esca.escahp.user.entity;
 
 import com.esca.escahp.user.dto.AuthRequest;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -46,6 +48,21 @@ public class User {
 	@Column
 	private String pr;
 
+	@Builder
+	public User(String userId, String password, int generation, String nickname, String name,
+		int rank, String email, String profileImg, String pr) {
+
+		this.userId = userId;
+		this.password = password;
+		this.generation = generation;
+		this.nickname = nickname;
+		this.name = name;
+		this.rank = rank;
+		this.email = email;
+		this.profileImg = profileImg;
+		this.pr = pr;
+	}
+
 	public User(AuthRequest auth){
 		this.id = auth.getId();
 		this.userId = auth.getUserId();
@@ -61,5 +78,24 @@ public class User {
 
 	public void updatePassword(String newPassword) {
 		this.password = newPassword;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		User user = (User) o;
+		return id == user.id && generation == user.generation && rank == user.rank && userId.equals(
+			user.userId) && password.equals(user.password) && nickname.equals(user.nickname)
+			&& name.equals(user.name) && email.equals(user.email);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, userId, password, generation, nickname, name, rank, email);
 	}
 }
