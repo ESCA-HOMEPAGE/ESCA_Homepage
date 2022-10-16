@@ -41,3 +41,6 @@ logging:
   level:
     root: info
     com.esca.escahp: debug
+
+jwt:
+  secret: ${JWT_SECRET}

@@ -1,16 +1,16 @@
 package com.esca.escahp.auth.infra;
 
+import com.esca.escahp.auth.config.JwtTokenProvider;
 import com.esca.escahp.auth.exception.AuthExceptionSet;
 import com.esca.escahp.exception.EscaException;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MemberInterceptor extends AbstractInterceptor {
-
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
