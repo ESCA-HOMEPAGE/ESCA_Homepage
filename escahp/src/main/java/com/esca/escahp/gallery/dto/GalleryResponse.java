@@ -43,9 +43,6 @@ public class GalleryResponse {
     @ApiModelProperty(value = "조회수")
     private long viewCnt;
 
-    @ApiModelProperty(value = "좋아요 수")
-    private int likes;
-
     public GalleryResponse(GalleryBoard galleryBoard){
         this.id = galleryBoard.getId();
         this.category = galleryBoard.getCategory();
@@ -58,6 +55,5 @@ public class GalleryResponse {
         this.deletedAt = galleryBoard.getDeletedAt();
         this.deleteYn = galleryBoard.getDeleteYn();
         this.viewCnt = galleryBoard.getViewCnt();
-        this.likes = galleryBoard.getLikes();
     }
 }

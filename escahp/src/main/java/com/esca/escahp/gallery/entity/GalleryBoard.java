@@ -52,8 +52,7 @@ public class GalleryBoard {
     @Column(nullable = false)
     private long viewCnt;
 
-    @Column(nullable = false)
-    private int likes;
+
 
     @Builder
     public GalleryBoard(String title, String content, String writer, String category, String file){
@@ -79,4 +78,6 @@ public class GalleryBoard {
     }
 
     public void updateViewCount(){this.viewCnt = this.viewCnt + 1;}
+
+
 }
