@@ -43,8 +43,6 @@ public class GalleryResponse {
     @ApiModelProperty(value = "조회수")
     private long viewCnt;
 
-    @ApiModelProperty(value = "좋아요 수")
-    private int likes;
 
     public GalleryResponse(GalleryBoard galleryBoard){
         this.id = galleryBoard.getId();
