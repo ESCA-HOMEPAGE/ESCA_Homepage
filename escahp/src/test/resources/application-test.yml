@@ -20,3 +20,15 @@ spring:
         ddl-auto: create
         enable_lazy_load_no_trans: true
     generate-ddl: true
+
+cloud:
+  aws:
+    credentials:
+      accessKey: accessKey
+      secretKey: secretKey
+    s3:
+      bucket: bucket
+    region:
+      static: region
+    stack:
+      auto: false

@@ -16,6 +16,11 @@ jobs:
 
       - name: Deploy to Heroku
         uses: AkhileshNS/heroku-deploy@v3.12.12
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
+          AWS_BUCKET_NAME: ${{ secrets.aws_bucket_name }}
+          AWS_REGION: ${{ secrets.aws_region }}
         with:
           heroku_api_key: ${{ secrets.heroku_api_key }}
           heroku_email: ${{ secrets.heroku_email }}
@@ -23,11 +28,11 @@ jobs:
           buildpack: "https://github.com/heroku/heroku-buildpack-gradle.git"
           branch: "develop"
           appdir: "escahp"
-          procfile: "web: java -Dspring.profiles.active=prod -Dserver.port=$PORT $JAVA_OPTS -jar target/escahp-0.0.1-SNAPSHOT.jar"
+          procfile: "web: java -Dspring.profiles.active=prod -Dserver.port=$PORT -jar target/escahp-0.0.1-SNAPSHOT.jar"
           # A URL to which a healthcheck is performed (checks for 200 request)
-          healthcheck: # optional, default is
+          healthcheck:
           # Value to check for when conducting healthcheck request
-          checkstring: # optional, default is
+          checkstring:
           # Time (in seconds) to wait before performing healthcheck
           delay: # optional, default is 0
           # When set to true this will attempt to rollback to the previous release if the healthcheck fails

@@ -17,6 +17,18 @@ spring:
         ddl-auto: create
     generate-ddl: true
 
+cloud:
+  aws:
+    credentials:
+      accessKey: ${AWS_ACCESS_KEY_ID}
+      secretKey: ${AWS_SECRET_ACCESS_KEY}
+    s3:
+      bucket: ${AWS_BUCKET_NAME}
+    region:
+      static: ${AWS_REGION}
+    stack:
+      auto: false
+
 logging:
   file:
     name: logs/application-debug.log
