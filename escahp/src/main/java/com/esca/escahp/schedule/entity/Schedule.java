@@ -34,7 +34,7 @@ public class Schedule {
     @Column(nullable = false)
     private LocalDateTime endDate;
 
-    @Column()
+    @Column(nullable = false)
     @CreatedDate
     private LocalDateTime createdAt;
 

@@ -38,7 +38,7 @@ public class ScheduleService implements I_ScheduleService {
     @Transactional
     @Override
     public ScheduleResponse addSchedule(ScheduleRequest request) {
-        Schedule schedule = new Schedule(request.getTitle(), request.getTag(), request.getContent(), request.getStartDate(), request.getStartDate());
+        Schedule schedule = new Schedule(request.getTitle(), request.getTag(), request.getContent(), request.getStartDate(), request.getEndDate());
         Schedule savedSchedule = scheduleRepository.save(schedule);
         return new ScheduleResponse(savedSchedule);
     }

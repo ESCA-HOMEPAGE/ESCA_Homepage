@@ -51,7 +51,6 @@ public class FreeController {
     @PostMapping
     public ResponseEntity<FreeResponse> postFreeBoard(@RequestBody FreeRequest freeBoard) {
         Long id = freeService.postBoard(freeBoard);
-        System.out.println(id);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}")
             .buildAndExpand(id)
