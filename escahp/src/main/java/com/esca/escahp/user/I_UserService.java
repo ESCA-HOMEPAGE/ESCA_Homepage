@@ -1,5 +1,6 @@
 package com.esca.escahp.user;
 
+import com.esca.escahp.user.code.UserCode;
 import com.esca.escahp.user.entity.User;
 
 public interface I_UserService {
@@ -8,7 +9,7 @@ public interface I_UserService {
 
     User addUser(User auth);
 
-    void sendEmail(String email, String code, String message);
+    void sendEmail(String email, UserCode code, String message);
 
     void resetPassword(String userId, String oldPassword, String password);
 
@@ -21,4 +22,6 @@ public interface I_UserService {
     String findUserId(String name, String email);
 
     User findUserByLoginInfo(String userId, String password);
+
+    User validateUser(Long id);
 }

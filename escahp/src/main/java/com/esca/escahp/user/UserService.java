@@ -1,9 +1,12 @@
 package com.esca.escahp.user;
 
+import com.esca.escahp.exception.EscaException;
 import com.esca.escahp.user.code.UserCode;
+import com.esca.escahp.user.entity.Mail;
 import com.esca.escahp.user.entity.User;
 import com.esca.escahp.user.exception.ResourceNotFoundException;
 import com.esca.escahp.user.exception.SignUpException;
+import com.esca.escahp.user.exception.UserExceptions;
 import com.esca.escahp.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,9 +19,11 @@ import java.util.Random;
 public class UserService implements I_UserService {
 
     private final UserRepository userRepository;
+    private final MailService mailService;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, MailService mailService) {
         this.userRepository = userRepository;
+        this.mailService = mailService;
     }
 
     @Override
@@ -45,14 +50,15 @@ public class UserService implements I_UserService {
             auth.setId(user.getId());
         User result = userRepository.save(auth);
 
-        sendEmail(auth.getEmail(), UserCode.VALIDATE.name(), "");
+        sendEmail(auth.getEmail(), UserCode.VALIDATE, String.valueOf(result.getId()));
 
         return result;
     }
 
     @Override
-    public void sendEmail(String email, String code, String message) {
-
+    public void sendEmail(String email, UserCode code, String message) {
+        Mail mail = mailService.createMail(code, message, email);
+        mailService.sendMail(mail);
     }
 
     @Transactional
@@ -73,7 +79,7 @@ public class UserService implements I_UserService {
         String newPassword = randomPassword();
         user.updatePassword(newPassword);
 
-        sendEmail(user.getEmail(), UserCode.RESET_PASSWORD.name(), newPassword);
+        sendEmail(user.getEmail(), UserCode.RESET_PASSWORD, newPassword);
     }
 
     @Override
@@ -112,6 +118,19 @@ public class UserService implements I_UserService {
         User user = userRepository.findByUserId(userId);
         if (user == null || !user.getPassword().equals(password))
             throw new InvalidParameterException("아이디나 비밀번호가 다릅니다.");
+        return user;
+    }
+
+    public User validateUser(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("no such data"));
+
+        if(user.getRank() == 4){
+            user.updateRank(2);
+        } else {
+            throw new EscaException(UserExceptions.ALREADY_RANK_UP_USER);
+        }
+
         return user;
     }
 }

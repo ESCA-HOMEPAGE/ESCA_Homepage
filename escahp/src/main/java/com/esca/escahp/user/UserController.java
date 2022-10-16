@@ -65,4 +65,11 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
+
+    @ApiOperation(value = "회원가입 인증")
+    @GetMapping("/validate")
+    public ResponseEntity<Void> validateUser(@RequestBody Long id) {
+        userService.validateUser(id);
+        return ResponseEntity.noContent().build();
+    }
 }
