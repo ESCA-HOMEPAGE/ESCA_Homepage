@@ -11,6 +11,7 @@ import com.esca.escahp.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
 import java.security.InvalidParameterException;
 import java.util.Objects;
 import java.util.Random;
@@ -35,7 +36,7 @@ public class UserService implements I_UserService {
 
     @Transactional
     @Override
-    public User addUser(User auth) {
+    public User addUser(User auth) throws MessagingException {
         User user = checkUserId(auth.getUserId());
         if (user != null && user.getRank() != 4) throw new SignUpException("이미 회원가입된 회원입니다.");
 
@@ -56,7 +57,7 @@ public class UserService implements I_UserService {
     }
 
     @Override
-    public void sendEmail(String email, UserCode code, String message) {
+    public void sendEmail(String email, UserCode code, String message) throws MessagingException {
         Mail mail = mailService.createMail(code, message, email);
         mailService.sendMail(mail);
     }
@@ -73,7 +74,7 @@ public class UserService implements I_UserService {
 
     @Transactional
     @Override
-    public void resetPassword(String userId) {
+    public void resetPassword(String userId) throws MessagingException {
         User user = userRepository.findByUserId(userId);
 
         String newPassword = randomPassword();

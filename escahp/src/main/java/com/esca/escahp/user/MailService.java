@@ -6,8 +6,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMailMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
 
 @Service
@@ -20,8 +24,8 @@ public class MailService implements I_MailService {
 
     private static final String validateTitle = "ESCA 홈페이지 회원가입 이메일입니다.";
     private static final String tmpPwdTitle = "ESCA 홈페이지 임시 비밀번호 발급 이메일입니다.";
-    private static final String validateMessage = "안녕하세요. ESCA 홈페이지 회원가입 안내 이메일입니다."
-            + "\n" + "아래의 버튼을 눌러 회원가입을 완료해주세요.";
+    private static final String validateMessage = "<p>안녕하세요. ESCA 홈페이지 회원가입 안내 이메일입니다.</p>"
+            + "\n" + "<p>아래의 버튼을 눌러 회원가입을 완료해주세요.</p>";
     private static final String tmpPwdMessage = "안녕하세요. ESCA 홈페이지 임시 비밀번호 발급 이메일입니다."
             + "\n" + "아래의 임시 비밀번호로 로그인한 후 비밀번호를 재설정해주시기 바랍니다. \n";
 
@@ -33,10 +37,10 @@ public class MailService implements I_MailService {
         if(code == UserCode.VALIDATE) {
             title = validateTitle;
             msg = validateMessage;
-            message = "<div><a href='http://localhost:8080/user/validate?id='" + Integer.parseInt(message) + ">" + "회원가입 인증" +"</a></div>";
+            message = "<div><a href='http://localhost:8080/user/validate?id=" + Integer.parseInt(message) + "' target='blank'> 회원가입 인증 </a></div>";
         } else {
             title = tmpPwdTitle;
-            msg = validateMessage;
+            msg = tmpPwdMessage;
         }
 
         return Mail.builder()
@@ -48,13 +52,14 @@ public class MailService implements I_MailService {
     }
 
     @Override
-    public void sendMail(Mail mail) {
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(mail.getToAddress());
-        mailMessage.setSubject(mail.getTitle());
-        mailMessage.setText(mail.getMessage());
-        mailMessage.setFrom(mail.getFromAddress());
-        mailMessage.setReplyTo(mail.getFromAddress());
+    public void sendMail(Mail mail) throws MessagingException {
+        MimeMessage mailMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mailMessage, true, "utf-8");
+        helper.setTo(mail.getToAddress());
+        helper.setSubject(mail.getTitle());
+        helper.setText(String.format(mail.getMessage()), true);
+        helper.setFrom(mail.getFromAddress());
+        helper.setReplyTo(mail.getFromAddress());
 
         mailSender.send(mailMessage);
     }

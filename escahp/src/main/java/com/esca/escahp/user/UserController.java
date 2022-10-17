@@ -10,6 +10,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+
 @Api(tags = {"User"})
 @RestController
 @RequestMapping("/users")
@@ -24,7 +26,7 @@ public class UserController {
 
     @ApiOperation(value = "회원가입")
     @PostMapping
-    public ResponseEntity<UserResponse> signUp(@RequestBody UserRequest request) {
+    public ResponseEntity<UserResponse> signUp(@RequestBody UserRequest request) throws MessagingException {
         UserResponse result = new UserResponse(
                 userService.addUser(
                         new User(request)
@@ -54,7 +56,7 @@ public class UserController {
 
     @ApiOperation(value = "분실한 비밀번호 재설정")
     @PutMapping("/help")
-    public ResponseEntity<Void> resetPassword(@RequestBody String userId) {
+    public ResponseEntity<Void> resetPassword(@RequestBody String userId) throws MessagingException {
         userService.resetPassword(userId);
         return ResponseEntity.noContent().build();
     }
