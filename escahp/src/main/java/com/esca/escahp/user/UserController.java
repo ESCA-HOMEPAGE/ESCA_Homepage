@@ -62,7 +62,7 @@ public class UserController {
         userService.resetPassword(
                 request.getUserId(),
                 request.getOldPassword(),
-                request.getOldPassword()
+                request.getNewPassword()
         );
 
         return ResponseEntity.noContent().build();
@@ -70,7 +70,7 @@ public class UserController {
 
     @ApiOperation(value = "분실한 비밀번호 재설정")
     @PutMapping("/help")
-    public ResponseEntity<Void> resetPassword(@RequestBody String userId) throws MessagingException {
+    public ResponseEntity<Void> resetPassword(@RequestParam String userId) throws MessagingException {
         userService.resetPassword(userId);
         return ResponseEntity.noContent().build();
     }

@@ -26,8 +26,8 @@ public class MailService implements I_MailService {
     private static final String tmpPwdTitle = "ESCA 홈페이지 임시 비밀번호 발급 이메일입니다.";
     private static final String validateMessage = "<p>안녕하세요. ESCA 홈페이지 회원가입 안내 이메일입니다.</p>"
             + "\n" + "<p>아래의 버튼을 눌러 회원가입을 완료해주세요.</p>";
-    private static final String tmpPwdMessage = "안녕하세요. ESCA 홈페이지 임시 비밀번호 발급 이메일입니다."
-            + "\n" + "아래의 임시 비밀번호로 로그인한 후 비밀번호를 재설정해주시기 바랍니다. \n";
+    private static final String tmpPwdMessage = "<p>안녕하세요. ESCA 홈페이지 임시 비밀번호 발급 이메일입니다.</p>"
+            + "\n" + "<p>아래의 임시 비밀번호로 로그인한 후 비밀번호를 재설정해주시기 바랍니다.</p>";
 
     private static final String fromAddress = "wndmsdl0920@gmail.com";
 

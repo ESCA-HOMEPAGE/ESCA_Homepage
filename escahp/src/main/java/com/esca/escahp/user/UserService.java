@@ -76,9 +76,9 @@ public class UserService implements I_UserService {
     @Override
     public void resetPassword(String userId) throws MessagingException {
         User user = userRepository.findByUserId(userId);
-
         String newPassword = randomPassword();
         user.updatePassword(newPassword);
+        userRepository.save(user);
 
         sendEmail(user.getEmail(), UserCode.RESET_PASSWORD, newPassword);
     }
@@ -131,6 +131,8 @@ public class UserService implements I_UserService {
         } else {
             throw new EscaException(UserExceptions.ALREADY_RANK_UP_USER);
         }
+
+        userRepository.save(user);
 
         return user;
     }
