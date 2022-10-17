@@ -37,7 +37,7 @@ public class MailService implements I_MailService {
         if(code == UserCode.VALIDATE) {
             title = validateTitle;
             msg = validateMessage;
-            message = "<div><a href='http://localhost:8080/user/validate?id=" + Integer.parseInt(message) + "' target='blank'> 회원가입 인증 </a></div>";
+            message = "<div><a href='http://localhost:8080/users/validate?id=" + Integer.parseInt(message) + "' target='blank'> 회원가입 인증 </a></div>";
         } else {
             title = tmpPwdTitle;
             msg = tmpPwdMessage;
