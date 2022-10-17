@@ -11,6 +11,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
@@ -18,6 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.esca.escahp.DataLoader.token;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -32,7 +34,7 @@ public class ScheduleAcceptanceTest {
     int port;
 
     @Autowired
-    ScheduleRepository scheduleRepository;
+    private ScheduleRepository scheduleRepository;
 
     @BeforeEach
     void before() {
@@ -56,6 +58,8 @@ public class ScheduleAcceptanceTest {
     void getScheduleList() {
         List<ScheduleResponse> responses = RestAssured.given()
                 .when()
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .get("/schedules")
                 .then()
                 .extract()
@@ -70,6 +74,8 @@ public class ScheduleAcceptanceTest {
         Schedule schedule = scheduleRepository.findAll().get(0);
         ScheduleResponse response = RestAssured.given()
                 .when()
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .get("/schedules/{id}", schedule.getId())
                 .then()
                 .extract()
@@ -85,6 +91,8 @@ public class ScheduleAcceptanceTest {
         ExtractableResponse<Response> response = RestAssured.given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(request)
                 .post("/schedules")
                 .then()
@@ -103,8 +111,9 @@ public class ScheduleAcceptanceTest {
         ScheduleRequest request = new ScheduleRequest(updatedTitle, updatedTag, updatedContent, LocalDateTime.now(), LocalDateTime.now());
 
         ScheduleResponse response = RestAssured.given()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(request)
                 .put("/schedules/{id}", schedule.getId())
                 .then()
@@ -125,6 +134,8 @@ public class ScheduleAcceptanceTest {
         Schedule schedule = scheduleRepository.findAll().get(0);
         ExtractableResponse<Response> response = RestAssured.given()
                 .when()
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .delete("/schedules/{id}", schedule.getId())
                 .then()
                 .extract();
