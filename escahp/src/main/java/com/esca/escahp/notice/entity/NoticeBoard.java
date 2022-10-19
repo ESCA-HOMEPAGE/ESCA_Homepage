@@ -38,11 +38,8 @@ public class NoticeBoard {
     @Column
     private String file;
 
-    @Column(nullable = false)
-    private int likes;
-
-    @Column(nullable = false)
-    private long viewCnt;
+    @Column(columnDefinition = "bigint default 0")
+    private Long viewCnt;
 
     @Column(updatable = false)
     @CreationTimestamp
@@ -84,9 +81,5 @@ public class NoticeBoard {
 
     public void updateViewCnt() {
         this.viewCnt = this.viewCnt + 1;
-    }
-
-    public void updateLikes() {
-        this.likes = this.likes + 1;
     }
 }

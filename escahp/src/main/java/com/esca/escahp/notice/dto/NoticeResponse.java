@@ -30,9 +30,6 @@ public class NoticeResponse {
     @ApiModelProperty(value = "첨부파일")
     private String file;
 
-    @ApiModelProperty(value = "좋아요 수")
-    private int likes;
-
     @ApiModelProperty(value = "조회수")
     private long viewCnt;
 
@@ -55,7 +52,6 @@ public class NoticeResponse {
         this.writer = noticeBoard.getWriter();
         this.content = noticeBoard.getContent();
         this.file = noticeBoard.getFile();
-        this.likes = noticeBoard.getLikes();
         this.viewCnt = noticeBoard.getViewCnt();
         this.createdAt = noticeBoard.getCreatedAt();
         this.updatedAt = noticeBoard.getUpdatedAt();
