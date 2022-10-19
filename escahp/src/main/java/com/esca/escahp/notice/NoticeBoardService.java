@@ -1,5 +1,7 @@
 package com.esca.escahp.notice;
 
+import com.esca.escahp.common.exceptions.BoardExceptions;
+import com.esca.escahp.exception.EscaException;
 import com.esca.escahp.notice.dto.NoticeRequest;
 import com.esca.escahp.notice.dto.NoticeResponse;
 import com.esca.escahp.notice.entity.NoticeBoard;
@@ -31,7 +33,7 @@ public class NoticeBoardService implements I_NoticeBoardService {
     @Transactional(readOnly = true)
     public NoticeResponse selectNoticeBoard(Long id){
         NoticeBoard noticeBoard = noticeRepository.findById(id)
-            .orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글은 존재하지 않습니다."));
+            .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
         return new NoticeResponse(noticeBoard);
     }
 
@@ -45,7 +47,7 @@ public class NoticeBoardService implements I_NoticeBoardService {
     @Transactional
     public void updateNoticeBoard(Long id, NoticeRequest noticeBoard){
         NoticeBoard notice = noticeRepository.findById(id)
-            .orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글은 존재하지 않습니다."));
+            .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
         notice.update(noticeBoard.getTitle(), noticeBoard.getContent(),
             noticeBoard.getFile(), noticeBoard.getCategory());
     }
@@ -54,7 +56,7 @@ public class NoticeBoardService implements I_NoticeBoardService {
     @Transactional
     public void deleteNoticeBoard(Long id){
         NoticeBoard notice = noticeRepository.findById(id)
-            .orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글은 존재하지 않습니다."));
+            .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
         notice.delete();
     }
 
@@ -62,7 +64,7 @@ public class NoticeBoardService implements I_NoticeBoardService {
     @Transactional
     public void updateViewCount(Long id){
         NoticeBoard notice = noticeRepository.findById(id)
-            .orElseThrow(() -> new IllegalAccessError("[id=" + id + "] 해당 게시글은 존재하지 않습니다."));
+            .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
         notice.updateViewCnt();
 
     }
