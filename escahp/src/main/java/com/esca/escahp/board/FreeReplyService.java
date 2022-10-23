@@ -31,12 +31,7 @@ public class FreeReplyService implements I_FreeReplyService {
 
     @Override
     public List<FreeReplyResponse> getFreeReplyList(long postId) {
-        FreeBoard board = freeRepository.findById(postId)
-            .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
-
-        if (board.getDeleteYn().equals("Y")) {
-            throw new EscaException(BoardExceptions.NOT_FOUND_BOARD);
-        }
+        getFreeBoard(postId);
 
         List<FreeReply> replies = freeReplyRepository.findAllByFreeBoardId(postId);
         return replies
@@ -48,11 +43,7 @@ public class FreeReplyService implements I_FreeReplyService {
     @Transactional
     @Override
     public Long postFreeReply(long postId, long userId, FreeReplyRequest fr) {
-        FreeBoard board = freeRepository.findById(postId)
-            .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
-        if (board.getDeleteYn().equals("Y")) {
-            throw new EscaException(BoardExceptions.NOT_FOUND_BOARD);
-        }
+        FreeBoard board = getFreeBoard(postId);
 
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new EscaException(UserExceptions.NOT_FOUND_USER));
@@ -74,5 +65,15 @@ public class FreeReplyService implements I_FreeReplyService {
         } else {
             throw new EscaException(BoardExceptions.FORBIDDEN_DELETE_REPLY);
         }
+    }
+
+    FreeBoard getFreeBoard(long postId) {
+        FreeBoard freeBoard = freeRepository.findById(postId)
+            .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
+        if (freeBoard.getDeleteYn().equals("Y") || freeBoard.getReport() >= 5) {
+            throw new EscaException(BoardExceptions.NOT_FOUND_BOARD);
+        }
+
+        return freeBoard;
     }
 }
