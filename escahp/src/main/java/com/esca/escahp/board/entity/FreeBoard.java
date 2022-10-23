@@ -68,6 +68,15 @@ public class FreeBoard {
         this.deleteYn = "N";
     }
 
+    public FreeBoard(String title, String content, String writer, String file, int report) {
+        this.title = title;
+        this.content = content;
+        this.writer = writer;
+        this.file = file;
+        this.deleteYn = "N";
+        this.report = report;
+    }
+
     public void delete() {
         this.deleteYn = "Y";
         this.deletedAt = LocalDateTime.now();
