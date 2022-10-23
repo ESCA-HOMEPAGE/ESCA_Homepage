@@ -30,7 +30,7 @@ public class FreeController {
         this.freeService = freeService;
     }
 
-    @ApiOperation(value = "자유 게시판의 전체 목록 보여주기")
+    @ApiOperation(value = "자유 게시판의 전체 목록 보여주기", response = List.class)
     @GetMapping
     public ResponseEntity<List<FreeResponse>> getAllFreeBoard() {
         List<FreeResponse> list = freeService.getFreeBoardList();

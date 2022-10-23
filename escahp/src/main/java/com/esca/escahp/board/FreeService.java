@@ -22,8 +22,7 @@ public class FreeService implements I_FreeBoardService {
 
     @Override
     public List<FreeResponse> getFreeBoardList() {
-        List<FreeBoard> boards = freeRepository.findAll();
-        return boards
+        return freeRepository.findByDeleteYn("N")
             .stream()
             .map(FreeResponse::new)
             .collect(Collectors.toList());
