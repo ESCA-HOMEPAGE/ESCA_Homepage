@@ -1,8 +1,5 @@
 package com.esca.escahp.board;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.esca.escahp.board.dto.FreeRequest;
 import com.esca.escahp.board.dto.FreeResponse;
 import com.esca.escahp.board.entity.FreeBoard;
@@ -10,7 +7,6 @@ import com.esca.escahp.board.repository.FreeRepository;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
-import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,9 +15,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+
+import java.util.List;
+
+import static com.esca.escahp.DataLoader.token;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -31,7 +34,7 @@ class FreeAcceptanceTest {
     int port;
 
     @Autowired
-    FreeRepository freeRepository;
+    private FreeRepository freeRepository;
 
     @BeforeEach
     void before() {
@@ -54,11 +57,13 @@ class FreeAcceptanceTest {
     @DisplayName("자우게시판 목록을 가져온다.")
     void getAllFreeBoard() {
         List<FreeResponse> responses = RestAssured.given()
-            .when()
-            .get("/free")
-            .then()
-            .extract()
-            .body().jsonPath().getList(".", FreeResponse.class);
+                .when()
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .get("/free")
+                .then()
+                .extract()
+                .body().jsonPath().getList(".", FreeResponse.class);
 
         assertThat(responses.size()).isEqualTo(3);
     }
@@ -68,11 +73,13 @@ class FreeAcceptanceTest {
     void getFreeBoardById() {
         FreeBoard freeBoard = freeRepository.findAll().get(0);
         FreeResponse response = RestAssured.given()
-            .when()
-            .get("/free/{id}", freeBoard.getId())
-            .then()
-            .extract()
-            .as(FreeResponse.class);
+                .when()
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .get("/free/{id}", freeBoard.getId())
+                .then()
+                .extract()
+                .as(FreeResponse.class);
 
         assertEquals(freeBoard.getTitle(), response.getTitle());
     }
@@ -94,12 +101,14 @@ class FreeAcceptanceTest {
     void postFreeBoard() {
         FreeRequest freeRequest = new FreeRequest("title", "content", "writer", "example.jpg");
         ExtractableResponse<Response> response = RestAssured.given()
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .when()
-            .body(freeRequest)
-            .post("/free")
-            .then()
-            .extract();
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when()
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(freeRequest)
+                .post("/free")
+                .then()
+                .extract();
 
         assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
     }
@@ -110,26 +119,30 @@ class FreeAcceptanceTest {
         FreeBoard freeBoard = freeRepository.findAll().get(0);
         FreeRequest request = new FreeRequest("updateTitle", "updateContent", freeBoard.getWriter(), "updateImg.jpg");
         ExtractableResponse<Response> response = RestAssured.given()
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .when()
-            .body(request)
-            .put("/free/{id}", freeBoard.getId())
-            .then()
-            .extract();
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when()
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(request)
+                .put("/free/{id}", freeBoard.getId())
+                .then()
+                .extract();
         FreeResponse update = RestAssured.given()
-            .when()
-            .get("/free/{id}", freeBoard.getId())
-            .then()
-            .extract()
-            .as(FreeResponse.class);
+                .when()
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .get("/free/{id}", freeBoard.getId())
+                .then()
+                .extract()
+                .as(FreeResponse.class);
 
         assertAll(
-            () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value()),
-            () -> assertEquals(update.getId(), freeBoard.getId()),
-            () -> assertEquals(update.getTitle(), request.getTitle()),
-            () -> assertEquals(update.getContent(), request.getContent()),
-            () -> assertEquals(update.getWriter(), request.getWriter()),
-            () -> assertEquals(update.getFile(), request.getFile())
+                () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value()),
+                () -> assertEquals(update.getId(), freeBoard.getId()),
+                () -> assertEquals(update.getTitle(), request.getTitle()),
+                () -> assertEquals(update.getContent(), request.getContent()),
+                () -> assertEquals(update.getWriter(), request.getWriter()),
+                () -> assertEquals(update.getFile(), request.getFile())
         );
     }
 
@@ -144,16 +157,18 @@ class FreeAcceptanceTest {
     void deleteFreeBoard() {
         FreeBoard freeBoard = freeRepository.findAll().get(0);
         ExtractableResponse<Response> response = RestAssured.given()
-            .when()
-            .patch("/free/{id}", freeBoard.getId())
-            .then()
-            .extract();
+                .when()
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .patch("/free/{id}", freeBoard.getId())
+                .then()
+                .extract();
         FreeBoard delete = freeRepository.getById(freeBoard.getId());
 
         assertAll(
-            () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value()),
-            () -> assertEquals(delete.getDeleteYn(), "Y"),
-            () -> assertNotNull(delete.getDeletedAt())
+                () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value()),
+                () -> assertEquals(delete.getDeleteYn(), "Y"),
+                () -> assertNotNull(delete.getDeletedAt())
         );
     }
 
