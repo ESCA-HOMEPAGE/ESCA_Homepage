@@ -8,5 +8,4 @@ import java.util.List;
 
 @Repository
 public interface NoticeRepository extends JpaRepository<NoticeBoard, Long> {
-    List<NoticeBoard> findByDeleteYn(String yn);
 }

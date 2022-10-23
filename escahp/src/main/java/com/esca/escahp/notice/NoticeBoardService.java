@@ -23,7 +23,7 @@ public class NoticeBoardService implements I_NoticeBoardService {
     @Override
     @Transactional(readOnly = true)
     public List<NoticeResponse> getNoticeBoardList(){
-        return noticeRepository.findByDeleteYn("N")
+        return noticeRepository.findAll()
                 .stream()
                 .map(NoticeResponse::new)
                 .collect(Collectors.toList());

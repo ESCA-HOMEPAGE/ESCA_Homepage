@@ -39,12 +39,6 @@ public class NoticeResponse {
     @ApiModelProperty(value = "수정일자")
     private LocalDateTime updatedAt;
 
-    @ApiModelProperty(value = "삭제일자")
-    private LocalDateTime deletedAt;
-
-    @ApiModelProperty(value = "삭제여부")
-    private String deleteYn;
-
     public NoticeResponse(NoticeBoard noticeBoard) {
         this.id = noticeBoard.getId();
         this.title = noticeBoard.getTitle();
@@ -55,7 +49,5 @@ public class NoticeResponse {
         this.viewCnt = noticeBoard.getViewCnt();
         this.createdAt = noticeBoard.getCreatedAt();
         this.updatedAt = noticeBoard.getUpdatedAt();
-        this.deletedAt = noticeBoard.getDeletedAt();
-        this.deleteYn = noticeBoard.getDeleteYn();
     }
 }
