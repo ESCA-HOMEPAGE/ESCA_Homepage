@@ -45,7 +45,7 @@ public class FreeServiceTest {
     void getFreeBoardList() {
         List<FreeResponse> list = freeService.getFreeBoardList();
 
-        assertEquals(list.size(), 3);
+        assertEquals(3, list.size());
     }
 
     @Test
@@ -61,6 +61,12 @@ public class FreeServiceTest {
     @DisplayName("존재하지 않는 자유게시물을 가져오려 한다.")
     void selectNotAccessFreeBoard() {
          // -1 id로 접근하려한다. 이 경우는 예외처리를 다시 작성한 뒤 작성하겠다.
+    }
+
+    @Test
+    @DisplayName("블라인드 처리된 자유게시물을 가져오려 한다.")
+    void selectBlindedFreeBoard() {
+        // 이 경우는 예외처리를 다시 작성한 뒤 작성하겠다.
     }
 
     @Test
@@ -98,7 +104,7 @@ public class FreeServiceTest {
     }
 
     @Test
-    @DisplayName("자우게시판 게시물을 삭제한다.")
+    @DisplayName("자유게시판 게시물을 삭제한다.")
     void deleteBoard() {
         FreeResponse response = freeService.getFreeBoardList().get(0);
         freeService.deleteBoard(response.getId());
