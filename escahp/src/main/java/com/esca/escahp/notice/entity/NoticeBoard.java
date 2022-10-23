@@ -49,12 +49,6 @@ public class NoticeBoard {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @Column
-    private LocalDateTime deletedAt;
-
-    @Column(nullable = false)
-    private String deleteYn;
-
     @Builder
     public NoticeBoard(String title, String category, String writer, String content, String file) {
         this.title = title;
@@ -63,12 +57,6 @@ public class NoticeBoard {
         this.content = content;
         this.file = file;
         this.createdAt = LocalDateTime.now();
-        this.deleteYn = "N";
-    }
-
-    public void delete() {
-        this.deletedAt = LocalDateTime.now();
-        this.deleteYn = "Y";
     }
 
     public void update(String title, String content, String file, String category) {

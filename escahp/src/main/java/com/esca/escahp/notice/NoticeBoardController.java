@@ -78,5 +78,4 @@ public class NoticeBoardController {
                 .toUri();
         return ResponseEntity.created(location).build();
     }
-
 }

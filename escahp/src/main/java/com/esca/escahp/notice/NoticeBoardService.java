@@ -57,7 +57,7 @@ public class NoticeBoardService implements I_NoticeBoardService {
     public void deleteNoticeBoard(Long id){
         NoticeBoard notice = noticeRepository.findById(id)
             .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
-        notice.delete();
+        noticeRepository.delete(notice);
     }
 
     @Override
@@ -66,6 +66,5 @@ public class NoticeBoardService implements I_NoticeBoardService {
         NoticeBoard notice = noticeRepository.findById(id)
             .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
         notice.updateViewCnt();
-
     }
 }
