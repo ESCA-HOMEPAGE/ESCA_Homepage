@@ -40,7 +40,7 @@ public class UserController {
 
     @ApiOperation(value = "회원가입")
     @PostMapping
-    public ResponseEntity<UserResponse> signUp(@RequestBody UserRequest request) throws MessagingException {
+    public ResponseEntity<UserResponse> signUp(@RequestBody UserRequest request) {
         UserResponse result = new UserResponse(
                 userService.addUser(
                         new User(request)

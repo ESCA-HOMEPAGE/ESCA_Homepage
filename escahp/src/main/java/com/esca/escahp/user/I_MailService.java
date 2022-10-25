@@ -7,8 +7,8 @@ import javax.mail.MessagingException;
 
 public interface I_MailService {
 
-    public Mail createMail(UserCode code, String message, String toAddress);
+    Mail createMail(UserCode code, String message, String toAddress);
 
-    public void sendMail(Mail mail) throws MessagingException;
+    void sendMail(Mail mail) throws MessagingException;
 
 }
