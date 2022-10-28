@@ -1,14 +1,17 @@
 package com.esca.escahp.user;
 
+import com.esca.escahp.exception.EscaException;
 import com.esca.escahp.user.code.UserCode;
+import com.esca.escahp.user.entity.Mail;
 import com.esca.escahp.user.entity.User;
-import com.esca.escahp.user.exception.ResourceNotFoundException;
-import com.esca.escahp.user.exception.SignUpException;
+import com.esca.escahp.user.exception.MailExceptions;
+import com.esca.escahp.user.exception.SignUpExceptions;
+import com.esca.escahp.user.exception.UserExceptions;
 import com.esca.escahp.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.InvalidParameterException;
+import javax.mail.MessagingException;
 import java.util.Objects;
 import java.util.Random;
 
@@ -16,9 +19,11 @@ import java.util.Random;
 public class UserService implements I_UserService {
 
     private final UserRepository userRepository;
+    private final MailService mailService;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, MailService mailService) {
         this.userRepository = userRepository;
+        this.mailService = mailService;
     }
 
     @Override
@@ -32,35 +37,40 @@ public class UserService implements I_UserService {
     @Override
     public User addUser(User auth) {
         User user = checkUserId(auth.getUserId());
-        if (user != null && user.getRank() != 4) throw new SignUpException("이미 회원가입된 회원입니다.");
+        if (user != null && user.getRank() != 4) throw new EscaException(SignUpExceptions.ALREADY_SIGNED_UP);
 
         User nickname = userRepository.findByNicknameAndGeneration(
                 auth.getNickname(),
                 auth.getGeneration()
         );
 
-        if (nickname != null) throw new SignUpException("중복된 닉네임입니다.");
+        if (nickname != null) throw new EscaException(SignUpExceptions.ALREADY_EXIST_NICKNAME);
 
         if (user != null)
             auth.setId(user.getId());
         User result = userRepository.save(auth);
 
-        sendEmail(auth.getEmail(), UserCode.VALIDATE.name(), "");
+        sendEmail(auth.getEmail(), UserCode.VALIDATE, String.valueOf(result.getId()));
 
         return result;
     }
 
     @Override
-    public void sendEmail(String email, String code, String message) {
-
+    public void sendEmail(String email, UserCode code, String message) {
+        Mail mail = mailService.createMail(code, message, email);
+        try {
+            mailService.sendMail(mail);
+        } catch (MessagingException e) {
+            throw new EscaException(MailExceptions.CANNOT_SEND_MAIL);
+        }
     }
 
     @Transactional
     @Override
     public void resetPassword(String userId, String oldPassword, String newPassword) {
         User user = userRepository.findByUserId(userId);
-        if (user == null || user.getRank() == 4) throw new ResourceNotFoundException(userId, "아이디가 다릅니다.");
-        if (!Objects.equals(user.getPassword(), oldPassword)) throw new SignUpException("비밀번호가 다릅니다.");
+        if (user == null || user.getRank() == 4) throw new EscaException(SignUpExceptions.NOT_FOUND_ID);
+        if (!Objects.equals(user.getPassword(), oldPassword)) throw new EscaException(SignUpExceptions.NOT_FOUND_PASSWORD);
 
         user.updatePassword(newPassword);
     }
@@ -69,11 +79,11 @@ public class UserService implements I_UserService {
     @Override
     public void resetPassword(String userId) {
         User user = userRepository.findByUserId(userId);
-
         String newPassword = randomPassword();
         user.updatePassword(newPassword);
+        userRepository.save(user);
 
-        sendEmail(user.getEmail(), UserCode.RESET_PASSWORD.name(), newPassword);
+        sendEmail(user.getEmail(), UserCode.RESET_PASSWORD, newPassword);
     }
 
     @Override
@@ -94,7 +104,7 @@ public class UserService implements I_UserService {
     @Override
     public void deleteUser(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(id.toString(), "없는 회원입니다."));
+                .orElseThrow(() -> new EscaException(SignUpExceptions.NOT_EXIST_USER));
 
         userRepository.delete(user);
     }
@@ -102,7 +112,7 @@ public class UserService implements I_UserService {
     @Override
     public String findUserId(String name, String email) {
         User user = userRepository.findByNameAndEmail(name, email);
-        if (user == null) throw new ResourceNotFoundException(name, "일치하는 회원이 없습니다.");
+        if (user == null) throw new EscaException(SignUpExceptions.NOT_EXIST_USER);
 
         return user.getUserId();
     }
@@ -111,7 +121,22 @@ public class UserService implements I_UserService {
     public User findUserByLoginInfo(String userId, String password) {
         User user = userRepository.findByUserId(userId);
         if (user == null || !user.getPassword().equals(password))
-            throw new InvalidParameterException("아이디나 비밀번호가 다릅니다.");
+            throw new EscaException(SignUpExceptions.NOT_FOUND_DATA);
+        return user;
+    }
+
+    public User validateUser(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EscaException(SignUpExceptions.NOT_EXIST_USER));
+
+        if(user.getRank() == 4){
+            user.updateRank(2);
+        } else {
+            throw new EscaException(UserExceptions.ALREADY_RANK_UP_USER);
+        }
+
+        userRepository.save(user);
+
         return user;
     }
 }

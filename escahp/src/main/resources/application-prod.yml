@@ -16,6 +16,14 @@ spring:
         format_sql: false
         ddl-auto: create
     generate-ddl: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: wndmsdl0920@gmail.com
+    password: [ smtp password ]
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
 
 cloud:
   aws:
@@ -28,6 +36,8 @@ cloud:
       static: ${AWS_REGION}
     stack:
       auto: false
+
+
 
 logging:
   file:

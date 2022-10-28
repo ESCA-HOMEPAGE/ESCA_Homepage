@@ -80,6 +80,10 @@ public class User {
 		this.password = newPassword;
 	}
 
+    public void updateRank(int rank) {
+        this.rank = rank;
+    }
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
