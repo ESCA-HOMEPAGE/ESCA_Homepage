@@ -1,15 +1,16 @@
 package com.esca.escahp.notice.dto;
 
-import com.esca.escahp.notice.entity.NoticeBoard;
+import com.esca.escahp.notice.entity.Notice;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @ApiModel(value = "NoticeBoard : 게시물 요청 정보", description = "공지 게시판의 게시물의 요청 정보를 나타낸다.")
 @NoArgsConstructor
+@AllArgsConstructor
 public class NoticeRequest {
 
     @ApiModelProperty(value = "게시물 제목")
@@ -27,8 +28,8 @@ public class NoticeRequest {
     @ApiModelProperty(value = "첨부파일")
     private String file;
 
-    public NoticeBoard toEntity() {
-        return NoticeBoard.builder()
+    public Notice toEntity() {
+        return Notice.builder()
             .title(title)
             .content(content)
             .writer(writer)

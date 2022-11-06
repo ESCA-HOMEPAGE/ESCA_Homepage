@@ -68,7 +68,6 @@ class ScheduleServiceTest {
         // when
         ScheduleRequest request = new ScheduleRequest("title", "tag", "content", LocalDateTime.now(), LocalDateTime.now());
         ScheduleResponse response = scheduleService.addSchedule(request);
-        System.out.println(response.getId() +  response.getTitle() + response.getTag() + response.getContent());
 
         // then
         assertAll(

@@ -17,7 +17,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Setter
 @Entity
 @NoArgsConstructor
-public class NoticeBoard {
+public class Notice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +39,7 @@ public class NoticeBoard {
     private String file;
 
     @Column(columnDefinition = "bigint default 0")
-    private Long viewCnt;
+    private Long viewCnt = 0L;
 
     @Column(updatable = false)
     @CreationTimestamp
@@ -50,7 +50,7 @@ public class NoticeBoard {
     private LocalDateTime updatedAt;
 
     @Builder
-    public NoticeBoard(String title, String category, String writer, String content, String file) {
+    public Notice(String title, String category, String writer, String content, String file) {
         this.title = title;
         this.category = category;
         this.writer = writer;

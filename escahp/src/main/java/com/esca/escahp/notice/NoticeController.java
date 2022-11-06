@@ -22,25 +22,25 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RequestMapping("/notice")
 @CrossOrigin(origins = {"*"})
 @Api(tags = "Notice")
-public class NoticeBoardController {
+public class NoticeController {
 
-    private final NoticeBoardService noticeBoardService;
+    private final NoticeService noticeBoardService;
 
-    public NoticeBoardController(NoticeBoardService noticeBoardService) {
+    public NoticeController(NoticeService noticeBoardService) {
         this.noticeBoardService = noticeBoardService;
     }
 
     @ApiOperation(value = "공지 게시판의 전체 목록 보여주기", response = List.class)
     @GetMapping
     public ResponseEntity<List<NoticeResponse>> getAllNoticeBoard(){
-        List<NoticeResponse> noticeBoard = noticeBoardService.getNoticeBoardList();
+        List<NoticeResponse> noticeBoard = noticeBoardService.getNoticeList();
         return ResponseEntity.ok().body(noticeBoard);
     }
 
     @ApiOperation(value = "id에 해당하는 게시물 정보 반환")
     @GetMapping("/{id}")
     public ResponseEntity<NoticeResponse> getNoticeBoardById(@PathVariable Long id){
-        NoticeResponse noticeBoard = noticeBoardService.selectNoticeBoard(id);
+        NoticeResponse noticeBoard = noticeBoardService.selectNotice(id);
         if(noticeBoard == null){
             return ResponseEntity.noContent().build();
         }
@@ -51,7 +51,7 @@ public class NoticeBoardController {
     @ApiOperation(value = "게시물 객체 추가")
     @PostMapping
     public ResponseEntity<NoticeResponse> insertNoticeBoard(@RequestBody NoticeRequest notice){
-        Long id = noticeBoardService.insertNoticeBoard(notice);
+        Long id = noticeBoardService.insertNotice(notice);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(id)
@@ -62,7 +62,7 @@ public class NoticeBoardController {
     @ApiOperation(value = "id에 해당하는 게시물 정보 수정")
     @PutMapping("/{id}")
     public ResponseEntity<NoticeResponse> updateNoticeBoard(@PathVariable Long id, @RequestBody NoticeRequest notice){
-        noticeBoardService.updateNoticeBoard(id, notice);
+        noticeBoardService.updateNotice(id, notice);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .buildAndExpand()
                 .toUri();
@@ -72,7 +72,7 @@ public class NoticeBoardController {
     @ApiOperation(value = "id에 해당하는 게시물 정보 삭제")
     @PatchMapping("/{id}")
     public ResponseEntity<Object> deleteNoticeBoard(@PathVariable Long id){
-        noticeBoardService.deleteNoticeBoard(id);
+        noticeBoardService.deleteNotice(id);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .buildAndExpand()
                 .toUri();
