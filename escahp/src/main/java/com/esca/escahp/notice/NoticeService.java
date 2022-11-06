@@ -63,9 +63,10 @@ public class NoticeService implements I_NoticeService {
 
     @Override
     @Transactional
-    public void updateViewCount(Long id){
+    public NoticeResponse updateViewCount(Long id){
         Notice notice = noticeRepository.findById(id)
             .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
         notice.updateViewCnt();
+        return new NoticeResponse(notice);
     }
 }

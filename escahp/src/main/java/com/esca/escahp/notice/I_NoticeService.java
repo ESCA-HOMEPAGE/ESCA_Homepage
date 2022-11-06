@@ -15,5 +15,5 @@ public interface I_NoticeService {
 
     void deleteNotice(Long id);
 
-    void updateViewCount(Long id);
+    NoticeResponse updateViewCount(Long id);
 }

@@ -11,12 +11,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Getter
 @Setter
 @Entity
 @NoArgsConstructor
+@DynamicInsert
 public class Notice {
 
     @Id
@@ -39,7 +41,7 @@ public class Notice {
     private String file;
 
     @Column(columnDefinition = "bigint default 0")
-    private Long viewCnt = 0L;
+    private Long viewCnt;
 
     @Column(updatable = false)
     @CreationTimestamp
