@@ -43,7 +43,7 @@ public class GalleryResponse {
     @ApiModelProperty(value = "조회수")
     private long viewCnt;
 
-    public GalleryResponse(GalleryBoard galleryBoard){
+    public GalleryResponse(GalleryBoard galleryBoard) {
         this.id = galleryBoard.getId();
         this.category = galleryBoard.getCategory();
         this.title = galleryBoard.getTitle();

@@ -18,7 +18,6 @@ public class GalleryBoardLike {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="galleryBoard_id")
     private GalleryBoard galleryBoard;
 
     @ManyToOne
@@ -34,5 +33,6 @@ public class GalleryBoardLike {
         this.user = user;
     }
 
+    //todo
     //public void countLikes() {this.likes = this.likes+1;}
 }

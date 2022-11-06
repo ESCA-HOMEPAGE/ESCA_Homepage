@@ -28,7 +28,7 @@ public class GalleryRequest {
     @ApiModelProperty(value = "첨부파일")
     private String file;
 
-    public GalleryBoard toEntity(){
+    public GalleryBoard toEntity() {
         return GalleryBoard.builder()
                 .title(title)
                 .content(content)

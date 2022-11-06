@@ -22,7 +22,7 @@ public class GalleryLikeRequest {
     private long userId;
 
 
-    public GalleryBoardLike toEntity(GalleryBoard galleryBoard, User user){
+    public GalleryBoardLike toEntity(GalleryBoard galleryBoard, User user) {
         return GalleryBoardLike.builder()
                 .galleryBoard(galleryBoard)
                 .user(user)

@@ -53,9 +53,8 @@ public class GalleryBoard {
     private long viewCnt;
 
 
-
     @Builder
-    public GalleryBoard(String title, String content, String writer, String category, String file){
+    public GalleryBoard(String title, String content, String writer, String category, String file) {
         this.title = title;
         this.content = content;
         this.writer = writer;
@@ -65,19 +64,21 @@ public class GalleryBoard {
         this.deleteYn = "N";
     }
 
-    public void delete(){
+    public void delete() {
         this.deletedAt = LocalDateTime.now();
         this.deleteYn = "Y";
     }
 
-    public void update(String title, String content, String file){
+    public void update(String title, String content, String file) {
         this.title = title;
         this.content = content;
         this.file = file;
         this.updatedAt = LocalDateTime.now();
     }
 
-    public void updateViewCount(){this.viewCnt = this.viewCnt + 1;}
+    public void updateViewCount() {
+        this.viewCnt = this.viewCnt + 1;
+    }
 
 
 }

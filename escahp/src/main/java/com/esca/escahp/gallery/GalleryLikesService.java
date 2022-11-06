@@ -1,7 +1,10 @@
 package com.esca.escahp.gallery;
 
+import com.esca.escahp.common.exceptions.BoardExceptions;
+import com.esca.escahp.exception.EscaException;
 import com.esca.escahp.gallery.dto.GalleryLikeRequest;
 import com.esca.escahp.gallery.dto.GalleryLikeResponse;
+import com.esca.escahp.gallery.dto.GalleryResponse;
 import com.esca.escahp.gallery.entity.GalleryBoard;
 import com.esca.escahp.gallery.entity.GalleryBoardLike;
 import com.esca.escahp.gallery.repository.GalleryLikesRepository;
@@ -22,13 +25,6 @@ public class GalleryLikesService implements I_GalleryLikesService{
         this.galleryRepository = galleryRepository;
         this.userRepository = userRepository;
     }
-//    @Transactional
-//    @Override
-//    public void countLikes(long id){
-//        GalleryBoardLike board = galleryLikesRepository.findById(id)
-//                .orElseThrow(()->new IllegalAccessError("좋아요 에러 입니다."));
-//        board.countLikes();
-//    }
 
     @Transactional
     @Override
@@ -50,5 +46,12 @@ public class GalleryLikesService implements I_GalleryLikesService{
                 .stream()
                 .map(GalleryLikeResponse::new)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public GalleryLikeResponse selectGalleryLikesBoard(long id){
+        GalleryBoardLike galleryBoard = galleryLikesRepository.findById(id)
+                .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
+        return new GalleryLikeResponse(galleryBoard);
     }
 }

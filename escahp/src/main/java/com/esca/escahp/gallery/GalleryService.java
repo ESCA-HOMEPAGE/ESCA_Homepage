@@ -7,12 +7,13 @@ import com.esca.escahp.gallery.dto.GalleryResponse;
 import com.esca.escahp.gallery.entity.GalleryBoard;
 import com.esca.escahp.gallery.repository.GalleryRepository;
 import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class GalleryService implements I_GalleryBoardService{
+public class GalleryService implements I_GalleryBoardService {
 
 
     private final GalleryRepository galleryRepository;
@@ -34,7 +35,7 @@ public class GalleryService implements I_GalleryBoardService{
     @Override
     public GalleryResponse selectGalleryBoard(long id) {
         GalleryBoard gallery = galleryRepository.findById(id)
-                .orElseThrow(()-> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
+                .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
         return new GalleryResponse(gallery);
     }
 
@@ -48,7 +49,7 @@ public class GalleryService implements I_GalleryBoardService{
     @Override
     public void updateBoard(Long id, GalleryRequest b) {
         GalleryBoard origin = galleryRepository.findById(id)
-                .orElseThrow(()-> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
+                .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
 
         origin.update(b.getTitle(), b.getContent(), b.getFile());
     }

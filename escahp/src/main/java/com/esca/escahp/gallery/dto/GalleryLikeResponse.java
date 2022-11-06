@@ -22,7 +22,7 @@ public class GalleryLikeResponse {
     private Long userId;
 
 
-    public GalleryLikeResponse(GalleryBoardLike galleryBoardLike){
+    public GalleryLikeResponse(GalleryBoardLike galleryBoardLike) {
         this.id = galleryBoardLike.getId();
         this.postId = galleryBoardLike.getGalleryBoard().getId();
         this.userId = galleryBoardLike.getUser().getId();
