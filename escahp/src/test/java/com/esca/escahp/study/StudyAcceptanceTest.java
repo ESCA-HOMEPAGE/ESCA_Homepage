@@ -1,10 +1,14 @@
 package com.esca.escahp.study;
 
 import com.esca.escahp.study.dto.StudyResponse;
+import com.esca.escahp.study.entity.StudyBoard;
+import com.esca.escahp.study.repository.StudyRepository;
 import io.restassured.RestAssured;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpHeaders;
@@ -25,9 +29,20 @@ public class StudyAcceptanceTest {
     @LocalServerPort
     int port;
 
+    @Autowired
+    private StudyRepository studyRepository;
+
     @BeforeEach
     public void setUp() {
         RestAssured.port = port;
+
+        StudyBoard board1 = new StudyBoard("title", "content", "writer", "category", "file");
+        studyRepository.save(board1);
+    }
+
+    @AfterEach
+    void tearDown() {
+        studyRepository.deleteAll();
     }
 
     @Test
