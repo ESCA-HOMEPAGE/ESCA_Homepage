@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.List;
+
 @Configuration
 @AllArgsConstructor
 public class AuthConfig implements WebMvcConfigurer {
@@ -14,8 +16,8 @@ public class AuthConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        List<String> addPatterns = List.of("/user/**", "/schedules/**", "/free/**", "/study/**", "/gallery/**", "/keeper/**", "/notice/**");
         registry.addInterceptor(new MemberInterceptor(jwtTokenProvider))
-                .addPathPatterns("/**")
-                .excludePathPatterns("/auth/**");
+                .addPathPatterns(addPatterns);
     }
 }
