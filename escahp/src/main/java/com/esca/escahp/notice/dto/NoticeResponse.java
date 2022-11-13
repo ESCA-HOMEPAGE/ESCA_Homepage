@@ -1,6 +1,6 @@
 package com.esca.escahp.notice.dto;
 
-import com.esca.escahp.notice.entity.NoticeBoard;
+import com.esca.escahp.notice.entity.Notice;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
@@ -39,15 +39,15 @@ public class NoticeResponse {
     @ApiModelProperty(value = "수정일자")
     private LocalDateTime updatedAt;
 
-    public NoticeResponse(NoticeBoard noticeBoard) {
-        this.id = noticeBoard.getId();
-        this.title = noticeBoard.getTitle();
-        this.category = noticeBoard.getCategory();
-        this.writer = noticeBoard.getWriter();
-        this.content = noticeBoard.getContent();
-        this.file = noticeBoard.getFile();
-        this.viewCnt = noticeBoard.getViewCnt();
-        this.createdAt = noticeBoard.getCreatedAt();
-        this.updatedAt = noticeBoard.getUpdatedAt();
+    public NoticeResponse(Notice notice) {
+        this.id = notice.getId();
+        this.title = notice.getTitle();
+        this.category = notice.getCategory();
+        this.writer = notice.getWriter();
+        this.content = notice.getContent();
+        this.file = notice.getFile();
+        this.viewCnt = notice.getViewCnt();
+        this.createdAt = notice.getCreatedAt();
+        this.updatedAt = notice.getUpdatedAt();
     }
 }

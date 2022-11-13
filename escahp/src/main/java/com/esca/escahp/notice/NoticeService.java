@@ -4,7 +4,7 @@ import com.esca.escahp.common.exceptions.BoardExceptions;
 import com.esca.escahp.exception.EscaException;
 import com.esca.escahp.notice.dto.NoticeRequest;
 import com.esca.escahp.notice.dto.NoticeResponse;
-import com.esca.escahp.notice.entity.NoticeBoard;
+import com.esca.escahp.notice.entity.Notice;
 import com.esca.escahp.notice.repository.NoticeRepository;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,17 +12,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class NoticeBoardService implements I_NoticeBoardService {
+public class NoticeService implements I_NoticeService {
 
     private final NoticeRepository noticeRepository;
 
-    public NoticeBoardService(NoticeRepository noticeRepository) {
+    public NoticeService(NoticeRepository noticeRepository) {
         this.noticeRepository = noticeRepository;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<NoticeResponse> getNoticeBoardList(){
+    public List<NoticeResponse> getNoticeList(){
         return noticeRepository.findAll()
                 .stream()
                 .map(NoticeResponse::new)
@@ -31,40 +31,42 @@ public class NoticeBoardService implements I_NoticeBoardService {
 
     @Override
     @Transactional(readOnly = true)
-    public NoticeResponse selectNoticeBoard(Long id){
-        NoticeBoard noticeBoard = noticeRepository.findById(id)
+    public NoticeResponse selectNotice(Long id){
+        Notice notice = noticeRepository.findById(id)
             .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
-        return new NoticeResponse(noticeBoard);
+        return new NoticeResponse(notice);
     }
 
     @Override
     @Transactional
-    public Long insertNoticeBoard(NoticeRequest notice){
+    public Long insertNotice(NoticeRequest notice){
         return noticeRepository.save(notice.toEntity()).getId();
     }
 
     @Override
     @Transactional
-    public void updateNoticeBoard(Long id, NoticeRequest noticeBoard){
-        NoticeBoard notice = noticeRepository.findById(id)
+    public NoticeResponse updateNotice(Long id, NoticeRequest noticeBoard){
+        Notice notice = noticeRepository.findById(id)
             .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
         notice.update(noticeBoard.getTitle(), noticeBoard.getContent(),
             noticeBoard.getFile(), noticeBoard.getCategory());
+        return new NoticeResponse(notice);
     }
 
     @Override
     @Transactional
-    public void deleteNoticeBoard(Long id){
-        NoticeBoard notice = noticeRepository.findById(id)
+    public void deleteNotice(Long id){
+        Notice notice = noticeRepository.findById(id)
             .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
         noticeRepository.delete(notice);
     }
 
     @Override
     @Transactional
-    public void updateViewCount(Long id){
-        NoticeBoard notice = noticeRepository.findById(id)
+    public NoticeResponse updateViewCount(Long id){
+        Notice notice = noticeRepository.findById(id)
             .orElseThrow(() -> new EscaException(BoardExceptions.NOT_FOUND_BOARD));
         notice.updateViewCnt();
+        return new NoticeResponse(notice);
     }
 }

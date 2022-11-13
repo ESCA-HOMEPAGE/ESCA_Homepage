@@ -11,13 +11,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Getter
 @Setter
 @Entity
 @NoArgsConstructor
-public class NoticeBoard {
+@DynamicInsert
+public class Notice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +52,7 @@ public class NoticeBoard {
     private LocalDateTime updatedAt;
 
     @Builder
-    public NoticeBoard(String title, String category, String writer, String content, String file) {
+    public Notice(String title, String category, String writer, String content, String file) {
         this.title = title;
         this.category = category;
         this.writer = writer;
