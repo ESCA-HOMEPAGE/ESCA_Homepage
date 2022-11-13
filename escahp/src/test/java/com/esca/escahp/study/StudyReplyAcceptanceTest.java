@@ -76,7 +76,7 @@ public class StudyReplyAcceptanceTest {
         StudyBoard studyBoard = studyRepository.findAll().get(0);
         List<StudyReplyResponse> list = RestAssured.given().log().all()
             .when()
-            .header(HttpHeaders.AUTHORIZATION, "Bearer" + token)
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .get("/study/{postId}/reply", studyBoard.getId())
             .then()
@@ -95,7 +95,7 @@ public class StudyReplyAcceptanceTest {
 
         ExtractableResponse<Response> response = RestAssured.given().log().all()
             .when()
-            .header(HttpHeaders.AUTHORIZATION, "Bearer" + token)
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .get("/study/{postId}/reply", studyBoard.getId())
             .then()
