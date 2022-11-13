@@ -20,7 +20,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: wndmsdl0920@gmail.com
-    password: [ smtp password ]
+    password: ${SMTP_PASSWORD}
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
