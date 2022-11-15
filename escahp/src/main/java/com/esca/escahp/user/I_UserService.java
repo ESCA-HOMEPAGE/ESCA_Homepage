@@ -1,6 +1,7 @@
 package com.esca.escahp.user;
 
 import com.esca.escahp.user.code.UserCode;
+import com.esca.escahp.user.dto.UserProfileRequest;
 import com.esca.escahp.user.entity.User;
 
 import javax.mail.MessagingException;
@@ -26,4 +27,8 @@ public interface I_UserService {
     User findUserByLoginInfo(String userId, String password);
 
     User validateUser(Long id);
+
+    User findUserProfile(Long id);
+
+    void updateUserProfile(Long id, UserProfileRequest request);
 }

@@ -1,9 +1,6 @@
 package com.esca.escahp.user;
 
-import com.esca.escahp.user.dto.ChangePasswordRequest;
-import com.esca.escahp.user.dto.FindRequest;
-import com.esca.escahp.user.dto.UserRequest;
-import com.esca.escahp.user.dto.UserResponse;
+import com.esca.escahp.user.dto.*;
 import com.esca.escahp.user.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -99,5 +96,25 @@ public class UserController {
         response.setContentType("text/html");
         response.setCharacterEncoding("utf-8");
         response.getWriter().print(HTML_RESPONSE_HEAD + script + HTML_RESPONSE_FOOT);
+    }
+
+    @ApiOperation(value = "사용자 프로필 조회")
+    @GetMapping("/{id}")
+    public ResponseEntity<UserProfileResponse> getUserProfile(@PathVariable Long id) {
+        UserProfileResponse profile = new UserProfileResponse(
+                userService.findUserProfile(id)
+        );
+
+        return ResponseEntity.ok().body(profile);
+    }
+
+    @ApiOperation(value = "사용자 프로필 수정")
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateUserProfile(
+            @PathVariable Long id,
+            @RequestBody UserProfileRequest request
+    ) {
+        userService.updateUserProfile(id, request);
+        return ResponseEntity.noContent().build();
     }
 }
