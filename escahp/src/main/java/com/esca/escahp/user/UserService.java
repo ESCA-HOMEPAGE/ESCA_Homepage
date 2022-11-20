@@ -2,6 +2,7 @@ package com.esca.escahp.user;
 
 import com.esca.escahp.exception.EscaException;
 import com.esca.escahp.user.code.UserCode;
+import com.esca.escahp.user.dto.UserProfileRequest;
 import com.esca.escahp.user.entity.Mail;
 import com.esca.escahp.user.entity.User;
 import com.esca.escahp.user.exception.MailExceptions;
@@ -28,9 +29,7 @@ public class UserService implements I_UserService {
 
     @Override
     public User checkUserId(String userId) {
-        User user = userRepository.findByUserId(userId);
-
-        return user;
+        return userRepository.findByUserId(userId);
     }
 
     @Transactional
@@ -139,4 +138,23 @@ public class UserService implements I_UserService {
 
         return user;
     }
+
+    @Override
+    public User findUserProfile(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new EscaException(UserExceptions.NOT_FOUND_USER));
+    }
+
+    @Transactional
+    @Override
+    public void updateUserProfile(Long id, UserProfileRequest request) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EscaException(UserExceptions.NOT_FOUND_USER));
+
+        user.updateUserProfile(request);
+        userRepository.save(user);
+    }
+
 }
+
+
