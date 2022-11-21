@@ -42,4 +42,14 @@ public class JwtTokenProvider {
             throw new EscaException(AuthExceptionSet.INVALID_TOKEN);
         }
     }
+
+    public String extractId(String token) {
+        if (!validateToken(token)) {
+            throw new EscaException(AuthExceptionSet.INVALID_TOKEN);
+        }
+        token = token.split(" ")[1];
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
 }

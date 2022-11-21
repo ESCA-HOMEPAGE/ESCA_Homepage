@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum AuthExceptionSet implements CustomException {
     INVALID_TOKEN("유효하지 않은 토큰입니다", HttpStatus.UNAUTHORIZED.value()),
+    INVALID_AUTHORIZATION("접근 권한이 없습니다.", HttpStatus.UNAUTHORIZED.value())
     ;
 
     private final String message;
