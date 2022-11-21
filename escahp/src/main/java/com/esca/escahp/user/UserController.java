@@ -4,8 +4,6 @@ import com.esca.escahp.user.dto.*;
 import com.esca.escahp.user.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.hibernate.annotations.Parameter;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
