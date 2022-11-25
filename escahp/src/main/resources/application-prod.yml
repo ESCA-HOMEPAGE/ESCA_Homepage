@@ -6,9 +6,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: mysql://b8875c88c31cf7:b6933a6a@us-cdbr-east-06.cleardb.net/heroku_a9f78cbacba7331?reconnect=true
-    username: b8875c88c31cf7
-    password: b6933a6a
+    url: mysql://awseb-e-m9mpda3ndg-stack-awsebrdsdatabase-k9p1twqchwyc.c38asonfhafp.ap-northeast-2.rds.amazonaws.com:3306/ebdb?reconnect=true
+    username: esca
+    password: escaofficial
   jpa:
     properties:
       hibernate:
