@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.Column;
@@ -37,13 +39,15 @@ public class GalleryBoard {
     @Column(nullable = false)
     private String file;
 
-    @Column(nullable = false)
+    @Column
+    @CreatedDate
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
+    @Column
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    @Column(nullable = false)
+    @Column
     private LocalDateTime deletedAt;
 
     @Column(nullable = false)
@@ -62,7 +66,6 @@ public class GalleryBoard {
         this.writer = writer;
         this.category = category;
         this.file = file;
-        this.createdAt = LocalDateTime.now();
         this.deleteYn = "N";
     }
 
@@ -75,7 +78,6 @@ public class GalleryBoard {
         this.title = title;
         this.content = content;
         this.file = file;
-        this.updatedAt = LocalDateTime.now();
     }
 
     public void updateViewCount(){this.viewCnt = this.viewCnt + 1;}
