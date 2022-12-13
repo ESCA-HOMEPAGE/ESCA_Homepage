@@ -51,7 +51,6 @@ public class User {
     private String pr;
 
     public User(UserRequest auth) {
-        this.id = auth.getId();
         this.userId = auth.getUserId();
         this.password = auth.getPassword();
         this.generation = auth.getGeneration();

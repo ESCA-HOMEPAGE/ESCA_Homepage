@@ -7,9 +7,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class UserRequest {
-	@ApiModelProperty(value = "사용자 ID(PK)")
-	private Long id;
-
 	@ApiModelProperty(value = "아이디")
 	private String userId;
 
