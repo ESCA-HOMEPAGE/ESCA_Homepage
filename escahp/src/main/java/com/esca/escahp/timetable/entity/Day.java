@@ -12,7 +12,7 @@ import lombok.Setter;
 @Entity
 @Setter
 @NoArgsConstructor
-public class Days {
+public class Day {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
